@@ -1,4 +1,5 @@
 ﻿using SimUDuckFunctional.Ducks;
+using SimUDuckFunctional.Behaviors;
 using System;
 
 namespace SimUDuckFunctional
@@ -21,7 +22,7 @@ namespace SimUDuckFunctional
 
 			ModelDuck modelDuck = new ModelDuck();
 			PlayWithDuck(modelDuck);
-			modelDuck.SetFlyBehavior(FlyBehavior.FlyWithWings);
+			modelDuck.SetFlyBehavior(FlyBehavior.FlyWithWings());
 			PlayWithDuck(modelDuck);
         }
 
@@ -34,6 +35,7 @@ namespace SimUDuckFunctional
 		{
 			DrawDuck(duck);
 			duck.Quack();
+			duck.Fly();
 			duck.Fly();
 			duck.Dance();
 			Console.WriteLine();

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SimUDuckFunctional
+namespace SimUDuckFunctional.Behaviors
 {
-    class DanceBehavior
+	sealed class DanceBehavior
     {
 		public static void DanceMenuet()
 		{

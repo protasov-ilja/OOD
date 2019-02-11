@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SimUDuckFunctional.Behaviors;
+
+using System;
 
 namespace SimUDuckFunctional.Ducks
 {
-	class DecoyDuck : Duck
+	sealed class DecoyDuck : Duck
 	{
 		public DecoyDuck()
-			: base(FlyBehavior.FlyWithWings, QuackBehavior.MuteQuack, DanceBehavior.NoDance)
+			: base(FlyBehavior.FlyWithWings(), QuackBehavior.MuteQuack, DanceBehavior.NoDance)
 		{
 		}
 

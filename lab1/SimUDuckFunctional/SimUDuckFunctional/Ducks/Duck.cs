@@ -2,17 +2,13 @@
 
 namespace SimUDuckFunctional.Ducks
 {
-    class Duck
+	abstract class Duck
     {
-		public delegate void FlyBehaviour();
-		public delegate void QuackBehaviour();
-		public delegate void DanceBehaviour();
+		private Action m_flyBehavior;
+		private Action m_quackBehavior;
+		private Action m_danceBehavior;
 
-		private FlyBehaviour m_flyBehavior;
-		private QuackBehaviour m_quackBehavior;
-		private DanceBehaviour m_danceBehavior;
-
-		public Duck(FlyBehaviour flyBehavior, QuackBehaviour quackBehavior, DanceBehaviour danceBehavior)
+		public Duck(Action flyBehavior, Action quackBehavior, Action danceBehavior)
 		{
 			SetFlyBehavior(flyBehavior);
 			SetQuackBehavior(quackBehavior);
@@ -39,21 +35,21 @@ namespace SimUDuckFunctional.Ducks
 			m_danceBehavior.Invoke();
 		}
 
-		public void SetQuackBehavior(QuackBehaviour quackBehavior)
+		public void SetQuackBehavior(Action quackBehavior)
 		{
 			m_quackBehavior = quackBehavior;
 		}
 
-		public void SetFlyBehavior(FlyBehaviour flyBehavior)
+		public void SetFlyBehavior(Action flyBehavior)
 		{
 			m_flyBehavior = flyBehavior;
 		}
 
-		public void SetDanceBehavior(DanceBehaviour danceBehavior)
+		public void SetDanceBehavior(Action danceBehavior)
 		{
 			m_danceBehavior = danceBehavior;
 		}
 
-		public virtual void Display() {}
+		public abstract void Display();
 	}
 }

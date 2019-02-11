@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SimUDuckFunctional
+namespace SimUDuckFunctional.Behaviors
 {
-    class QuackBehavior
+	sealed class QuackBehavior
     {
 		public static void MuteQuack() {}
 

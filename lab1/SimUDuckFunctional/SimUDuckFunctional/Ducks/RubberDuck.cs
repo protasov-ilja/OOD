@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SimUDuckFunctional.Behaviors;
+
+using System;
 
 namespace SimUDuckFunctional.Ducks
 {
-	class RubberDuck : Duck
+	sealed class RubberDuck : Duck
 	{
 		public RubberDuck()
 			: base(FlyBehavior.FlyNoWay, QuackBehavior.Squeak, DanceBehavior.NoDance)
