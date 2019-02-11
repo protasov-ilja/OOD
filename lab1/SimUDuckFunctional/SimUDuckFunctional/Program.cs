@@ -22,7 +22,7 @@ namespace SimUDuckFunctional
 
 			ModelDuck modelDuck = new ModelDuck();
 			PlayWithDuck(modelDuck);
-			modelDuck.SetFlyBehavior(FlyBehavior.FlyWithWings());
+			modelDuck.SetFly(FlyBehavior.FlyWithWings());
 			PlayWithDuck(modelDuck);
         }
 

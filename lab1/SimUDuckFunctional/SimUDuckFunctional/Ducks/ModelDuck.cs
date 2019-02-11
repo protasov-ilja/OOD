@@ -15,5 +15,10 @@ namespace SimUDuckFunctional.Ducks
 		{
 			Console.WriteLine("I'm model duck");
 		}
+
+		public void SetFly(Action flyBehavior)
+		{
+			SetFlyBehavior(flyBehavior);
+		}
 	}
 }

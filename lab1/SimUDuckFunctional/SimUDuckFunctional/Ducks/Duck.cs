@@ -40,12 +40,12 @@ namespace SimUDuckFunctional.Ducks
 			m_quackBehavior = quackBehavior;
 		}
 
-		public void SetFlyBehavior(Action flyBehavior)
+		protected void SetFlyBehavior(Action flyBehavior)
 		{
 			m_flyBehavior = flyBehavior;
 		}
 
-		public void SetDanceBehavior(Action danceBehavior)
+		private void SetDanceBehavior(Action danceBehavior)
 		{
 			m_danceBehavior = danceBehavior;
 		}
