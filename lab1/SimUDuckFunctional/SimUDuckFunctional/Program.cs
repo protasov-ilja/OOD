@@ -1,5 +1,6 @@
 ﻿using SimUDuckFunctional.Ducks;
 using SimUDuckFunctional.Behaviors;
+
 using System;
 
 namespace SimUDuckFunctional

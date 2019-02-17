@@ -35,7 +35,7 @@ namespace SimUDuckFunctional.Ducks
 			m_danceBehavior.Invoke();
 		}
 
-		public void SetQuackBehavior(Action quackBehavior)
+		private void SetQuackBehavior(Action quackBehavior)
 		{
 			m_quackBehavior = quackBehavior;
 		}
