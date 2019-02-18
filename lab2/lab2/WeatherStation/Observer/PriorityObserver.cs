@@ -4,23 +4,13 @@ namespace lab2.WeatherStation.Observer
 {
     public class PriorityObserver<T>
 	{
-		private int m_priority;
-		private IObserver<T> m_observer;
-
-		public int Priority
-		{
-			get { return m_priority; }
-		}
-
-		public IObserver<T> Observer
-		{
-			get { return m_observer; }
-		}
+		public int Priority { get; private set; }
+		public IObserver<T> Observer { get; private set; }
 
 		public PriorityObserver(IObserver<T> observer, int priority = 0)
 		{
-			m_observer = observer;
-			m_priority = priority;
+			Observer = observer;
+			Priority = priority;
 		}
 	}
 
