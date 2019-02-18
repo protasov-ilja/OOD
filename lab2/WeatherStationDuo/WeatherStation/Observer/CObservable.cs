@@ -13,9 +13,8 @@ namespace lab2.WeatherStation.Observer
 
 		public void NotifyObservers()
 		{
-			var tempObesrevers = new List<PriorityObserver<T>>(m_observers);
 			T data = GetChangedData();
-			foreach (var observer in tempObesrevers)
+			foreach (var observer in m_observers)
 			{
 				observer.Observer.Update(data);
 			}
@@ -23,13 +22,19 @@ namespace lab2.WeatherStation.Observer
 
 		public void RemoveObserver(IObserver<T> observer) 
 		{
+			PriorityObserver<T> obs = null;
 			foreach (var observerPair in m_observers)
 			{
 				if (observerPair.Observer == observer)
 				{
-					m_observers.Remove(observerPair);
+					obs = observerPair;
 					break;
 				}
+			}
+
+			if (obs != null)
+			{
+				m_observers.Remove(obs);
 			}
 		}
 
