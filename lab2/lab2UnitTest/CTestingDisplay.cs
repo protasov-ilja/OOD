@@ -1,4 +1,5 @@
-﻿using lab2.WeatherStation.Observer;
+﻿
+using lab2.WeatherStation.Observer;
 using lab2.WeatherStation.WeatherData;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;

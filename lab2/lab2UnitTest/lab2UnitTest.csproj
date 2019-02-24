@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\lab2\lab2.csproj" />
+    <ProjectReference Include="..\WeatherStationDuo\WeatherStationDuo.csproj" />
   </ItemGroup>
 
 </Project>
