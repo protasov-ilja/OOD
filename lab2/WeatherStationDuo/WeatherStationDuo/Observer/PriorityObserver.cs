@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace lab2.WeatherStation.Observer
+namespace WeatherStationDuo.WeatherStationDuo.Observer
 {
     public class PriorityObserver<T>
 	{

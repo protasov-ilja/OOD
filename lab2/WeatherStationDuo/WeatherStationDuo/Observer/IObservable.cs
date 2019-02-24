@@ -1,5 +1,5 @@
 ﻿
-namespace lab2.WeatherStation.Observer
+namespace WeatherStationDuo.WeatherStationDuo.Observer
 {
     public interface IObservable<T>
     {

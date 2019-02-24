@@ -1,13 +1,14 @@
 ﻿
-using lab2.WeatherStation.Observer;
+using WeatherStationDuo.WeatherStationDuo.Observer;
 
-namespace lab2.WeatherStation.WeatherData
+namespace WeatherStationDuo.WeatherStationDuo.WeatherData
 {
     public class CWeatherData : CObservable<SWeatherInfo>
 	{
 		private double m_temperature = 0.0;
 		private double m_humidity = 0.0;
 		private double m_pressure = 760.0;
+		private LocationType m_location;
 
 		public double Temperature
 		{
@@ -22,6 +23,16 @@ namespace lab2.WeatherStation.WeatherData
 		public double Humidity
 		{
 			get { return m_humidity; }
+		}
+
+		public LocationType Location
+		{
+			get { return m_location; }
+		}
+
+		public CWeatherData(LocationType location)
+		{
+			m_location = location;
 		}
 
 		public void MeasurementsChanged()

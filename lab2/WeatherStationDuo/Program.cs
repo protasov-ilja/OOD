@@ -1,4 +1,4 @@
-﻿using System;
+﻿using WeatherStationDuo.WeatherStationDuo;
 
 namespace WeatherStationDuo
 {
@@ -6,7 +6,7 @@ namespace WeatherStationDuo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-        }
+			CWeatherStationDuo ws = new CWeatherStationDuo();
+		}
     }
 }

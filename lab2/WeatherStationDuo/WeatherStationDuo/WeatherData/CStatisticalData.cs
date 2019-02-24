@@ -1,5 +1,5 @@
 ﻿
-namespace lab2.WeatherStation.WeatherData
+namespace WeatherStationDuo.WeatherStationDuo.WeatherData
 {
     public class CStatisticalData
     {

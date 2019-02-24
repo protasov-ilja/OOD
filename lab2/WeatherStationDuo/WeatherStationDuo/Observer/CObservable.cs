@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace lab2.WeatherStation.Observer
+namespace WeatherStationDuo.WeatherStationDuo.Observer
 {
     public abstract class CObservable<T> : IObservable<T>
 	{
@@ -16,7 +16,7 @@ namespace lab2.WeatherStation.Observer
 			T data = GetChangedData();
 			foreach (var observer in m_observers)
 			{
-				observer.Observer.Update(data);
+				observer.Observer.Update(data, this);
 			}
 		}
 
