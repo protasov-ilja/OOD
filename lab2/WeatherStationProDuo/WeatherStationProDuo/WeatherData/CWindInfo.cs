@@ -1,8 +1,8 @@
 ﻿
 namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 {
-    public class CWeatherInfoOutside
-	{
+    public class CWindInfo
+    {
 		public double windSpeed;
 		public double windDirection;
 	}

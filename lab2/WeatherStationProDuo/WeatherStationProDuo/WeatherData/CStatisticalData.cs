@@ -1,13 +1,12 @@
 ﻿
 namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 {
-    public class CStatisticalData
-    {
+	public class CStatisticalData : IStatisticalData
+	{
 		private double m_minValue = double.PositiveInfinity;
 		private double m_maxValue = double.NegativeInfinity;
 		private double m_accValue = 0;
-
-		protected uint m_countAcc = 0;
+		private uint m_countAcc = 0;
 
 		public double MinValue
 		{
@@ -44,6 +43,13 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 		public virtual double AverageValue
 		{
 			get { return (m_accValue / m_countAcc); }
+		}
+
+		public void Display(string name)
+		{
+			System.Console.WriteLine("Max {0} {1} ", name, MaxValue);
+			System.Console.WriteLine("Min {0} {1}", name, MinValue);
+			System.Console.WriteLine("Average {0} {1} ", name, AverageValue);
 		}
 
 		public void Update(double data)

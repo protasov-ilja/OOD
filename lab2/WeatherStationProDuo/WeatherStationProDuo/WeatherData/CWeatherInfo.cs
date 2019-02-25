@@ -6,5 +6,14 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 		public double temperature;
 		public double humidity;
 		public double pressure;
+		public CWindInfo windInfo = null;
+
+		public CWeatherInfo(bool hasWindInfo)
+		{
+			if (hasWindInfo)
+			{
+				windInfo = new CWindInfo();
+			}
+		}
 	}
 }

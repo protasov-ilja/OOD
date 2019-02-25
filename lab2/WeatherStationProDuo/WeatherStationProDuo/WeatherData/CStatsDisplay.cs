@@ -1,58 +1,56 @@
 ﻿using WeatherStationProDuo.WeatherStationProDuo.Observer;
 
-using System.Reflection;
 using System.Collections.Generic;
 
 namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 {
 	public class CStatsDisplay : ObserverDuo<CWeatherInfo>
 	{
+		private KeyValuePair<string, IStatisticalData> m_temperature = new KeyValuePair<string, IStatisticalData>("temperature", new CStatisticalData());
+		private KeyValuePair<string, IStatisticalData> m_humidity = new KeyValuePair<string, IStatisticalData>("humidity", new CStatisticalData());
+		private KeyValuePair<string, IStatisticalData> m_pressure = new KeyValuePair<string, IStatisticalData>("pressure", new CStatisticalData());
+		private KeyValuePair<string, IStatisticalData> m_windSpeed = new KeyValuePair<string, IStatisticalData>("windSpeed", new CStatisticalData());
+		private KeyValuePair<string, IStatisticalData> m_windDirection = new KeyValuePair<string, IStatisticalData>("windDirection", new CStatisticalDataOfAngles());
+
 		public CStatsDisplay(IObservable<CWeatherInfo> insideSubject, IObservable<CWeatherInfo> outsideSubject)
 			: base(insideSubject, outsideSubject)
-		{ 
+		{
 		}
 
 		public override void Update(CWeatherInfo data, IObservable<CWeatherInfo> subject)
 		{
-			var fieldsInfo = (subject == m_observedSubjectLocatedInside) ? typeof(CWeatherInfo).GetFields() : typeof(CWeatherInfoOutside).GetFields();
-			var statisticalData = GenerateStatisticalData(fieldsInfo);
-			for (var i = 0; i < fieldsInfo.Length; ++i)
+			m_temperature.Value.Update(data.temperature);
+			m_humidity.Value.Update(data.humidity);
+			m_pressure.Value.Update(data.pressure);
+			var isLocatedOutside = subject == m_observedSubjectLocatedOutside;
+			if (isLocatedOutside)
 			{
-				statisticalData[fieldsInfo[i].Name].Update((double)fieldsInfo[i].GetValue(data));
+				m_windSpeed.Value.Update(data.windInfo.windSpeed);
+				((CStatisticalDataOfAngles)m_windDirection.Value).SetWindSpeed(data.windInfo.windSpeed);
+				m_windDirection.Value.Update(data.windInfo.windDirection);
 			}
 
-			Display(subject, statisticalData);
+			Display(subject, isLocatedOutside);
 		}
 
-		private void Display(IObservable<CWeatherInfo> subject, Dictionary<string, CStatisticalData> statisticalData)
+		public void Display(IObservable<CWeatherInfo> subject, bool isLocatedOutside)
 		{
 			System.Console.WriteLine(GetLocation(subject));
-			foreach (var data in statisticalData)
+			DispalyValue(m_temperature);
+			DispalyValue(m_humidity);
+			DispalyValue(m_pressure);
+			if (isLocatedOutside)
 			{
-				System.Console.WriteLine("Max {0} {1} ", data.Key, data.Value.MaxValue);
-				System.Console.WriteLine("Min {0} {1}", data.Key, data.Value.MinValue);
-				System.Console.WriteLine("Average {0} {1} ", data.Key, data.Value.AverageValue);
+				DispalyValue(m_windSpeed);
+				DispalyValue(m_windDirection);
 			}
 
 			System.Console.WriteLine("----------------");
 		}
 
-		private Dictionary<string, CStatisticalData> GenerateStatisticalData(FieldInfo[] fieldsInfo)
+		private void DispalyValue(KeyValuePair<string, IStatisticalData> data)
 		{
-			var data = new Dictionary<string, CStatisticalData>();
-			for (var i = 0; i < fieldsInfo.Length; ++i)
-			{
-				if (fieldsInfo[i].Name == "windDirection")
-				{
-					data.Add(fieldsInfo[i].Name, new CStatisticalDataOfAngles());
-				}
-				else
-				{
-					data.Add(fieldsInfo[i].Name, new CStatisticalData());
-				}
-			}
-
-			return data;
+			data.Value.Display(data.Key);
 		}
 	}
 }

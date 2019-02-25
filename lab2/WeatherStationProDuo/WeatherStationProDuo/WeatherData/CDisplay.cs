@@ -18,9 +18,8 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 			System.Console.WriteLine("Current Pressure " + data.pressure);
 			if (subject == m_observedSubjectLocatedOutside)
 			{
-				var outsideInfo = data as CWeatherInfoOutside;
-				System.Console.WriteLine("Current Wind Speed " + outsideInfo.windSpeed);
-				System.Console.WriteLine("Current Wind Direction " + outsideInfo.windDirection);
+				System.Console.WriteLine("Current Wind Speed " + data.windInfo.windSpeed);
+				System.Console.WriteLine("Current Wind Direction " + data.windInfo.windDirection);
 			}
 
 			System.Console.WriteLine("----------------");

@@ -65,12 +65,14 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 
 		protected override CWeatherInfo GetChangedData()
 		{
-			CWeatherInfoOutside info = new CWeatherInfoOutside();
-			info.temperature = Temperature;
-			info.humidity = Humidity;
-			info.pressure = Pressure;
-			info.windSpeed = WindSpeed;
-			info.windDirection = WindDirection;
+			CWeatherInfo info = new CWeatherInfo(true)
+			{
+				temperature = Temperature,
+				humidity = Humidity,
+				pressure = Pressure
+			};
+			info.windInfo.windSpeed = WindSpeed;
+			info.windInfo.windDirection = WindDirection;
 
 			return info;
 		}

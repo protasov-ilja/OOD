@@ -3,7 +3,7 @@ using WeatherStationPro.WeatherStationPro.Observer;
 
 namespace WeatherStationPro.WeatherStationPro.WeatherData
 {
-    public class CWeatherData : CObservable<SWeatherInfo>
+    public class CWeatherData : CObservable<CWeatherInfo>
 	{
 		private double m_temperature = 0.0;
 		private double m_humidity = 0.0;
@@ -52,14 +52,17 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 			MeasurementsChanged();
 		}
 
-		protected override SWeatherInfo GetChangedData()
+		protected override CWeatherInfo GetChangedData()
 		{
-			SWeatherInfo info;
-			info.temperature = Temperature;
-			info.humidity = Humidity;
-			info.pressure = Pressure;
-			info.windSpeed = WindSpeed;
-			info.windDirection = WindDirection;
+			CWeatherInfo info = new CWeatherInfo
+			{
+				temperature = Temperature,
+				humidity = Humidity,
+				pressure = Pressure
+			};
+
+			info.windInfo.windSpeed = WindSpeed;
+			info.windInfo.windDirection = WindDirection;
 
 			return info;
 		}
