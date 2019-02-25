@@ -1,7 +1,7 @@
 ﻿
 namespace WeatherStationPro.WeatherStationPro.WeatherData
 {
-    public class CStatisticalData : IStatisticalData
+    public class CStatisticalData
 	{
 		private double m_minValue = double.PositiveInfinity;
 		private double m_maxValue = double.NegativeInfinity;

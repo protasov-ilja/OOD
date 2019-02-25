@@ -4,11 +4,10 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 {
 	public class CStatsDisplay : IObserver<CWeatherInfo>
 	{
-		private IStatisticalData m_temperature = new CStatisticalData("temperature");
-		private IStatisticalData m_humidity =  new CStatisticalData("humidity");
-		private IStatisticalData m_pressure = new CStatisticalData("pressure");
-		private IStatisticalData m_windSpeed = new CStatisticalData("windSpeed");
-		private IStatisticalData m_windDirection = new CStatisticalDataOfAngles("windDirection");
+		private CStatisticalData m_temperature = new CStatisticalData("temperature");
+		private CStatisticalData m_humidity =  new CStatisticalData("humidity");
+		private CStatisticalData m_pressure = new CStatisticalData("pressure");
+		private CStatisticalWindInfo m_windPrameters = new CStatisticalWindInfo();
 
 		public CStatsDisplay()
 		{
@@ -19,27 +18,19 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 			m_temperature.Update(data.temperature);
 			m_humidity.Update(data.humidity);
 			m_pressure.Update(data.pressure);
-			m_windSpeed.Update(data.windInfo.windSpeed);
-			((CStatisticalDataOfAngles)m_windDirection).SetWindSpeed(data.windInfo.windSpeed);
-			m_windDirection.Update(data.windInfo.windDirection);
+			m_windPrameters.Update(data.windInfo);
 
 			Display();
 		}
 
 		public void Display()
 		{
-			DispalyValue(m_temperature);
-			DispalyValue(m_humidity);
-			DispalyValue(m_pressure);
-			DispalyValue(m_windSpeed);
-			DispalyValue(m_windDirection);
+			m_temperature.Display();
+			m_humidity.Display();
+			m_pressure.Display();
+			m_windPrameters.Display();
 
 			System.Console.WriteLine("----------------");
-		}
-
-		private void DispalyValue(IStatisticalData data)
-		{
-			data.Display();
 		}
 	}
 }
