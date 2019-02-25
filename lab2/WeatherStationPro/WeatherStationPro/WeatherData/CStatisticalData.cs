@@ -7,6 +7,12 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 		private double m_maxValue = double.NegativeInfinity;
 		private double m_accValue = 0;
 		private uint m_countAcc = 0;
+		private string m_name;
+
+		public CStatisticalData(string name)
+		{
+			m_name = name;
+		}
 
 		public double MinValue
 		{
@@ -45,11 +51,11 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 			get { return (m_accValue / m_countAcc); }
 		}
 
-		public void Display(string name)
+		public void Display()
 		{
-			System.Console.WriteLine("Max {0} {1} ", name, MaxValue);
-			System.Console.WriteLine("Min {0} {1}", name, MinValue);
-			System.Console.WriteLine("Average {0} {1} ", name, AverageValue);
+			System.Console.WriteLine("Max {0} {1} ", m_name, MaxValue);
+			System.Console.WriteLine("Min {0} {1}", m_name, MinValue);
+			System.Console.WriteLine("Average {0} {1} ", m_name, AverageValue);
 		}
 
 		public void Update(double data)

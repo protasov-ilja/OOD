@@ -3,7 +3,7 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 {
     interface IStatisticalData
     {
-		void Display(string name);
+		void Display();
 		void Update(double data);
 	}
 }

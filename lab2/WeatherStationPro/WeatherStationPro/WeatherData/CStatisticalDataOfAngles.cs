@@ -8,6 +8,12 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 		private double m_accYValue = 0;
 		private uint m_countAcc = 0;
 		private double m_windSpeed = 0;
+		private string m_name;
+
+		public CStatisticalDataOfAngles(string name)
+		{
+			m_name = name;
+		}
 
 		public double AverageValue
 		{
@@ -25,9 +31,9 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 			m_accYValue += Math.Sin(data * (Math.PI / 180)) * m_windSpeed;
 		}
 
-		public void Display(string name)
+		public void Display()
 		{
-			Console.WriteLine("Average {0} {1} ", name, AverageValue);
+			Console.WriteLine("Average {0} {1} ", m_name, AverageValue);
 		}
 
 		public void SetWindSpeed(double windSpeed)
