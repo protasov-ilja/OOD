@@ -16,13 +16,13 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 
 		public override void Update(CWeatherInfo data, IObservable<CWeatherInfo> subject)
 		{
-			m_temperature.Update(data.temperature);
-			m_humidity.Update(data.humidity);
-			m_pressure.Update(data.pressure);
+			m_temperature.Update(data.Temperature);
+			m_humidity.Update(data.Humidity);
+			m_pressure.Update(data.Pressure);
 			var isLocatedOutside = subject == m_observedSubjectLocatedOutside;
 			if (isLocatedOutside)
 			{
-				m_windPrameters.Update(data.windInfo);
+				m_windPrameters.Update(data.WindInfo);
 			}
 
 			Display(subject, isLocatedOutside);

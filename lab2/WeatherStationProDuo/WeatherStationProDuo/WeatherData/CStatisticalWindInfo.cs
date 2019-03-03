@@ -54,7 +54,7 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 		{
 			get
 			{
-				if (IsZeroDirection())
+				if (IsZeroDirection(m_accXValue, m_accYValue))
 				{
 					return -1;
 				}
@@ -67,14 +67,14 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 
 		private void Accumulate(CWindInfo windInfo)
 		{
-			m_accSpeed += windInfo.windSpeed;
-			m_accXValue += Math.Cos(windInfo.windDirection * (Math.PI / 180)) * windInfo.windSpeed;
-			m_accYValue += Math.Sin(windInfo.windDirection * (Math.PI / 180)) * windInfo.windSpeed;
+			m_accSpeed += windInfo.WindSpeed;
+			m_accXValue += Math.Cos(windInfo.WindDirection * (Math.PI / 180)) * windInfo.WindSpeed;
+			m_accYValue += Math.Sin(windInfo.WindDirection * (Math.PI / 180)) * windInfo.WindSpeed;
 		}
 
-		private bool IsZeroDirection()
+		private bool IsZeroDirection(double x, double y)
 		{
-			return (Math.Abs(m_accXValue) < 0.01f) && (Math.Abs(m_accYValue) < 0.01f);
+			return Math.Abs(x) < 0.01 && Math.Abs(y) < 0.01;
 		}
 
 		public void Display()
@@ -87,8 +87,8 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 
 		public void Update(CWindInfo windInfo)
 		{
-			MinSpeed = windInfo.windSpeed;
-			MaxSpeed = windInfo.windSpeed;
+			MinSpeed = windInfo.WindSpeed;
+			MaxSpeed = windInfo.WindSpeed;
 			Accumulate(windInfo);
 			++m_countAcc;
 		}

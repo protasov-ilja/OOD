@@ -1,30 +1,45 @@
 ﻿
-using WeatherStationProDuo.WeatherStationProDuo.Observer;
+using System;
+using WeatherStationProEvents.WeatherStationProEvents.Observer;
 
-namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
+namespace WeatherStationProEvents.WeatherStationProEvents.WeatherData
 {
-    public class CWeatherDataOutside : CObservable<CWeatherInfo>
+    public class CWeatherData : CObservable<CWeatherInfo>
 	{
 		private double m_temperature = 0.0;
 		private double m_humidity = 0.0;
 		private double m_pressure = 760.0;
 		private double m_windSpeed = 0.0;
 		private double m_windDirection = 0.0;
-		private LocationType m_location;
 
 		public double Temperature
 		{
 			get { return m_temperature; }
+			set
+			{
+				m_temperature = value;
+				OnTemperatureChanged(m_temperature);
+			}
 		}
 
 		public double Pressure
 		{
 			get { return m_pressure; }
+			set
+			{
+				m_pressure = value;
+				OnPressureChanged(m_pressure);
+			}
 		}
 
 		public double Humidity
 		{
 			get { return m_humidity; }
+			set
+			{
+				m_humidity = value;
+				OnHumidityChanged(m_humidity);
+			}
 		}
 
 		public double WindSpeed
@@ -37,20 +52,14 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 			get { return m_windDirection; }
 		}
 
-		public LocationType Location
-		{
-			get { return m_location; }
-		}
-
-		public CWeatherDataOutside(LocationType location)
-		{
-			m_location = location;
-		}
-
 		public void MeasurementsChanged()
 		{
 			NotifyObservers();
 		}
+
+		public Action<double> OnTemperatureChanged;
+		public Action<double> OnPressureChanged;
+		public Action<double> OnHumidityChanged;
 
 		public void SetMeasurements(double temp, double humidity, double pressure, double windSpeed, double windDirection)
 		{
@@ -65,19 +74,16 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 
 		protected override CWeatherInfo GetChangedData()
 		{
-			var windInfo = new CWindInfo
+			CWeatherInfo info = new CWeatherInfo
 			{
-				WindDirection = WindDirection,
-				WindSpeed = WindSpeed
+				temperature = Temperature,
+				humidity = Humidity,
+				pressure = Pressure
 			};
 
-			var info = new CWeatherInfo(windInfo)
-			{
-				Temperature = Temperature,
-				Humidity = Humidity,
-				Pressure = Pressure
-			};
-			
+			info.windInfo.windSpeed = WindSpeed;
+			info.windInfo.windDirection = WindDirection;
+
 			return info;
 		}
 	}

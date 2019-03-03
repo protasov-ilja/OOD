@@ -3,17 +3,14 @@ namespace WeatherStationProDuo.WeatherStationProDuo.WeatherData
 {
     public class CWeatherInfo
     {
-		public double temperature;
-		public double humidity;
-		public double pressure;
-		public CWindInfo windInfo = null;
+		public double Temperature { get; set; }
+		public double Humidity { get; set; }
+		public double Pressure { get; set; }
+		public CWindInfo WindInfo { get; set; } = null;
 
-		public CWeatherInfo(bool hasWindInfo)
+		public CWeatherInfo(CWindInfo windInfo = null)
 		{
-			if (hasWindInfo)
-			{
-				windInfo = new CWindInfo();
-			}
+			WindInfo = windInfo;
 		}
 	}
 }

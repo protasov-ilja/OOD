@@ -3,7 +3,7 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 {
     public class CWindInfo
     {
-		public double windSpeed;
-		public double windDirection;
-    }
+		public double WindSpeed { get; set; }
+		public double WindDirection { get; set; }
+	}
 }

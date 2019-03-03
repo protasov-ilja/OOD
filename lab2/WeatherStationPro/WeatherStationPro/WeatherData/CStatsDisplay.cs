@@ -9,16 +9,12 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 		private CStatisticalData m_pressure = new CStatisticalData("pressure");
 		private CStatisticalWindInfo m_windPrameters = new CStatisticalWindInfo();
 
-		public CStatsDisplay()
-		{
-		}
-
 		public void Update(CWeatherInfo data)
 		{
-			m_temperature.Update(data.temperature);
-			m_humidity.Update(data.humidity);
-			m_pressure.Update(data.pressure);
-			m_windPrameters.Update(data.windInfo);
+			m_temperature.Update(data.Temperature);
+			m_humidity.Update(data.Humidity);
+			m_pressure.Update(data.Pressure);
+			m_windPrameters.Update(data.WindInfo);
 
 			Display();
 		}

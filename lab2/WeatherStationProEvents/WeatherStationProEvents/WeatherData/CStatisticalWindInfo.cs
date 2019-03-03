@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WeatherStationPro.WeatherStationPro.WeatherData
+namespace WeatherStationProEvents.WeatherStationProEvents.WeatherData
 {
 	public sealed class CStatisticalWindInfo
 	{
@@ -67,9 +67,9 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 
 		private void Accumulate(CWindInfo windInfo)
 		{
-			m_accSpeed += windInfo.WindSpeed;
-			m_accXValue += Math.Cos(windInfo.WindDirection * (Math.PI / 180)) * windInfo.WindSpeed;
-			m_accYValue += Math.Sin(windInfo.WindDirection * (Math.PI / 180)) * windInfo.WindSpeed;
+			m_accSpeed += windInfo.windSpeed;
+			m_accXValue += Math.Cos(windInfo.windDirection * (Math.PI / 180)) * windInfo.windSpeed;
+			m_accYValue += Math.Sin(windInfo.windDirection * (Math.PI / 180)) * windInfo.windSpeed;
 		}
 
 		private bool IsZeroDirection(double x, double y)
@@ -87,8 +87,8 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 
 		public void Update(CWindInfo windInfo)
 		{
-			MinSpeed = windInfo.WindSpeed;
-			MaxSpeed = windInfo.WindSpeed;
+			MinSpeed = windInfo.windSpeed;
+			MaxSpeed = windInfo.windSpeed;
 			Accumulate(windInfo);
 			++m_countAcc;
 		}

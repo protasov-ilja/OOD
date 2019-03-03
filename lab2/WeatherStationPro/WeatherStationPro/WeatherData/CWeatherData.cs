@@ -56,13 +56,13 @@ namespace WeatherStationPro.WeatherStationPro.WeatherData
 		{
 			CWeatherInfo info = new CWeatherInfo
 			{
-				temperature = Temperature,
-				humidity = Humidity,
-				pressure = Pressure
+				Temperature = Temperature,
+				Humidity = Humidity,
+				Pressure = Pressure
 			};
 
-			info.windInfo.windSpeed = WindSpeed;
-			info.windInfo.windDirection = WindDirection;
+			info.WindInfo.WindSpeed = WindSpeed;
+			info.WindInfo.WindDirection = WindDirection;
 
 			return info;
 		}
