@@ -13,7 +13,6 @@ namespace WeatherStationProDuo.WeatherStationProDuo
 
 			wdIn.SetMeasurements(3, 0.7, 760);
 			wdOut.SetMeasurements(4, 0.8, 761, 10, 90);
-
 			wdIn.SetMeasurements(5, 0.9, 762);
 		}
     }

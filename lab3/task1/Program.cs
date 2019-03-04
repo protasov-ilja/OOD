@@ -33,7 +33,7 @@ namespace task1
 			}
 
 			{
-				var capuccino = new Capuccino(CapuccinoType.Standart);
+				var capuccino = new Cappuccino(CappuccinoType.Standart);
 				var chocolateSlice = new ChocolateSlice(capuccino, 6);
 				var liquor = new Liquor(chocolateSlice, LiquorType.Nut);
 				var beverage = new Cream(liquor);
