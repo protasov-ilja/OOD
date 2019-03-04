@@ -1,12 +1,11 @@
-﻿
-namespace task1.Beverages
+﻿namespace task1.Beverages
 {
     class Latte : Coffee
     {
 		private double m_cost;
 
 		public Latte(LatteType latteType)
-			: base((latteType == LatteType.Double ? " double " : " standart ") + " Latte ")
+			: base((latteType == LatteType.Double ? " double" : " standart") + " Latte")
 		{
 			m_cost = (latteType == LatteType.Double) ? 130 : 90;
 		}

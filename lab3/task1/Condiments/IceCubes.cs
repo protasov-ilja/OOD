@@ -4,8 +4,8 @@ using task1.Beverages;
 
 namespace task1.Condiments
 {
-    class IceCubes : CondimentDecorator
-    {
+	class IceCubes : CondimentDecorator
+	{
 		private uint m_quantity;
 		private IceCubeType m_type;
 
@@ -29,7 +29,7 @@ namespace task1.Condiments
 
 	public enum IceCubeType
 	{
-		Dry,    // Сухой лед (для суровых сибирских мужиков)
-		Water   // Обычные кубики из воды
+		Dry,
+		Water
 	};
 }

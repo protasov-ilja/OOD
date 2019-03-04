@@ -26,7 +26,7 @@ namespace task1.Condiments
 
 	public enum SyrupType
 	{
-		Chocolate,  // Шоколадный
-		Maple    // Кленовый
+		Chocolate, 
+		Maple
 	};
 }

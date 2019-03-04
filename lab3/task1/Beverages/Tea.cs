@@ -18,21 +18,13 @@ namespace task1.Beverages
 			switch (teaSort)
 			{
 				case TeaSort.Black:
-					{
-						return "Black ";
-					}
+					return "Black ";
 				case TeaSort.Green:
-					{
-						return "Green ";
-					}
+					return "Green ";
 				case TeaSort.Red:
-					{
-						return "Red ";
-					}
+					return "Red ";
 				case TeaSort.White:
-					{
-						return "White ";
-					}
+					return "White ";
 				default:
 					return "Unknown ";
 			}

@@ -6,7 +6,7 @@ namespace task1.Beverages
 		private double m_cost = 80;
 
 		public Milkshake(MilkshakeType milkshakeType)
-			: base (GetTypeDescrition(milkshakeType) + "Milkshake")
+			: base (GetTypeDescrition(milkshakeType) + " Milkshake")
 		{
 			SetCost(milkshakeType);
 		}
@@ -21,20 +21,14 @@ namespace task1.Beverages
 			switch (milkshakeType)
 			{
 				case MilkshakeType.Small:
-					{
-						m_cost = 50;
-						break;
-					}
+					m_cost = 50;
+					break;
 				case MilkshakeType.Medium:
-					{
-						m_cost = 60;
-						break;
-					}
+					m_cost = 60;
+					break;
 				case MilkshakeType.Big:
-					{
-						m_cost = 80;
-						break;
-					}
+					m_cost = 80;
+					break;
 			}
 		}
 
@@ -43,19 +37,13 @@ namespace task1.Beverages
 			switch (milkshakeType)
 			{
 				case MilkshakeType.Small:
-					{
-						return "Small ";
-					}
+					return "Small";
 				case MilkshakeType.Medium:
-					{
-						return "Medium ";
-					}
+					return "Medium";
 				case MilkshakeType.Big:
-					{
-						return "Big ";
-					}
+					return "Big";
 				default:
-					return "Unknown ";
+					return "Unknown";
 			}
 		}
 	}

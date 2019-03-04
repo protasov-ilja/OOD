@@ -19,7 +19,7 @@ namespace task1.Condiments
 
 		protected override string GetCondimentDescription()
 		{
-			return (m_liquorType == LiquorType.Chocolate ? "Chocolate" : "Nut") + " Liquor ";
+			return (m_liquorType == LiquorType.Chocolate ? "Chocolate" : "Nut") + " Liquor";
 		}
 	}
 

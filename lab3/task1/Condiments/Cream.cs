@@ -16,7 +16,7 @@ namespace task1.Condiments
 
 		protected override string GetCondimentDescription()
 		{
-			return " Cream ";
+			return "Cream";
 		}
 	}
 }

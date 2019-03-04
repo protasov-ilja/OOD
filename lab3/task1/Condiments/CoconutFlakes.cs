@@ -20,7 +20,7 @@ namespace task1.Condiments
 
 		protected override string GetCondimentDescription()
 		{
-			return "Coconut flakes " + m_mass + "g";
+			return $"Coconut flakes {m_mass} g";
 		}
 	}
 }

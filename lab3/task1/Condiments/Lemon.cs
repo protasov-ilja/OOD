@@ -1,5 +1,4 @@
-﻿
-using task1.Beverages;
+﻿using task1.Beverages;
 
 namespace task1.Condiments
 {
@@ -20,7 +19,7 @@ namespace task1.Condiments
 
 		protected override string GetCondimentDescription()
 		{
-			return "Lemon x " + m_quantity;
+			return $"Lemon x {m_quantity}";
 		}
 	}
 }
