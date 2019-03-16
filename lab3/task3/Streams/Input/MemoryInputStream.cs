@@ -2,7 +2,7 @@
 
 namespace task3.Streams.Input
 {
-	class MemoryInputStream : IInputStream
+	class MemoryInputStream : IInputDataStream
 	{
 		public bool IsEOF()
 		{

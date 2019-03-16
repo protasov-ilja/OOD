@@ -2,7 +2,7 @@
 
 namespace task3.Streams.Output
 {
-	class FileOutputStream : IOutputStream
+	class FileOutputStream : IOutputDataStream
 	{
 		public void WriteBlock(byte srcData, uint dataSize)
 		{

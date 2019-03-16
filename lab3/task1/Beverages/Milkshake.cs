@@ -6,7 +6,7 @@ namespace task1.Beverages
 		private double m_cost = 80;
 
 		public Milkshake(MilkshakeType milkshakeType)
-			: base (GetTypeDescrition(milkshakeType) + " Milkshake")
+			: base (GetTypeDescription(milkshakeType) + " Milkshake")
 		{
 			SetCost(milkshakeType);
 		}
@@ -32,7 +32,7 @@ namespace task1.Beverages
 			}
 		}
 
-		private static string GetTypeDescrition(MilkshakeType milkshakeType)
+		private static string GetTypeDescription(MilkshakeType milkshakeType)
 		{
 			switch (milkshakeType)
 			{

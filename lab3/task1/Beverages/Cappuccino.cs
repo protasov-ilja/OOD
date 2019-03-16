@@ -6,7 +6,7 @@ namespace task1.Beverages
 		private CappuccinoType m_cappuccinoType;
 
 		public Cappuccino(CappuccinoType cappuccinoType)
-			: base((cappuccinoType == CappuccinoType.Double ? " double" : " standart") + " Cappuccino")
+			: base((cappuccinoType == CappuccinoType.Double ? " double" : " standard") + " Cappuccino")
 		{
 			m_cappuccinoType = cappuccinoType;
 		}

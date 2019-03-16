@@ -1,7 +1,7 @@
 ﻿
 namespace task3.Streams.Input
 {
-	class FileInputStream : IInputStream
+	class FileInputStream : IInputDataStream
 	{
 		public bool IsEOF()
 		{

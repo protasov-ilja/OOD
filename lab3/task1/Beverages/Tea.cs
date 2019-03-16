@@ -4,7 +4,7 @@ namespace task1.Beverages
     class Tea : Beverage
     {
 		public Tea(TeaSort teaSort)
-			: base(GetSortDescrition(teaSort) + "Tea")
+			: base(GetSortDescription(teaSort) + " Tea")
 		{
 		}
 
@@ -13,20 +13,20 @@ namespace task1.Beverages
 			return 30;
 		}
 
-		private static string GetSortDescrition(TeaSort teaSort)
+		private static string GetSortDescription(TeaSort teaSort)
 		{
 			switch (teaSort)
 			{
 				case TeaSort.Black:
-					return "Black ";
+					return "Black";
 				case TeaSort.Green:
-					return "Green ";
+					return "Green";
 				case TeaSort.Red:
-					return "Red ";
+					return "Red";
 				case TeaSort.White:
-					return "White ";
+					return "White";
 				default:
-					return "Unknown ";
+					return "Unknown";
 			}
 		}
 	}

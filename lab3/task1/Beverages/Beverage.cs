@@ -5,9 +5,9 @@ namespace task1.Beverages
 	{
 		private string m_description;
 
-		public Beverage(string descrition)
+		public Beverage(string description)
 		{
-			m_description = descrition;
+			m_description = description;
 		}
 
 		public abstract double GetCost();
