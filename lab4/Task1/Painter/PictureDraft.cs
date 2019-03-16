@@ -1,34 +1,40 @@
-﻿namespace Task1.Painter
+﻿using System.Collections.Generic;
+using Task1.Painter.Shapes;
+
+namespace Task1.Painter
 {
 	public class PictureDraft
-    {
-		//typedef std::vector<std::unique_ptr<CShape>> Storage;
+	{
+		//private List<Shape> _shapes;
 
+		//public int ShapeCount
+		//{
+		//	get { return _shapes.Count; }
+		//}
 
-		//public PictureDraft();
+		//public PictureDraft()
+		//{
+		//	_shapes = new List<Shape>();
+		//}
 
 		//public bool IsEmpty()
 		//{
-		//	return m_shapes.empty();
+		//	return _shapes.Count == 0;
 		//}
 
-		//typedef boost::indirect_iterator<Storage::const_iterator, const CShape&> ConstIterator;
-
-		//public ConstIterator begin()
+		//public void AddShape(Shape shape)
 		//{
-		//	return m_shapes.begin();
+		//	_shapes.Add(shape);
 		//}
 
-		//public ConstIterator end()
+		//public Shape GetShapeByIndex(int index)
 		//{
-		//	return m_shapes.end();
-		//}
+		//	if ((index >= _shapes.Count) && (index < 0))
+		//	{
+		//		throw new System.Exception("IndexOutOfRange");
+		//	}
 
-		//public void AddShape(IShape && shape)
-		//{
-		//	m_shapes.push_back(move(shape));
+		//	return _shapes[index];
 		//}
-
-		//private Storage m_shapes;
 	}
 }

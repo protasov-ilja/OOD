@@ -2,12 +2,12 @@
 {
 	public class Designer
     {
-		//private IShapeFactory _factory;
+		private IShapeFactory _factory;
 
-		//public Designer(IShapeFactory factory)
-		//{
-		//	_factory = factory;
-		//}
+		public Designer(IShapeFactory factory)
+		{
+			_factory = factory;
+		}
 
 		//public PictureDraft CreateDraft(std::istream inputData)
 		//{
@@ -20,5 +20,5 @@
 
 		//	return draft;
 		//}
-    }
+	}
 }

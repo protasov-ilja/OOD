@@ -1,47 +1,27 @@
-﻿using System.Numerics;
-using Task1.Painter.Enums;
+﻿using Task1.Painter.Enums;
 
 namespace Task1.Painter.Shapes
 {
-	public class Triangle : IShape
+	public class Triangle : Shape
 	{
-		public Vector2 Vertex1 { get; private set; }
-		public Vector2 Vertex2 { get; private set; }
-		public Vector2 Vertex3 { get; private set; }
+		public Point Vertex1 { get; private set; }
+		public Point Vertex2 { get; private set; }
+		public Point Vertex3 { get; private set; }
 
-		private Color _color;
-		private Vector2 v1;
-		private Vector2 v2;
-		private Vector2 v3;
-		private object color;
-
-		public Triangle(Vector2 v1, Vector2 v2, Vector2 v3, Enums.Color color)
+		public Triangle(Point v1, Point v2, Point v3, Color color)
+			: base(color)
 		{
 			Vertex1 = v1;
 			Vertex2 = v2;
 			Vertex3 = v3;
-			_color = color;
 		}
 
-		public Triangle(Vector2 v1, Vector2 v2, Vector2 v3, object color)
+		public override void Draw(ICanvas canvas)
 		{
-			this.v1 = v1;
-			this.v2 = v2;
-			this.v3 = v3;
-			this.color = color;
-		}
-
-		public void Draw(ICanvas canvas)
-		{
-			canvas.Color = _color;
+			canvas.Color = Color;
 			canvas.DrawLine(Vertex1, Vertex2);
 			canvas.DrawLine(Vertex2, Vertex3);
 			canvas.DrawLine(Vertex3, Vertex1);
-		}
-
-		public Color GetColor()
-		{
-			return _color;
 		}
 	}
 }

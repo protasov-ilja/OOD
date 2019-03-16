@@ -1,49 +1,43 @@
 ﻿using System;
-using System.Numerics;
 using Task1.Painter.Enums;
 
 namespace Task1.Painter.Shapes
 {
-	public class RegularPolygon : IShape
+	public class RegularPolygon : Shape
 	{
 		public int VertexCount { get; private set; }
-		public Vector2 Center { get; private set; }
+		public Point Center { get; private set; }
 		public float Radius { get; private set; }
 
-		private Color _color;
-
-		public RegularPolygon(int vertexCount, Vector2 center, float radius, Color color)
+		public RegularPolygon(int vertexCount, Point center, float radius, Color color)
+			: base(color)
 		{
 			VertexCount = vertexCount;
 			Center = center;
 			Radius = radius;
-			_color = color;
 		}
 
-		public Color GetColor()
+		public override void Draw(ICanvas canvas)
 		{
-			return _color;
-		}
-
-		public void Draw(ICanvas canvas)
-		{
-			canvas.Color = _color;
+			canvas.Color = Color;
 			var angle = 360f / VertexCount;
-
-			var angleInRadians = DegToRad(angle * 0);
-			var x = (float)Math.Cos(angleInRadians);
-			var y = (float)Math.Sin(angleInRadians);
-			var vertex1 = new Vector2(x, y);
+			var vertex1 = GetVertexByAngle(angle * 0);
 
 			for (var i = 1; i < VertexCount; ++i)
 			{
-				angleInRadians = DegToRad(angle * i);
-				x = (float)Math.Cos(angleInRadians);
-				y = (float)Math.Sin(angleInRadians);
-				var vertex2 = new Vector2(x, y);
+				var vertex2 = GetVertexByAngle(angle * i);
 				canvas.DrawLine(vertex1, vertex2);
 				vertex1 = vertex2;
 			}
+		}
+
+		private Point GetVertexByAngle(float angle)
+		{
+			var angleInRadians = DegToRad(angle);
+			var x = (float)Math.Cos(angleInRadians);
+			var y = (float)Math.Sin(angleInRadians);
+
+			return new Point(x, y);
 		}
 
 		private float DegToRad(float angle)

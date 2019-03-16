@@ -3,7 +3,5 @@
 	public class ShapeFactory
     {
 		private string memberName;
-
-		//IShape CreateShape(descr);
     }
 }

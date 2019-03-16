@@ -1,36 +1,27 @@
-﻿using System.Numerics;
-
-namespace Task1.Painter.Shapes
+﻿namespace Task1.Painter.Shapes
 {
-	public class Rectangle : IShape
+	public class Rectangle : Shape
 	{
-		public Vector2 LeftTop { get; private set; }
-		public Vector2 RightBottom { get; private set; }
+		public Point LeftTop { get; private set; }
+		public Point RightBottom { get; private set; }
 
-		private Enums.Color _color;
-
-		public Rectangle(Vector2 leftTop, Vector2 rightBottom, Enums.Color color)
+		public Rectangle(Point leftTop, Point rightBottom, Enums.Color color)
+			: base(color)
 		{
 			LeftTop = leftTop;
 			RightBottom = rightBottom;
-			_color = color;
 		}
 
-		public void Draw(ICanvas canvas)
+		public override void Draw(ICanvas canvas)
 		{
-			var rightTop = new Vector2(RightBottom.X, LeftTop.Y);
-			var leftBottom = new Vector2(LeftTop.X, RightBottom.Y);
+			var rightTop = new Point(RightBottom.X, LeftTop.Y);
+			var leftBottom = new Point(LeftTop.X, RightBottom.Y);
 
-			canvas.Color = _color;
+			canvas.Color = Color;
 			canvas.DrawLine(LeftTop, rightTop);
 			canvas.DrawLine(rightTop, RightBottom);
 			canvas.DrawLine(RightBottom, leftBottom);
 			canvas.DrawLine(leftBottom, LeftTop);
-		}
-
-		public Enums.Color GetColor()
-		{
-			return _color;
 		}
 	}
 }

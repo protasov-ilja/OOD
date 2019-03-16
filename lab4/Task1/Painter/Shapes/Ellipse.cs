@@ -1,38 +1,30 @@
-﻿using System.Numerics;
-using Task1.Painter.Enums;
+﻿using Task1.Painter.Enums;
 
 namespace Task1.Painter.Shapes
 {
-	public class Ellipse : IShape
+	public class Ellipse : Shape
     {
-		public Vector2 Center { get; private set; }
+		public Point Center { get; private set; }
 		public float HorizontalRadius { get; private set; }
 		public float VerticalRadius { get; private set; }
 
-		private Color _color;
-
-		public Ellipse(Vector2 center, float horizontalRadius, float verticalRadius, Color color)
+		public Ellipse(Point center, float horizontalRadius, float verticalRadius, Color color)
+			: base(color)
 		{
 			Center = center;
 			HorizontalRadius = horizontalRadius;
 			VerticalRadius = verticalRadius;
-			_color = color;
 		}
 
-		public void Draw(ICanvas canvas)
+		public override void Draw(ICanvas canvas)
 		{
-			canvas.Color = _color;
+			canvas.Color = Color;
 			canvas.DrawEllipse(
 				Center.X - HorizontalRadius,
 				Center.Y - VerticalRadius,
 				HorizontalRadius * 2,
 				VerticalRadius * 2
 			);
-		}
-
-		public Color GetColor()
-		{
-			return _color;
 		}
     }
 }

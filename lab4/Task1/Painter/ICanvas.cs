@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using Task1.Painter.Enums;
+﻿using Task1.Painter.Enums;
 
 namespace Task1.Painter
 {
@@ -7,7 +6,7 @@ namespace Task1.Painter
     {
 		Color Color { get; set; }
 
-		void DrawLine(Vector2 from, Vector2 to);
+		void DrawLine(Point from, Point to);
 		void DrawEllipse(double l, double t, double width, double height);
     }
 }
