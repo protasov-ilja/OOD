@@ -1,7 +1,9 @@
-﻿namespace Task1.Painter
+﻿using System.IO;
+
+namespace Task1.Painter
 {
 	public interface IDesigner
     {
-		PictureDraft CreateDraft(string strm);
+		PictureDraft CreateDraft(TextReader strm);
     }
 }

@@ -5,36 +5,26 @@ namespace Task1.Painter
 {
 	public class PictureDraft
 	{
-		//private List<Shape> _shapes;
+		private List<Shape> _shapes = new List<Shape>();
 
-		//public int ShapeCount
-		//{
-		//	get { return _shapes.Count; }
-		//}
+		public int ShapeCount
+		{
+			get { return _shapes.Count; }
+		}
 
-		//public PictureDraft()
-		//{
-		//	_shapes = new List<Shape>();
-		//}
+		public void AddShape(Shape shape)
+		{
+			_shapes.Add(shape);
+		}
 
-		//public bool IsEmpty()
-		//{
-		//	return _shapes.Count == 0;
-		//}
+		public Shape GetShapeByIndex(int index)
+		{
+			if ((index >= _shapes.Count) && (index < 0))
+			{
+				throw new System.ArgumentOutOfRangeException("IndexOutOfRange");
+			}
 
-		//public void AddShape(Shape shape)
-		//{
-		//	_shapes.Add(shape);
-		//}
-
-		//public Shape GetShapeByIndex(int index)
-		//{
-		//	if ((index >= _shapes.Count) && (index < 0))
-		//	{
-		//		throw new System.Exception("IndexOutOfRange");
-		//	}
-
-		//	return _shapes[index];
-		//}
+			return _shapes[index];
+		}
 	}
 }
