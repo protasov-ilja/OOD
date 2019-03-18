@@ -27,7 +27,7 @@ namespace Task1.Painter
 		public Shape CreateShape(string description)
 		{
 			var shapeArgumentsHandler = new ShapeArgumentsHandler(description);
-			var shapeType = shapeArgumentsHandler.ShapeType;
+			var shapeType = shapeArgumentsHandler.GetShapeType();
 			if (_actionMap.ContainsKey(shapeType))
 			{
 				return _actionMap[shapeType](shapeArgumentsHandler);
@@ -43,8 +43,8 @@ namespace Task1.Painter
 				throw new ArgumentException("Invalid number of arguments to create rectangle", "rectangleArgs");
 			}
 
-			var leftTop = new Point(argsHandler.NextFloatArg, argsHandler.NextFloatArg);
-			var rightBottom = new Point(argsHandler.NextFloatArg, argsHandler.NextFloatArg);
+			var leftTop = new Point(argsHandler.GetNextFloatArg(), argsHandler.GetNextFloatArg());
+			var rightBottom = new Point(argsHandler.GetNextFloatArg(), argsHandler.GetNextFloatArg());
 			var color = argsHandler.ShapeColor;
 
 			return new Rectangle(leftTop, rightBottom, color);
@@ -57,9 +57,9 @@ namespace Task1.Painter
 				throw new ArgumentException("Invalid number of arguments to create triangle", "triangleArgs");
 			}
 
-			var v1 = new Point(argsHandler.NextFloatArg, argsHandler.NextFloatArg);
-			var v2 = new Point(argsHandler.NextFloatArg, argsHandler.NextFloatArg);
-			var v3 = new Point(argsHandler.NextFloatArg, argsHandler.NextFloatArg);
+			var v1 = new Point(argsHandler.GetNextFloatArg(), argsHandler.GetNextFloatArg());
+			var v2 = new Point(argsHandler.GetNextFloatArg(), argsHandler.GetNextFloatArg());
+			var v3 = new Point(argsHandler.GetNextFloatArg(), argsHandler.GetNextFloatArg());
 			var color = argsHandler.ShapeColor;
 
 			return new Triangle(v1, v2, v3, color);
@@ -72,9 +72,9 @@ namespace Task1.Painter
 				throw new ArgumentException("Invalid number of arguments to create ellipse", "ellipseArgs");
 			}
 
-			var center = new Point(argsHandler.NextFloatArg, argsHandler.NextFloatArg);
-			var horizontalRadius = argsHandler.NextFloatArg;
-			var verticalRadius = argsHandler.NextFloatArg;
+			var center = new Point(argsHandler.GetNextFloatArg(), argsHandler.GetNextFloatArg());
+			var horizontalRadius = argsHandler.GetNextFloatArg();
+			var verticalRadius = argsHandler.GetNextFloatArg();
 			var color = argsHandler.ShapeColor;
 
 			return new Ellipse(center, horizontalRadius, verticalRadius, color);
@@ -87,9 +87,9 @@ namespace Task1.Painter
 				throw new ArgumentException("Invalid number of arguments to create polygon", "polygonArgs");
 			}
 
-			var vertexCount = argsHandler.NextIntArg;
-			var center = new Point(argsHandler.NextFloatArg, argsHandler.NextFloatArg);
-			var radius = argsHandler.NextFloatArg;
+			var vertexCount = argsHandler.GetNextIntArg();
+			var center = new Point(argsHandler.GetNextFloatArg(), argsHandler.GetNextFloatArg());
+			var radius = argsHandler.GetNextFloatArg();
 			var color = argsHandler.ShapeColor;
 
 			return new RegularPolygon(vertexCount, center, radius, color);

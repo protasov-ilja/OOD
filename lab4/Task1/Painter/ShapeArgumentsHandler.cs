@@ -9,24 +9,9 @@ namespace Task1.Painter
 
 		private int _index = 0;
 
-		public string ShapeType
-		{
-			get { return _shapeArguments[_index++]; }
-		}
-
 		public int ArgumentsLeft
 		{
 			get { return _shapeArguments.Count - _index; }
-		}
-
-		public ShapeArgumentsHandler(string args)
-		{
-			_shapeArguments = new List<string>(args.Split(separator: " "));
-		}
-
-		public int NextIntArg
-		{
-			get { return int.Parse(_shapeArguments[_index++]); }
 		}
 
 		public Color ShapeColor
@@ -56,9 +41,24 @@ namespace Task1.Painter
 			}
 		}
 
-		public float NextFloatArg
+		public ShapeArgumentsHandler(string args)
 		{
-			get { return float.Parse(_shapeArguments[_index++]); }
+			_shapeArguments = new List<string>(args.Split(separator: " "));
+		}
+
+		public string GetShapeType()
+		{
+			return _shapeArguments[_index++];
+		}
+
+		public int GetNextIntArg()
+		{
+			return int.Parse(_shapeArguments[_index++]);
+		}
+
+		public float GetNextFloatArg()
+		{
+			return float.Parse(_shapeArguments[_index++]);
 		}
     }
 }

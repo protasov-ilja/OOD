@@ -16,7 +16,7 @@ namespace Task1Tests.Shapes
 			var verticalRadius = 3;
 			var color = Color.Red;
 
-			var ellipse = new Ellipse(center, horizontalRadius, verticalRadius, color);
+			var ellipse = new Ellipse(new Point(3, 3), horizontalRadius, verticalRadius, color);
 
 			Assert.AreEqual(center, ellipse.Center);
 			Assert.AreEqual(horizontalRadius, ellipse.HorizontalRadius);
