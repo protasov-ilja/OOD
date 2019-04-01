@@ -23,6 +23,7 @@ namespace task1.DocumentEditor.Commands
 
 		protected override void DoExecute()
 		{
+			_image.ImageHandler.RemoveFromDeletedImages(_image.Path);
 			if (!_position.HasValue)
 			{
 				_items.Add(new DocumentItem(_image));
@@ -35,6 +36,7 @@ namespace task1.DocumentEditor.Commands
 
 		protected override void DoUnexecute()
 		{
+			_image.ImageHandler.AddToDeletedImages(_image.Path);
 			if (!_position.HasValue)
 			{
 				_items.RemoveAt(_items.Count - 1);

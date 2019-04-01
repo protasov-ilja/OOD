@@ -10,6 +10,6 @@
 
 		void RemoveFromDeletedImages(string path);
 
-		void MoveImagesToDirectory(string path);
+		void CopyImagesToDirectory(string path);
 	}
 }

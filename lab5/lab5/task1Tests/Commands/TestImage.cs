@@ -8,9 +8,14 @@ namespace task1Tests.Commands
 		public int Width { get; set; }
 		public int Height { get; set; }
 
-		public string Path => throw new System.NotImplementedException();
+		public string Path { get; }
 
-		public IImageHandler ImageHandler => throw new System.NotImplementedException();
+		public TestImage()
+		{
+			ImageHandler = new TestImageHandler();
+		}
+
+		public IImageHandler ImageHandler { get; }
 
 		public void Resize(int width, int height)
 		{

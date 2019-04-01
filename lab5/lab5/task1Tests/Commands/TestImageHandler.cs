@@ -13,7 +13,7 @@ namespace task1Tests.Commands
 		{
 		}
 
-		public void MoveImagesToDirectory(string path)
+		public void CopyImagesToDirectory(string path)
 		{
 		}
 

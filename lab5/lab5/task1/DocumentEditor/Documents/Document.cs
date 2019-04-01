@@ -9,6 +9,7 @@ namespace task1.DocumentEditor.Documents
 	public sealed class Document : IDocument
 	{
 		private const string HTML_FILE_NAME = "\\index.html";
+		private const string IMAGE_FOLDER = "\\image";
 
 		private Title _title = new Title();
 		private History _history = new History();
@@ -17,7 +18,7 @@ namespace task1.DocumentEditor.Documents
 
 		public Document()
 		{
-			_imageHandler = new ImageHandler(Environment.CurrentDirectory);
+			_imageHandler = new ImageHandler(Directory.GetCurrentDirectory() + IMAGE_FOLDER);
 		}
 
 		public void SetTitle(string titleText)
@@ -94,42 +95,11 @@ namespace task1.DocumentEditor.Documents
 
 		public void Save(string path)
 		{
-			_imageHandler.MoveImagesToDirectory(path);
 			var fullPath = path + HTML_FILE_NAME;
 			try
 			{
-				if (File.Exists(fullPath))
-				{
-					Console.WriteLine($"File {fullPath} already exist and will be deleted");
-					File.Delete(fullPath);
-				}
-
-				using (StreamWriter sW = new StreamWriter(fullPath))
-				{
-					sW.WriteLine("<!DOCTYPE html>");
-					sW.WriteLine("<head>");
-					sW.WriteLine($"  <title>{ EscapeHtml(GetTitle()) }</title>");
-					sW.WriteLine("</head>");
-					sW.WriteLine("<body>");
-
-					foreach (DocumentItem item in _documentItems)
-					{
-						IParagraph paragraph = item.Paragraph;
-						IImage image = item.Image;
-						if (paragraph != null)
-						{
-							sW.WriteLine($"<p>{ EscapeHtml(paragraph.GetParagraphText()) }</p>");
-						}
-						else if (image != null)
-						{
-							sW.WriteLine($"<img src=\"{ EscapeHtml(image.Path) }\" width=\"{ image.Width }\" height=\"{ image.Height }\"/>");
-						}
-					}
-
-					sW.WriteLine("</body>");
-					sW.WriteLine("</html>");
-					sW.Close();
-				}
+				_imageHandler.CopyImagesToDirectory(path + IMAGE_FOLDER);
+				HTMLDocumentSaver saver = new HTMLDocumentSaver(fullPath, _documentItems, GetTitle());
 			}
 			catch (Exception ex)
 			{
@@ -140,17 +110,6 @@ namespace task1.DocumentEditor.Documents
 		public void Undo()
 		{
 			_history.Undo();
-		}
-
-		private string EscapeHtml(string text)
-		{
-			text = text.Replace("<", "&lt;");
-			text = text.Replace(">", "&gt;");
-			text = text.Replace("\'", "&apos;");
-			text = text.Replace("\"", "&quot;");
-			text = text.Replace("&", "&amp;");
-
-			return text;
 		}
 	}
 }

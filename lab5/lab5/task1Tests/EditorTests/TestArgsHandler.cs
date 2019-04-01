@@ -1,5 +1,4 @@
-﻿
-using task1.DocumentEditor.Utils;
+﻿using task1.DocumentEditor.Utils;
 
 namespace task1Tests.EditorTests
 {

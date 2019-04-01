@@ -8,12 +8,12 @@ namespace task1.DocumentEditor.Documents
 		private string _directory;
 		private int _imageIndex = 0;
 
-		private List<string> _images = new List<string>();
+		private List<string> _imagesForSave = new List<string>();
 		private List<string> _imagesForDeletion = new List<string>();
 
 		public ImageHandler(string directory)
 		{
-			_directory = directory + "\\image";
+			_directory = directory;
 
 			if (!Directory.Exists(_directory))
 			{
@@ -28,7 +28,7 @@ namespace task1.DocumentEditor.Documents
 			{
 				File.Copy(path, imagePath, true);
 				_imageIndex++;
-				_images.Add(imagePath);
+				_imagesForSave.Add(imagePath);
 			}
 
 			return imagePath;
@@ -36,34 +36,43 @@ namespace task1.DocumentEditor.Documents
 
 		public void DeleteImage(string path)
 		{
-			if (_imagesForDeletion.Contains(path))
+			if (File.Exists(path))
 			{
-				if (File.Exists(path))
-				{
-					File.Delete(path);
-					_imagesForDeletion.Remove(path);
-				}
+				File.Delete(path);
+				_imagesForDeletion.Remove(path);
 			}
 		}
 
 		public void RemoveFromDeletedImages(string path)
 		{
-			_images.Remove(path);
-			_imagesForDeletion.Add(path);
+			if (!_imagesForSave.Contains(path))
+			{
+				_imagesForSave.Add(path);
+				_imagesForDeletion.Remove(path);
+			}
 		}
 
 		public void AddToDeletedImages(string path)
 		{
-			_imagesForDeletion.Remove(path);
-			_images.Add(path);
+			if (!_imagesForDeletion.Contains(path))
+			{
+				_imagesForSave.Remove(path);
+				_imagesForDeletion.Add(path);
+			}
 		}
 
-		public void MoveImagesToDirectory(string path)
+		public void CopyImagesToDirectory(string path)
 		{
-			foreach (var imagePath in _images)
+			var directory = path;
+			if (!Directory.Exists(directory))
+			{
+				Directory.CreateDirectory(directory);
+			}
+
+			foreach (var imagePath in _imagesForSave)
 			{
 				FileInfo info = new FileInfo(imagePath);
-				File.Copy(imagePath, path + $"\\image\\{info.Name}", true);
+				File.Copy(imagePath, $"{directory}\\{ info.Name}", true);
 			}
 		}
 	}

@@ -12,8 +12,6 @@ namespace task1Tests.EditorTests
 			var argsHandler = new TestArgsHandler();
 			argsHandler.ArgumentsLeft = 0;
 			Editor e = new Editor();
-			//TextReader t = new StringReader();
-			//e.Run(t);
 		}
 
 		[TestMethod]
@@ -22,8 +20,6 @@ namespace task1Tests.EditorTests
 			var argsHandler = new TestArgsHandler();
 			argsHandler.ArgumentsLeft = 0;
 			Editor e = new Editor();
-			//TextReader t = new StringReader();
-			//e.Run(t);
 		}
 	}
 }

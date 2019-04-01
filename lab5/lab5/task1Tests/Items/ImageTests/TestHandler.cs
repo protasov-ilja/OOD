@@ -14,7 +14,7 @@ namespace task1Tests.Items.ImageTests
 			throw new System.NotImplementedException();
 		}
 
-		public void MoveImagesToDirectory(string path)
+		public void CopyImagesToDirectory(string path)
 		{
 			throw new System.NotImplementedException();
 		}
