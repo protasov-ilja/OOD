@@ -1,8 +1,12 @@
 ﻿namespace task1.DocumentEditor.Commands
 {
     public abstract class AbstarctCommand : ICommand
-    {
+	{
 		private bool _executed = false;
+
+		public virtual void Delete()
+		{
+		}
 
 		public void Execute()
 		{

@@ -4,5 +4,6 @@
     {
 		void Execute();
 		void Unexecute();
+		void Delete();
 	}
 }
