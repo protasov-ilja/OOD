@@ -23,6 +23,7 @@ namespace task1.DocumentEditor
 
 		private Menu _menu = new Menu();
 		private IDocument _document = new Document();
+		private TextWriter _out;
 
 		public Editor()
 		{
@@ -40,8 +41,9 @@ namespace task1.DocumentEditor
 			_menu.AddItem(SAVE_COMMAND, "save document in html <path>", SaveDocumentInHtml);
 		}
 
-		public void Run(TextReader inputData)
+		public void Run(TextReader inputData, TextWriter outputData)
 		{
+			_out = outputData;
 			_menu.Run(inputData);
 		}
 
@@ -54,7 +56,7 @@ namespace task1.DocumentEditor
 		{
 			if (argsHandler.ArgumentsLeft < 2)
 			{
-				Console.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
+				_out.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
 				return;
 			}
 
@@ -66,7 +68,7 @@ namespace task1.DocumentEditor
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				_out.WriteLine(ex.Message);
 			}
 		}
 
@@ -104,7 +106,7 @@ namespace task1.DocumentEditor
 		{
 			if (argsHandler.ArgumentsLeft != 4)
 			{
-				Console.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
+				_out.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
 				return;
 			}
 
@@ -117,7 +119,7 @@ namespace task1.DocumentEditor
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				_out.WriteLine(ex.Message);
 			}
 		}
 
@@ -125,7 +127,7 @@ namespace task1.DocumentEditor
 		{
 			if (argsHandler.ArgumentsLeft < 1)
 			{
-				Console.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
+				_out.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
 				return;
 			}
 
@@ -135,7 +137,7 @@ namespace task1.DocumentEditor
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				_out.WriteLine(ex.Message);
 			}
 		}
 
@@ -143,7 +145,7 @@ namespace task1.DocumentEditor
 		{
 			try
 			{
-				Console.WriteLine($"Title: {_document.GetTitle()}");
+				_out.WriteLine($"Title: {_document.GetTitle()}");
 				for (var i = 0; i < _document.GetItemsCount(); ++i)
 				{
 					var info = $"{i}. ";
@@ -160,14 +162,14 @@ namespace task1.DocumentEditor
 						info += $"Paragraph: { paragraph.GetParagraphText() }";
 					}
 
-					Console.WriteLine(info);
+					_out.WriteLine(info);
 				}
 
-				Console.WriteLine();
+				_out.WriteLine();
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				_out.WriteLine(ex.Message);
 			}
 		}
 
@@ -175,7 +177,7 @@ namespace task1.DocumentEditor
 		{
 			if (argsHandler.ArgumentsLeft < 2)
 			{
-				Console.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
+				_out.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
 				return;
 			}
 
@@ -196,7 +198,7 @@ namespace task1.DocumentEditor
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				_out.WriteLine(ex.Message);
 			}
 		}
 
@@ -204,7 +206,7 @@ namespace task1.DocumentEditor
 		{
 			if (argsHandler.ArgumentsLeft != 3)
 			{
-				Console.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
+				_out.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
 				return;
 			}
 
@@ -226,7 +228,7 @@ namespace task1.DocumentEditor
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				_out.WriteLine(ex.Message);
 			}
 		}
 
@@ -234,7 +236,7 @@ namespace task1.DocumentEditor
 		{
 			if (argsHandler.ArgumentsLeft != 1)
 			{
-				Console.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
+				_out.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
 				return;
 			}
 
@@ -245,7 +247,7 @@ namespace task1.DocumentEditor
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				_out.WriteLine(ex.Message);
 			}
 		}
 
@@ -262,7 +264,7 @@ namespace task1.DocumentEditor
 			}
 			else
 			{
-				Console.WriteLine("Can't Undo");
+				_out.WriteLine("Can't Undo");
 			}
 		}
 
@@ -274,7 +276,7 @@ namespace task1.DocumentEditor
 			}
 			else
 			{
-				Console.WriteLine("Can't Redo");
+				_out.WriteLine("Can't Redo");
 			}
 		}
 
@@ -282,7 +284,7 @@ namespace task1.DocumentEditor
 		{
 			if (argsHandler.ArgumentsLeft != 1)
 			{
-				Console.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
+				_out.WriteLine($"Not Enougth arguments {argsHandler.ArgumentsLeft}");
 				return;
 			}
 

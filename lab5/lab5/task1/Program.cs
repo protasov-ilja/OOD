@@ -8,7 +8,7 @@ namespace task1
         static void Main(string[] args)
         {
 			Editor editor = new Editor();
-			editor.Run(Console.In);
+			editor.Run(Console.In, Console.Out);
 		}
     }
 }

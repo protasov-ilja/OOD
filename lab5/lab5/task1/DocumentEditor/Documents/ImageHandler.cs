@@ -36,10 +36,9 @@ namespace task1.DocumentEditor.Documents
 
 		public void DeleteImage(string path)
 		{
-			if (File.Exists(path))
+			if (File.Exists(path) && _imagesForDeletion.Remove(path))
 			{
 				File.Delete(path);
-				_imagesForDeletion.Remove(path);
 			}
 		}
 

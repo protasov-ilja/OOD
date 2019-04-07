@@ -27,6 +27,15 @@ namespace task1.DocumentEditor.Commands
 			_items.RemoveAt(_position);
 		}
 
+		public override void Delete()
+		{
+			IImage image = _item.Image;
+			if (image != null)
+			{
+				image.ImageHandler.DeleteImage(image.Path);
+			}
+		}
+
 		protected override void DoUnexecute()
 		{
 			_items.Insert(_position, _item);

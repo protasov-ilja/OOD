@@ -46,6 +46,7 @@ namespace task1.DocumentEditor.Commands
 		{
 			if (_commands.Count >= MAX_COMMANDS_STACK_SIZE)
 			{
+				_commands[0].Delete();
 				_commands.RemoveAt(0);
 				_nextActionIndex--;
 			}
