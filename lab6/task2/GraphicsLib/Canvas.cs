@@ -16,7 +16,7 @@ namespace task2.GraphicsLib
 
 		public void SetColor(uint rgbColor)
 		{
-			Console.WriteLine($"rgbColor ({rgbColor})");
+			Console.WriteLine($"color (#{rgbColor.ToString("x6")})");
 		}
 	}
 }

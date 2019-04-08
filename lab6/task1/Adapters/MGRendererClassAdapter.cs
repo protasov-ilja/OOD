@@ -18,16 +18,9 @@ namespace task1.Adapters
 
 		public void LineTo(int x, int y)
 		{
-			try
-			{
-				var newPoint = new Point(x, y);
-				DrawLine(_startPoint, newPoint);
-				_startPoint = newPoint;
-			}
-			catch (LogicErrorException ex)
-			{
-				Console.WriteLine(ex.Message);
-			}
+			var newPoint = new Point(x, y);
+			DrawLine(_startPoint, newPoint);
+			_startPoint = newPoint;
 		}
 
 		public void MoveTo(int x, int y)

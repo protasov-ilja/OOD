@@ -2,12 +2,25 @@
 using System.Drawing;
 using System.IO;
 using task2.Adapters;
+using task2.Utils.Exceptions;
 
 namespace task2Tests.Adapters
 {
 	[TestClass]
 	public class ClassAdapterTests
     {
+		[TestMethod]
+		public void CanThrowExceptionIfCallLineToWithoutBeginDrawMethod()
+		{
+			var writer = new StringWriter();
+			var adapter = new MGRendererClassAdapter(writer);
+
+			var x = 10;
+			var y = 20;
+
+			Assert.ThrowsException<LogicErrorException>(() => adapter.LineTo(x, y));
+		}
+
 		[TestMethod]
 		public void CanCreateClassAdapterForModernGraphicRendererAndDrawLineFromStartPositionWithDefaultColor()
 		{

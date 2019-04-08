@@ -3,12 +3,26 @@ using System.Drawing;
 using System.IO;
 using task2.Adapters;
 using task2.ModernGraphicsLib;
+using task2.Utils.Exceptions;
 
 namespace task2Tests.Adapters
 {
 	[TestClass]
 	public class ObjectAdapterTests
     {
+		[TestMethod]
+		public void CanThrowExceptionIfCallLineToWithoutBeginDrawMethod()
+		{
+			var writer = new StringWriter();
+			var renderer = new ModernGraphicsRenderer(writer);
+			var adapter = new MGRendererObjectAdapter(renderer);
+
+			var x = 10;
+			var y = 20;
+
+			Assert.ThrowsException<LogicErrorException>(() => adapter.LineTo(x, y));
+		}
+
 		[TestMethod]
 		public void CanCreateObjectAdapterForModernGraphicRendererAndDrawLineFromStartPositionWithDefaultColor()
 		{

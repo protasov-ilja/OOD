@@ -1,12 +1,25 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using task1.Adapters;
+using task1.Utils.Exceptions;
 
 namespace task1Tests.Adapters
 {
 	[TestClass]
 	public class ClassAdapterTests
     {
+		[TestMethod]
+		public void CanThrowExceptionIfCallLineToWithoutBeginDrawMethod()
+		{
+			var writer = new StringWriter();
+			var adapter = new MGRendererClassAdapter(writer);
+
+			var x = 10;
+			var y = 20;
+
+			Assert.ThrowsException<LogicErrorException>(() => adapter.LineTo(x, y));
+		}
+
 		[TestMethod]
 		public void CanCreateClassAdapterForModernGraphicRendererAndDrawLineFromStartPosition()
 		{
