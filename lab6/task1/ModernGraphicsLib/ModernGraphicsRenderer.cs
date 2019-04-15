@@ -13,6 +13,14 @@ namespace task1.ModernGraphicsLib
 			_out = strm;
 		}
 
+		~ModernGraphicsRenderer()
+		{
+			if (_drawing)
+			{
+				EndDraw();
+			}
+		}
+
 		// Этот метод должен быть вызван в начале рисования
 		public void BeginDraw()
 		{
