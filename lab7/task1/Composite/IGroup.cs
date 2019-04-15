@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using task1.Shapes;
+﻿using task1.Shapes;
 
 namespace task1.Composite
 {
@@ -9,6 +8,5 @@ namespace task1.Composite
 		Shape GetShapeAtIndex(int index);
 		void InsertShape(Shape shape, int position);
 		void RemoveShapeAtIndex(int index);
-		IGroup GetGroup();
 	}
 }

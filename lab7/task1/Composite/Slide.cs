@@ -15,7 +15,7 @@ namespace task1
 			get { return _shapes.Count; }
 		}
 
-		public Color BackgroundCoor { get; set; }
+		public Color BackgroundCoor { get; set; } = Color.White;
 
 		private List<IShape> _shapes = new List<IShape>();
 

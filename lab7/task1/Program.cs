@@ -17,11 +17,6 @@ namespace task1
         {
 			try
 			{
-				var shape = new RectangleShape(new Vector2f(200, 100))
-				{
-					FillColor = Color.Red
-				};
-
 				var circle = new CircleShape(100f)
 				{
 					FillColor = Color.Blue
@@ -38,9 +33,7 @@ namespace task1
 				{
 					window.DispatchEvents();
 					window.Clear(Color.White);
-
 					
-					window.Draw(shape);
 					window.Draw(circle);
 					window.Display();
 				}
@@ -64,6 +57,10 @@ namespace task1
 			var tFrame = new Rect<float> { Top = 300, Left = 100, Width = 100, Height = 100 };
 			var triangle = new Triangle(tFrame, new Style(Color.Green, true), new Style(Color.Green, true), 5);
 
+			var r = new Rectangle(rectFrame, new Style(Color.Green, true), new Style(Color.Green, true), 3);
+			var e = new Ellipse(eFrame, new Style(Color.Green, true), new Style(Color.Green, true), 3);
+			var t = new Triangle(tFrame, new Style(Color.Green, true), new Style(Color.Green, true), 5);
+
 			var group = new Group(new Style(Color.Black, true), new Style(Color.Black, true), 1);
 			group.InsertShape(rectangle, 0);
 			group.InsertShape(ellipse, 1);
@@ -72,9 +69,9 @@ namespace task1
 			var gFrame = new Rect<float> { Top = 0, Left = 0, Width = 100, Height = 100 };
 			group.Frame = gFrame;
 
-			slide.InsertShape(triangle, 0);
-			slide.InsertShape(ellipse, 1);
-			slide.InsertShape(rectangle, 2);
+			slide.InsertShape(r, 0);
+			slide.InsertShape(e, 1);
+			slide.InsertShape(t, 2);
 			slide.InsertShape(group, 3);
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using task1.Composite;
+﻿using SFML.Graphics;
+using task1.Composite;
 
 namespace task1.Shapes
 {
@@ -13,12 +14,12 @@ namespace task1.Shapes
 		{
 			var leftTop = new Point(Frame.Left, Frame.Top);
 			var rightTop = new Point(Frame.Left + Frame.Width, Frame.Top);
-			var rightBottom = new Point(Frame.Left + Frame.Width, Frame.Top - Frame.Height);
-			var leftBottom = new Point(Frame.Left, Frame.Top - Frame.Height);
-
-			canvas.BeginFill(FillStyle.Color);
-			canvas.SetLineColor(OutlineStyle.Color);
-			canvas.SetLineThickness(LineThickness.Value);
+			var rightBottom = new Point(Frame.Left + Frame.Width, Frame.Top + Frame.Height);
+			var leftBottom = new Point(Frame.Left, Frame.Top + Frame.Height);
+	
+			canvas.BeginFill(FillStyle.IsEnabled() ? FillStyle.Color : Color.Transparent);
+			canvas.SetLineColor(FillStyle.IsEnabled() ? FillStyle.Color : Color.Black);
+			canvas.SetLineThickness(LineThickness.HasValue ? LineThickness.Value : 1);
 
 			canvas.MoveTo(leftTop.X, leftTop.Y);
 			canvas.LineTo(rightTop.X, rightTop.Y);

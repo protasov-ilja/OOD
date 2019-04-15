@@ -18,10 +18,10 @@ namespace task1.Composite
 			get
 			{
 				var frame = new Rect<float> {
-					Top = float.MaxValue,
 					Left = float.MaxValue,
+					Top = float.MaxValue,
 					Width = 0,
-					Height = -float.MinValue
+					Height = 0
 				};
 
 				float maxRight = 0;
@@ -84,7 +84,7 @@ namespace task1.Composite
 				_fillStyle = value;
 				foreach (var shape in _shapes)
 				{
-					shape.OutlineStyle = value;
+					shape.FillStyle = value;
 				}
 			}
 		}
@@ -144,11 +144,6 @@ namespace task1.Composite
 			OutlineStyle = outlineStile;
 			FillStyle = fillStyle;
 			LineThickness = lineThickness;
-		}
-
-		public IGroup GetGroup()
-		{
-			return this;
 		}
 
 		public Shape GetShapeAtIndex(int index)
