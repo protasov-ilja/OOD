@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace task1.Composite
 {
-    public class Style
+    public struct Style
     {
 		public Color Color { get; set; }
 
-		private bool _isEnabled = false;
+		private bool _isEnabled;
 
 		public Style(Color color, bool isEnabled)
 		{
@@ -28,11 +28,6 @@ namespace task1.Composite
 
 		public override bool Equals(Object obj)
 		{
-			if (this == obj)
-			{
-				return true;
-			}
-
 			if (obj == null || GetType() != obj.GetType())
 			{
 				return false;
@@ -40,6 +35,26 @@ namespace task1.Composite
 
 			Style other = (Style)obj;
 			return Color.Equals(other.Color) && _isEnabled == other.IsEnabled();
+		}
+
+		public static bool operator ==(Style lhs, Style rhs)
+		{
+			if (Object.ReferenceEquals(lhs, null))
+			{
+				if (Object.ReferenceEquals(rhs, null))
+				{
+					return true;
+				}
+
+				return false;
+			}
+			
+			return lhs.Equals(rhs);
+		}
+
+		public static bool operator !=(Style lhs, Style rhs)
+		{
+			return !(lhs == rhs);
 		}
 
 		public override int GetHashCode()

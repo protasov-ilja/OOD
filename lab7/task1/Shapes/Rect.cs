@@ -5,8 +5,16 @@ namespace task1.Shapes
 {
     public struct Rect<T>
     {
-		public T Left { get; set; }
+		public Rect(T top, T left, T width, T height)
+		{
+			Top = top;
+			Left = left;
+			Width = width;
+			Height = height;
+		}
+
 		public T Top { get; set; }
+		public T Left { get; set; }
 		public T Width { get; set; }
 		public T Height { get; set; }
 

@@ -21,7 +21,7 @@ namespace task1.Composite
 
 		public Canvas(TextWriter output, RenderWindow renderer)
 		{
-			//_renderer = renderer;
+			_renderer = renderer;
 			_out = output;
 		}
 
@@ -39,14 +39,15 @@ namespace task1.Composite
 
 		public void DrawEllipse(float left, float top, float width, float height)
 		{
+			_points = new List<Vector2f>();
 			var quality = 70;
 			for (var i = 0; i < quality; ++i)
 			{
-				var rad = (360 / quality * i) / (360 / Math.PI / 2);
-				var x = Math.Cos(rad) * width;
-				var y = Math.Sin(rad) * height;
+				var radPerStep = (360 / quality * i) / (360 / Math.PI / 2);
+				var x = Math.Cos(radPerStep) * width;
+				var y = Math.Sin(radPerStep) * height;
 
-				_points.Add(new Vector2f((float)x, (float)y));
+				_points.Add(new Vector2f((float)x + left + width, (float)y + top + height));
 			}
 
 			_out.WriteLine($"l: {left} t: {top} width: {width} height: {height}");
@@ -60,17 +61,18 @@ namespace task1.Composite
 			}
 
 			// RENDER
-			//var shape = new ConvexShape((uint)_points.Count);
-			//for (var i = 0; i < _points.Count; ++i)
-			//{
-			//	shape.SetPoint((uint)i, _points[i]);
-			//}
+			var shape = new ConvexShape((uint)_points.Count);
+			for (var i = 0; i < _points.Count; ++i)
+			{
+				shape.SetPoint((uint)i, _points[i]);
+			}
+
+			shape.FillColor = _fillColor;
+			shape.OutlineColor = _lineColor;
+			shape.OutlineThickness = _lineThickness;
 			
-			//shape.FillColor = _fillColor;
-			//shape.OutlineColor = _lineColor;
-			//shape.OutlineThickness = _lineThickness;
-			//shape.Position = new Vector2f(2, 2);
-			//_renderer.Draw(shape);
+			_renderer.Draw(shape);
+			// RENDER
 
 			_out.WriteLine($"Filling end");
 			_fillColor = Color.Transparent;
@@ -79,7 +81,6 @@ namespace task1.Composite
 
 		public void LineTo(float x, float y)
 		{
-			_points = new List<Vector2f>();
 			var newPoint = new Vector2f(x, y);
 			_points.Add(newPoint);
 			_out.WriteLine($"LineTo ({ x }, { y })");

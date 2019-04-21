@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using task1.Composite;
-using task1.Shapes;
 
 namespace task1
 {
@@ -17,7 +16,7 @@ namespace task1
 
 		public Color BackgroundCoor { get; set; } = Color.White;
 
-		private List<IShape> _shapes = new List<IShape>();
+		private List<IComponent> _shapes = new List<IComponent>();
 
 		public Slide(float width, float height)
 		{
@@ -25,7 +24,7 @@ namespace task1
 			Height = height;
 		}
 
-		public IShape GetShapeAtIndex(int index)
+		public IComponent GetShapeAtIndex(int index)
 		{
 			if ((index >= _shapes.Count) || (index < 0))
 			{
@@ -35,7 +34,7 @@ namespace task1
 			return _shapes[index];
 		}
 
-		public void InsertShape(IShape shape, int index)
+		public void InsertShape(IComponent shape, int index)
 		{
 			if ((index > _shapes.Count) || (index < 0))
 			{

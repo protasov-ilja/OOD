@@ -4,51 +4,28 @@ using task1.Shapes;
 
 namespace task1.Composite
 {
-	public class Group : IGroup
+	public class Group : IComponent
 	{
-		private Style _outlineStyle = null;
-		private Style _fillStyle = null;
+		private Style? _outlineStyle = null;
+		private Style? _fillStyle = null;
 		private float? _lineThickness = 1;
 		private Rect<float> _frame;
 
-		private List<Shape> _shapes = new List<Shape>();
+		public IComponent Parent { get; set; }
+
+		private List<IComponent> _shapes = new List<IComponent>();
 
 		public Rect<float> Frame
 		{
-			get
-			{
-				var frame = new Rect<float> {
-					Left = float.MaxValue,
-					Top = float.MaxValue,
-					Width = 0,
-					Height = 0
-				};
-
-				float maxRight = 0;
-				float maxBottom = 0;
-				foreach (var shape in _shapes)
-				{
-					var shapeFrame = shape.Frame;
-					frame.Left = Math.Min(shapeFrame.Left, frame.Left);
-					frame.Top = Math.Min(shapeFrame.Top, frame.Top);
-					maxRight = Math.Max(shapeFrame.Width + shapeFrame.Left, maxRight);
-					maxBottom = Math.Max(shapeFrame.Height + shapeFrame.Top, maxBottom);
-				}
-
-				frame.Width = maxRight - frame.Left;
-				frame.Height = maxBottom - frame.Top;
-
-				_frame = frame;
-
-				return frame;
-			}
+			get => _frame;
 
 			set
 			{
-				var oldFrame = Frame;
+				var oldFrame = _frame;
 
 				float deltaX = value.Width / oldFrame.Width;
 				float deltaY = value.Height / oldFrame.Height;
+				Console.WriteLine(deltaX + " " + deltaY);
 
 				foreach(var shape in _shapes)
 				{
@@ -56,78 +33,54 @@ namespace task1.Composite
 					var offsetX = shapeFrame.Left - oldFrame.Left;
 					var offsetY = shapeFrame.Top - oldFrame.Top;
 
+					Console.WriteLine(offsetX + " " + offsetY);
 					shapeFrame.Left = value.Left + offsetX * deltaX;
 					shapeFrame.Top = value.Top + offsetY * deltaY;
-					shapeFrame.Width = shapeFrame.Width * deltaX;
-					shapeFrame.Height = shapeFrame.Height * deltaY;
+					shapeFrame.Width *= deltaX;
+					shapeFrame.Height *= deltaY;
+					shape.Frame = shapeFrame;
 				}
+
+				RecalculateFrame();
+				Parent?.RecalculateFrame();
 			}
 		}
 
-		public Style FillStyle
+		public Style? FillStyle
 		{
-			get
-			{
-				foreach (var shape in _shapes)
-				{
-					if (shape.FillStyle != _fillStyle)
-					{
-						return null;
-					}
-				}
-
-				return _fillStyle;
-			}
+			get => _fillStyle;
 
 			set
 			{
 				_fillStyle = value;
 				foreach (var shape in _shapes)
 				{
-					shape.FillStyle = value;
+					shape.FillStyle = value.Value;
 				}
+
+				Parent?.RecalculateFillStyle();
 			}
 		}
 
-		public Style OutlineStyle
+		public Style? OutlineStyle
 		{
-			get
-			{
-				foreach (var shape in _shapes)
-				{
-					if (shape.OutlineStyle != _outlineStyle)
-					{
-						return null;
-					}
-				}
-
-				return _outlineStyle;
-			}
+			get => _outlineStyle;
 
 			set
 			{
 				_outlineStyle = value;
 				foreach (var shape in _shapes)
 				{
-					shape.OutlineStyle = value;
+					shape.OutlineStyle = value.Value;
 				}
+
+				Parent?.RecalculateOutlineStyle();
 			}
 		}
 
 		public float? LineThickness
 		{
-			get
-			{
-				foreach (var shape in _shapes)
-				{
-					if (shape.LineThickness != _lineThickness)
-					{
-						return null;
-					}
-				}
-
-				return _lineThickness;
-			}
+			get => _lineThickness;
 
 			set
 			{
@@ -136,24 +89,20 @@ namespace task1.Composite
 				{
 					shape.LineThickness = value.Value;
 				}
+
+				Parent?.RecalculateLineThickness();
 			}
 		}
 
-		public Group(Style outlineStile, Style fillStyle, float lineThickness)
+		public Group(IComponent component)
 		{
-			OutlineStyle = outlineStile;
-			FillStyle = fillStyle;
-			LineThickness = lineThickness;
-		}
+			component.Parent = this;
+			_shapes.Add(component);
 
-		public Shape GetShapeAtIndex(int index)
-		{
-			if ((index >= _shapes.Count) || (index < 0))
-			{
-				throw new IndexOutOfRangeException("index out of range");
-			}
-
-			return _shapes[index];
+			_frame = component.Frame;
+			_fillStyle = component.FillStyle;
+			_outlineStyle = component.OutlineStyle;
+			_lineThickness = component.LineThickness;
 		}
 
 		public int GetShapesCount()
@@ -161,14 +110,20 @@ namespace task1.Composite
 			return _shapes.Count;
 		}
 
-		public void InsertShape(Shape shape, int position)
+		public void InsertShape(IComponent shape, int position)
 		{
 			if ((position > _shapes.Count) || (position < 0))
 			{
 				throw new IndexOutOfRangeException("index out of range");
 			}
 
+			shape.Parent = this;
 			_shapes.Insert(position, shape);
+
+			RecalculateFillStyle();
+			RecalculateOutlineStyle();
+			RecalculateLineThickness();
+			RecalculateFrame();
 		}
 
 		public void RemoveShapeAtIndex(int index)
@@ -178,15 +133,107 @@ namespace task1.Composite
 				throw new IndexOutOfRangeException("index out of range");
 			}
 
+			_shapes[index].Parent = null;
 			_shapes.RemoveAt(index);
+
+			RecalculateFillStyle();
+			RecalculateOutlineStyle();
+			RecalculateLineThickness();
+			RecalculateFrame();
+		}
+
+		public void RecalculateFillStyle()
+		{
+			var fillStyle = (GetShapesCount() != 0) ? _shapes[0].FillStyle : null;
+			foreach (var shape in _shapes)
+			{
+				if (fillStyle != shape.FillStyle)
+				{
+					fillStyle = null;
+				}
+			}
+
+			var isChanged = _fillStyle != fillStyle;
+			_fillStyle = fillStyle;
+			if (isChanged)
+			{
+				Parent?.RecalculateFillStyle();
+			}
+		}
+
+		public void RecalculateOutlineStyle()
+		{
+			var outlineStyle = (GetShapesCount() != 0) ? _shapes[0].OutlineStyle : null;
+			foreach (var shape in _shapes)
+			{
+				if (outlineStyle != shape.OutlineStyle)
+				{
+					outlineStyle = null;
+				}
+			}
+
+			var isChanged = _outlineStyle != outlineStyle;
+			_outlineStyle = outlineStyle;
+			if (isChanged)
+			{
+				Parent?.RecalculateOutlineStyle();
+			}
+		}
+
+		public void RecalculateFrame()
+		{
+			var frame = new Rect<float>
+			{
+				Left = float.MaxValue,
+				Top = float.MaxValue,
+				Width = 0,
+				Height = 0
+			};
+
+			float maxRight = 0;
+			float maxBottom = 0;
+			foreach (var shape in _shapes)
+			{
+				var shapeFrame = shape.Frame;
+				frame.Left = Math.Min(shapeFrame.Left, frame.Left);
+				frame.Top = Math.Min(shapeFrame.Top, frame.Top);
+				maxRight = Math.Max(shapeFrame.Width + shapeFrame.Left, maxRight);
+				maxBottom = Math.Max(shapeFrame.Height + shapeFrame.Top, maxBottom);
+			}
+			Console.WriteLine(maxRight + " " + maxBottom);
+			frame.Width = Math.Abs(maxRight - frame.Left);
+			frame.Height = Math.Abs(maxBottom - frame.Top);
+
+			_frame = frame;
+		}
+
+		public void RecalculateLineThickness()
+		{
+			var lineThickness = (GetShapesCount() != 0) ? _shapes[0].LineThickness : null;
+			foreach (var shape in _shapes)
+			{
+				if (lineThickness != shape.LineThickness)
+				{
+					lineThickness = null;
+				}
+			}
+
+			var isChanged = _lineThickness != lineThickness;
+			_lineThickness = lineThickness;
+			if (isChanged)
+			{
+				Parent?.RecalculateLineThickness();
+			}
 		}
 
 		public void Draw(ICanvas canvas)
 		{
-			foreach(var shape in _shapes)
+			Console.WriteLine("------Group------");
+			foreach (var shape in _shapes)
 			{
 				shape.Draw(canvas);
 			}
+			Console.WriteLine("------End------");
 		}
 	}
 }
