@@ -9,10 +9,6 @@ namespace task1
 	{
 		public float Width { get; private set; }
 		public float Height { get; private set; }
-		public int ShapeCount
-		{
-			get { return _shapes.Count; }
-		}
 
 		public Color BackgroundCoor { get; set; } = Color.White;
 
@@ -22,6 +18,11 @@ namespace task1
 		{
 			Width = width;
 			Height = height;
+		}
+
+		public int ShapeCount
+		{
+			get { return _shapes.Count; }
 		}
 
 		public IComponent GetShapeAtIndex(int index)

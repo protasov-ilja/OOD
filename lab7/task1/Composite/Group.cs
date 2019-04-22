@@ -200,7 +200,7 @@ namespace task1.Composite
 				maxRight = Math.Max(shapeFrame.Width + shapeFrame.Left, maxRight);
 				maxBottom = Math.Max(shapeFrame.Height + shapeFrame.Top, maxBottom);
 			}
-			Console.WriteLine(maxRight + " " + maxBottom);
+
 			frame.Width = Math.Abs(maxRight - frame.Left);
 			frame.Height = Math.Abs(maxBottom - frame.Top);
 

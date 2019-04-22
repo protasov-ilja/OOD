@@ -66,13 +66,13 @@ namespace task1
 			var group = new Group(steam);
 			group.InsertShape(pipe, 1);
 			group.InsertShape(roof, 2);
-			// group.FillStyle = new Style(Color.Black, false);
+			//group.FillStyle = new Style(Color.Black, false);
 
 			var house = new Group(group);
 			house.InsertShape(rect, 1);
 			house.InsertShape(window, 2);
 
-			house.Frame = new Rect<float>(0, 0, 100,100);
+			// house.Frame = new Rect<float>(0, 0, 100,100);
 
 			slide.InsertShape(group, 0);
 			slide.InsertShape(sun, 1);

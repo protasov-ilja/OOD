@@ -117,6 +117,7 @@ namespace task1Tests
 
 			var group = new Group(rect);
 
+			Assert.AreEqual(rect.Parent, group);
 			Assert.AreEqual(2, group.LineThickness);
 			Assert.AreEqual(oStyle, group.OutlineStyle);
 			Assert.AreEqual(fStyle, group.FillStyle);
@@ -141,6 +142,8 @@ namespace task1Tests
 			var rect2 = new Rectangle(f2, oStyle, fStyle, 2);
 			group.InsertShape(rect2, 0);
 
+			Assert.AreEqual(rect.Parent, group);
+			Assert.AreEqual(rect2.Parent, group);
 			Assert.AreEqual(group.GetShapesCount(), 2);
 			Assert.AreEqual(new Rect<float>(0, 0, 15, 15), group.Frame);
 			
@@ -159,8 +162,12 @@ namespace task1Tests
 
 			var rect = new Rectangle(f, oStyle, fStyle, 2);
 			var group = new Group(rect);
+
+			Assert.AreEqual(rect.Parent, group);
 			Assert.AreEqual(group.GetShapesCount(), 1);
 			group.RemoveShapeAtIndex(0);
+
+			Assert.AreEqual(rect.Parent, null);
 			Assert.AreEqual(group.GetShapesCount(), 0);
 			Assert.ThrowsException<IndexOutOfRangeException>(() => group.RemoveShapeAtIndex(0));
 		}
@@ -180,6 +187,8 @@ namespace task1Tests
 			var rect2 = new Rectangle(f2, oStyle, fStyle, 2);
 			group.InsertShape(rect2, 0);
 
+			Assert.AreEqual(rect.Parent, group);
+			Assert.AreEqual(rect2.Parent, group);
 			Assert.AreEqual(group.GetShapesCount(), 2);
 			Assert.AreEqual(new Rect<float>(0, 0, 15, 15), group.Frame);
 
@@ -202,6 +211,7 @@ namespace task1Tests
 
 			var group = new Group(rect);
 
+			Assert.AreEqual(rect.Parent, group);
 			Assert.AreEqual(group.GetShapesCount(), 1);
 			Assert.AreEqual(new Rect<float>(0, 0, 10, 10), group.Frame);
 
@@ -226,12 +236,14 @@ namespace task1Tests
 
 			var group = new Group(rect);
 			group.FillStyle = newF;
+
+			Assert.AreEqual(rect.Parent, group);
 			Assert.AreEqual(newF, group.FillStyle);
 			Assert.AreEqual(newF, rect.FillStyle);
 		}
 
 		[TestMethod]
-		public void CanChangeShapeInsideGroupFillStyleFroupFillChagedToo()
+		public void CanChangeShapeInsideGroupFillStyleGroupFillChagedToo()
 		{
 			var slide = new Slide(500, 500);
 			var fStyle = new Style(Color.Red, true);
@@ -242,6 +254,8 @@ namespace task1Tests
 
 			var group = new Group(rect);
 			rect.FillStyle = newF;
+
+			Assert.AreEqual(rect.Parent, group);
 			Assert.AreEqual(newF, group.FillStyle);
 			Assert.AreEqual(newF, rect.FillStyle);
 		}
@@ -261,6 +275,8 @@ namespace task1Tests
 			var group = new Group(rect);
 			group.InsertShape(rect2, 0);
 
+			Assert.AreEqual(rect.Parent, group);
+			Assert.AreEqual(rect2.Parent, group);
 			Assert.AreEqual(null, group.FillStyle);
 			Assert.AreEqual(null, group.OutlineStyle);
 			Assert.AreEqual(null, group.LineThickness);
