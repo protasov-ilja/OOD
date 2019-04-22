@@ -12,7 +12,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "sold out";
 			var gumballs = 0;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine();
+			var gM = new GumballMachine();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 			Assert.AreEqual(gM.ToString(), testStr);
 		}
@@ -20,14 +20,14 @@ namespace task1Tests.GumballMachineWithState
 		[TestMethod]
 		public void CanGetBallsCount()
 		{
-			GumballMachine gM = new GumballMachine();
+			var gM = new GumballMachine();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 		}
 
 		[TestMethod]
 		public void CantReleaseBallIfGumballsCountIs0()
 		{
-			GumballMachine gM = new GumballMachine();
+			var gM = new GumballMachine();
 			gM.ReleaseBall();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 		}
@@ -38,7 +38,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			var gumballs = 0;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine();
+			var gM = new GumballMachine();
 			gM.SetNoQuarterState();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -50,7 +50,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for turn of crank";
 			var gumballs = 0;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine();
+			var gM = new GumballMachine();
 			gM.SetHasQuarterState();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -62,7 +62,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "delivering a gumball";
 			var gumballs = 0;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine();
+			var gM = new GumballMachine();
 			gM.SetSoldState();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -74,7 +74,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "sold out";
 			var gumballs = 0;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine();
+			var gM = new GumballMachine();
 			gM.InsertQuarter();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -86,7 +86,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "sold out";
 			var gumballs = 0;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine();
+			var gM = new GumballMachine();
 			gM.EjectQuarter();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -98,7 +98,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "sold out";
 			var gumballs = 0;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine();
+			var gM = new GumballMachine();
 			gM.TurnCrank();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -110,7 +110,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			var gumballs = 1;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumball Machine is {strState})";
-			GumballMachine gM = new GumballMachine(1);
+			var gM = new GumballMachine(1);
 			Assert.AreEqual(gM.GetBallCount(), (uint)1);
 			Assert.AreEqual(gM.ToString(), testStr);
 		}
@@ -121,7 +121,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "sold out";
 			var gumballs = 1;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumball Machine is {strState})";
-			GumballMachine gM = new GumballMachine(1);
+			var gM = new GumballMachine(1);
 			gM.SetSoldOutState();
 			Assert.AreEqual(gM.GetBallCount(), (uint)1);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -130,7 +130,7 @@ namespace task1Tests.GumballMachineWithState
 		[TestMethod]
 		public void CanReleaseBallIfGumballsCountMoreThan0()
 		{
-			GumballMachine gM = new GumballMachine(1);
+			var gM = new GumballMachine(1);
 			Assert.AreEqual(gM.GetBallCount(), (uint)1);
 			gM.ReleaseBall();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
@@ -142,7 +142,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			var gumballs = 5;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine(5);
+			var gM = new GumballMachine(5);
 			Assert.AreEqual(gM.GetBallCount(), (uint)5);
 			Assert.AreEqual(gM.ToString(), testStr);
 		}
@@ -153,7 +153,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			var gumballs = 5;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine(5);
+			var gM = new GumballMachine(5);
 			gM.TurnCrank();
 			Assert.AreEqual(gM.GetBallCount(), (uint)5);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -165,7 +165,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			var gumballs = 5;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine(5);
+			var gM = new GumballMachine(5);
 			gM.EjectQuarter();
 			Assert.AreEqual(gM.GetBallCount(), (uint)5);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -177,7 +177,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for turn of crank";
 			var gumballs = 5;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine(5);
+			var gM = new GumballMachine(5);
 			gM.InsertQuarter();
 			Assert.AreEqual(gM.GetBallCount(), (uint)5);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -189,7 +189,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			var gumballs = 5;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine(5);
+			var gM = new GumballMachine(5);
 			gM.InsertQuarter();
 			gM.EjectQuarter();
 			Assert.AreEqual(gM.GetBallCount(), (uint)5);
@@ -202,7 +202,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for turn of crank";
 			var gumballs = 5;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine(5);
+			var gM = new GumballMachine(5);
 			gM.InsertQuarter();
 			gM.InsertQuarter();
 			Assert.AreEqual(gM.GetBallCount(), (uint)5);
@@ -215,7 +215,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			var gumballs = 1;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumball Machine is {strState})";
-			GumballMachine gM = new GumballMachine(2);
+			var gM = new GumballMachine(2);
 			gM.InsertQuarter();
 			gM.TurnCrank();
 			Assert.AreEqual(gM.GetBallCount(), (uint)1);
@@ -228,7 +228,7 @@ namespace task1Tests.GumballMachineWithState
 			var strState = "sold out";
 			var gumballs = 0;
 			var testStr = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 (with state)Inventory: {gumballs} gumballs Machine is {strState})";
-			GumballMachine gM = new GumballMachine(1);
+			var gM = new GumballMachine(1);
 			gM.InsertQuarter();
 			gM.TurnCrank();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);

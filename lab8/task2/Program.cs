@@ -1,22 +1,22 @@
 ﻿using System;
 using task1.GumballMachineWithState;
 
-namespace task1
+namespace task2
 {
-    class Program
-    {
+	class Program
+	{
 		static void TestGumballMachineWithState()
 		{
-			IGumballMachineController m = new GumballMachine(5);
+			GumballMachine m = new GumballMachine(5);
 			TestGumballMachine(m);
 		}
 
 		static void Main(string[] args)
-        {
+		{
 			TestGumballMachineWithState();
 		}
 
-		static void TestGumballMachine(IGumballMachineController m)
+		static void TestGumballMachine(GumballMachine m)
 		{
 			Console.WriteLine(m.ToString());
 
@@ -50,6 +50,4 @@ namespace task1
 			Console.WriteLine(m.ToString());
 		}
 	}
-
-
 }

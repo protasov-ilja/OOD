@@ -16,8 +16,4 @@
     <ProjectReference Include="..\task1\task1.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="GumballMachineWithState\States\" />
-  </ItemGroup>
-
 </Project>
