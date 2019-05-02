@@ -2,7 +2,7 @@
 
 namespace task1.GumballMachineWithState.States
 {
-	public class NoQuarterState : IState
+	public sealed class NoQuarterState : IState
 	{
 		private IGumballMachine _gumballMachine;
 

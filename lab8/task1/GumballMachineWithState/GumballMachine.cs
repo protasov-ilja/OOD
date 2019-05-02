@@ -3,7 +3,7 @@ using task1.GumballMachineWithState.States;
 
 namespace task1.GumballMachineWithState
 {
-	public class GumballMachine : IGumballMachine, IGumballMachineController
+	public sealed class GumballMachine : IGumballMachine, IGumballMachineClient
 	{
 		private SoldState _soldState;
 		private SoldOutState _soldOutState;

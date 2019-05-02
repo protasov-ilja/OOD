@@ -1,6 +1,6 @@
 ﻿namespace task1.GumballMachineWithState
 {
-	interface IGumballMachineController
+	public interface IGumballMachineClient
 	{
 		void EjectQuarter();
 		void InsertQuarter();

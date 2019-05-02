@@ -4,6 +4,7 @@
 	{
 		void ReleaseBall();
 		uint GetBallCount();
+
 		void SetSoldOutState();
 		void SetNoQuarterState();
 		void SetSoldState();
