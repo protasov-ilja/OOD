@@ -1,127 +1,163 @@
 ﻿using System;
+using task2.GumballMachineNaive.Enums;
+using task2.Utils;
+
 namespace task2.GumballMachineNaive
 {
-	public class GumballMachine
+	public sealed class GumballMachine : IGumballMachineClient
 	{
-		private uint m_count;   // Количество шариков
-		private State m_state = State.SoldOut;
+		private const uint MaxQuartersLimit = 5;
 
-		public enum State
-		{
-			SoldOut,		// Жвачка закончилась
-			NoQuarter,		// Нет монетки
-			HasQuarter,		// Есть монетка
-			Sold,			// Монетка выдана
-		};
+		private uint _count; 
+		private State _state = State.SoldOut;
+		private IQuartersController _quartersController;
 
-		public GumballMachine(uint count)
+		public GumballMachine(uint count = 0)
 		{
-			m_state = (count > 0 ? State.NoQuarter : State.SoldOut);
-			m_count = count;
+			_quartersController = new QuartersController(MaxQuartersLimit);
+			_state = (count > 0 ? State.NoQuarter : State.SoldOut);
+			_count = count;
 		}
 
-		void InsertQuarter()
+		public uint GetBallCount()
 		{
-			switch (m_state)
+			return _count;
+		}
+
+		public uint GetQuartersCount()
+		{
+			return _quartersController.GetQuartersCount();
+		}
+
+		public void InsertQuarter()
+		{
+			try
 			{
-				case State.SoldOut:
-					Console.WriteLine("You can't insert a quarter, the machine is sold out");
-					break;
-				case State.NoQuarter:
-					Console.WriteLine("You inserted a quarter");
-					m_state = State.HasQuarter;
-					break;
-				case State.HasQuarter:
-					Console.WriteLine("You can't insert another quarter");
-					break;
-				case State.Sold:
-					Console.WriteLine("Please wait, we're already giving you a gumball");
-					break;
+				switch (_state)
+				{
+					case State.SoldOut:
+						Console.WriteLine("You can't insert a quarter, the machine is sold out");
+						break;
+					case State.NoQuarter:
+						_quartersController.InsertQuarter();
+						Console.WriteLine("You inserted a quarter");
+						_state = State.HasQuarter;
+						break;
+					case State.HasQuarter:
+						_quartersController.InsertQuarter();
+						Console.WriteLine("You inserted a new quarter");
+						break;
+					case State.Sold:
+						Console.WriteLine("Please wait, we're already giving you a gumball");
+						break;
+				}
+			}
+			catch (ArgumentOutOfRangeException ex)
+			{
+				Console.WriteLine(ex.Message);
 			}
 		}
 
-		void EjectQuarter()
+		public void EjectQuarters()
 		{
-			switch (m_state)
+			switch (_state)
 			{
-			case State.HasQuarter:
-				Console.WriteLine("Quarter returned");
-				m_state = State.NoQuarter;
-				break;
-			case State.NoQuarter:
-				Console.WriteLine("You haven't inserted a quarter");
-				break;
-			case State.Sold:
-				Console.WriteLine("Sorry you already turned the crank");
-				break;
-			case State.SoldOut:
-				Console.WriteLine("You can't eject, you haven't inserted a quarter yet");
-				break;
+				case State.HasQuarter:
+					Console.WriteLine("Quarter returned");
+					_quartersController.EjectQuarters();
+					_state = State.NoQuarter;
+					break;
+				case State.NoQuarter:
+					Console.WriteLine("You haven't inserted a quarter");
+					break;
+				case State.Sold:
+					Console.WriteLine("Sorry you already turned the crank");
+					break;
+				case State.SoldOut:
+					Console.WriteLine("You can't eject, you haven't inserted a quarter yet");
+					break;
 			}
 		}
 
 		public void TurnCrank()
 		{
-			switch (m_state)
+			switch (_state)
 			{
-			case State.SoldOut:
-				Console.WriteLine("You turned but there's no gumballs");
-				break;
-			case State.NoQuarter:
-				Console.WriteLine("You turned but there's no quarter");
-				break;
-			case State.HasQuarter:
-				Console.WriteLine("You turned...");
-				m_state = State.Sold;
-				Dispense();
-				break;
-			case State.Sold:
-				Console.WriteLine("Turning twice doesn't get you another gumball");
-				break;
+				case State.SoldOut:
+					Console.WriteLine("You turned but there's no gumballs");
+					break;
+				case State.NoQuarter:
+					Console.WriteLine("You turned but there's no quarter");
+					break;
+				case State.HasQuarter:
+					Console.WriteLine("You turned...");
+					_state = State.Sold;
+					Dispense();
+					break;
+				case State.Sold:
+					Console.WriteLine("Turning twice doesn't get you another gumball");
+					break;
 			}
 		}
 
 		public void Refill(uint numBalls)
 		{
-			m_count = numBalls;
-			m_state = numBalls > 0 ? State.NoQuarter : State.SoldOut;
+			_count += numBalls;
+			switch (_state)
+			{
+				case State.SoldOut:
+					if (numBalls > 0)
+					{
+						_state = State.NoQuarter;
+					}
+
+					break;
+			}
 		}
 
 		public override string ToString()
 		{
 			string state =
-				(m_state == State.SoldOut) ? "sold out" :
-				(m_state == State.NoQuarter) ? "waiting for quarter" :
-				(m_state == State.HasQuarter) ? "waiting for turn of crank"
+				(_state == State.SoldOut) ? "sold out" :
+				(_state == State.NoQuarter) ? "waiting for quarter" :
+				(_state == State.HasQuarter) ? "waiting for turn of crank"
 											   : "delivering a gumball";
-			var fmt = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 Inventory: { m_count } gumball{ (m_count != 1 ? "s" : "") } Machine is { state })";
+			var fmt = $"(Mighty Gumball, Inc.C++ - enabled Standing Gumball Model #2016 Inventory: { _count } gumball{ (_count != 1 ? "s" : "") } Machine is { state })";
 			return fmt;
 		}
 
-		void Dispense()
+		public void Dispense()
 		{
-			switch (m_state)
+			switch (_state)
 			{
-			case State.Sold:
-				Console.WriteLine("A gumball comes rolling out the slot");
-				--m_count;
-				if (m_count == 0)
-				{
-					Console.WriteLine("Oops, out of gumballs");
-					m_state = State.SoldOut;
-				}
-				else
-				{
-					m_state = State.NoQuarter;
-				}
-				break;
-			case State.NoQuarter:
-				Console.WriteLine("You need to pay first");
-				break;
-			case State.SoldOut:
-			case State.HasQuarter:
-				Console.WriteLine("No gumball dispensed");
-				break;
+				case State.Sold:
+					Console.WriteLine("A gumball comes rolling out the slot");
+					--_count;
+					_quartersController.UseQuarter();
+					if (_count == 0)
+					{
+						Console.WriteLine("Oops, out of gumballs");
+						if (_quartersController.HasQuarters())
+						{
+							_quartersController.EjectQuarters();
+							Console.WriteLine("returning unused quarters");
+						}
+						
+						_state = State.SoldOut;
+					}
+					else
+					{
+						_state = _quartersController.HasQuarters() ? State.HasQuarter : State.NoQuarter;
+					}
+
+					break;
+				case State.NoQuarter:
+					Console.WriteLine("You need to pay first");
+					break;
+				case State.SoldOut:
+				case State.HasQuarter:
+					Console.WriteLine("No gumball dispensed");
+					break;
 			}
 		}
 	}

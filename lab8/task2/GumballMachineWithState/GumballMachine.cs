@@ -1,19 +1,25 @@
 ﻿using System;
-using task1.GumballMachineWithState.States;
+using task2.GumballMachineWithState.States;
+using task2.Utils;
 
-namespace task1.GumballMachineWithState
+namespace task2.GumballMachineWithState
 {
-	public class GumballMachine : IGumballMachine
+	public sealed class GumballMachine : IGumballMachine, IGumballMachineClient
 	{
+		private const uint MaxQuartersLimit = 5;
+
 		private SoldState _soldState;
 		private SoldOutState _soldOutState;
 		private NoQuarterState _noQuarterState;
 		private HasQuarterState _hasQuarterState;
+
 		private IState _state;
 		private uint _count = 0;
+		private IQuartersController _quartersController;
 
 		public GumballMachine(uint numBalls = 0)
 		{
+			_quartersController = new QuartersController(MaxQuartersLimit);
 			_count = numBalls;
 			_soldState = new SoldState(this);
 			_soldOutState = new SoldOutState(this);
@@ -34,6 +40,11 @@ namespace task1.GumballMachineWithState
 				Console.WriteLine("A gumball comes rolling out the slot...");
 				--_count;
 			}
+		}
+
+		public void AddBalls(uint count)
+		{
+			_count += count;
 		}
 
 		public void SetHasQuarterState()
@@ -63,9 +74,9 @@ namespace task1.GumballMachineWithState
 			return fmt;
 		}
 
-		public void EjectQuarter()
+		public void EjectQuarters()
 		{
-			_state.EjectQuarter();
+			_state.EjectQuarters();
 		}
 
 		public void InsertQuarter()
@@ -77,6 +88,16 @@ namespace task1.GumballMachineWithState
 		{
 			_state.TurnCrank();
 			_state.Dispense();
+		}
+
+		public void Refill(uint numBalls)
+		{
+			_state.Refill(numBalls);
+		}
+
+		public IQuartersController GetQuartersController()
+		{
+			return _quartersController;
 		}
 	}
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace task1.GumballMachineWithState.States
+namespace task2.GumballMachineWithState.States
 {
-	public class SoldState : IState
+	public sealed class SoldState : IState
 	{
 		private IGumballMachine _gumballMachine;
 
@@ -14,18 +14,32 @@ namespace task1.GumballMachineWithState.States
 		public void Dispense()
 		{
 			_gumballMachine.ReleaseBall();
+			_gumballMachine.GetQuartersController().UseQuarter();
 			if (_gumballMachine.GetBallCount() == 0)
 			{
 				Console.WriteLine("Oops, out of gumballs");
+				if (_gumballMachine.GetQuartersController().HasQuarters())
+				{
+					Console.WriteLine("returning unused quarters");
+					_gumballMachine.GetQuartersController().EjectQuarters();
+				}
+
 				_gumballMachine.SetSoldOutState();
 			}
 			else
 			{
-				_gumballMachine.SetNoQuarterState();
+				if (_gumballMachine.GetQuartersController().HasQuarters())
+				{
+					_gumballMachine.SetHasQuarterState();
+				}
+				else
+				{
+					_gumballMachine.SetNoQuarterState();
+				}
 			}
 		}
 
-		public void EjectQuarter()
+		public void EjectQuarters()
 		{
 			Console.WriteLine("Sorry you already turned the crank");
 		}
@@ -43,6 +57,11 @@ namespace task1.GumballMachineWithState.States
 		public override string ToString()
 		{
 			return "delivering a gumball";
+		}
+
+		public void Refill(uint ballsCount)
+		{
+			Console.WriteLine("Can't Refill Gumballs in sold state");
 		}
 	}
 }

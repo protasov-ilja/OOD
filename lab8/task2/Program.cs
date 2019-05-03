@@ -1,53 +1,30 @@
 ﻿using System;
-using task1.GumballMachineWithState;
+using task2.Menu;
+using GumballMachineNaiv = task2.GumballMachineNaive.GumballMachine;
+using GumballMachineWithStates = task2.GumballMachineWithState.GumballMachine;
 
 namespace task2
 {
 	class Program
 	{
-		static void TestGumballMachineWithState()
-		{
-			GumballMachine m = new GumballMachine(5);
-			TestGumballMachine(m);
-		}
-
 		static void Main(string[] args)
 		{
 			TestGumballMachineWithState();
+			//TestGumballMachineNaive();
 		}
 
-		static void TestGumballMachine(GumballMachine m)
+		static void TestGumballMachineWithState()
 		{
-			Console.WriteLine(m.ToString());
+			var m = new GumballMachineWithStates(5);
+			Client client = new Client();
+			client.Run(Console.In, Console.Out, m);
+		}
 
-			m.InsertQuarter();
-			m.TurnCrank();
-
-			Console.WriteLine(m.ToString());
-
-			m.InsertQuarter();
-			m.EjectQuarter();
-			m.TurnCrank();
-
-			Console.WriteLine(m.ToString());
-
-			m.InsertQuarter();
-			m.TurnCrank();
-			m.InsertQuarter();
-			m.TurnCrank();
-			m.EjectQuarter();
-
-			Console.WriteLine(m.ToString());
-
-			m.InsertQuarter();
-			m.InsertQuarter();
-			m.TurnCrank();
-			m.InsertQuarter();
-			m.TurnCrank();
-			m.InsertQuarter();
-			m.TurnCrank();
-
-			Console.WriteLine(m.ToString());
+		static void TestGumballMachineNaive()
+		{
+			var m = new GumballMachineNaiv(5);
+			Client client = new Client();
+			client.Run(Console.In, Console.Out, m);
 		}
 	}
 }

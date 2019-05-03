@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace task1.GumballMachineWithState.States
+namespace task2.GumballMachineWithState.States
 {
-	public class NoQuarterState : IState
+	public sealed class NoQuarterState : IState
 	{
 		private IGumballMachine _gumballMachine;
 
@@ -16,15 +16,23 @@ namespace task1.GumballMachineWithState.States
 			Console.WriteLine("You need to pay first");
 		}
 
-		public void EjectQuarter()
+		public void EjectQuarters()
 		{
 			Console.WriteLine("You haven't inserted a quarter");
 		}
 
 		public void InsertQuarter()
 		{
-			Console.WriteLine("You inserted a quarter");
-			_gumballMachine.SetHasQuarterState();
+			try
+			{
+				_gumballMachine.GetQuartersController().InsertQuarter();
+				Console.WriteLine("You inserted a quarter");
+				_gumballMachine.SetHasQuarterState();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 		}
 
 		public void TurnCrank()
@@ -35,6 +43,11 @@ namespace task1.GumballMachineWithState.States
 		public override string ToString()
 		{
 			return "waiting for quarter";
+		}
+
+		public void Refill(uint ballsCount)
+		{
+			_gumballMachine.AddBalls(ballsCount);
 		}
 	}
 }

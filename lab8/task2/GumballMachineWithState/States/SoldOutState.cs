@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace task1.GumballMachineWithState.States
+namespace task2.GumballMachineWithState.States
 {
-	public class SoldOutState : IState
+	public sealed class SoldOutState : IState
 	{
 		private IGumballMachine _gumballMachine;
 
@@ -16,7 +16,7 @@ namespace task1.GumballMachineWithState.States
 			Console.WriteLine("No gumball dispensed");
 		}
 
-		public void EjectQuarter()
+		public void EjectQuarters()
 		{
 			Console.WriteLine("You can't eject, you haven't inserted a quarter yet");
 		}
@@ -35,5 +35,14 @@ namespace task1.GumballMachineWithState.States
 		{
 			return "sold out";
 		}
-}
+
+		public void Refill(uint ballsCount)
+		{
+			_gumballMachine.AddBalls(ballsCount);
+			if (_gumballMachine.GetBallCount() > 0)
+			{
+				_gumballMachine.SetNoQuarterState();
+			}	
+		}
+	}
 }
