@@ -1,11 +1,12 @@
 ﻿using task1.Composite;
+using task1.Composite.Styles;
 
 namespace task1.Shapes
 {
 	public class Ellipse : Shape
 	{
-		public Ellipse(Rect<float> frame, Style outlineStyle, Style fillStyle, float lineThickness)
-			: base(frame, outlineStyle, fillStyle, lineThickness)
+		public Ellipse(Rect<float> frame, IOutlineStyle outlineStyle, IStyle fillStyle)
+			: base(frame, outlineStyle, fillStyle)
 		{
 		}
 
@@ -13,7 +14,7 @@ namespace task1.Shapes
 		{
 			SetParametersInCanvas(canvas);
 
-			canvas.DrawEllipse(Frame.Left, Frame.Top, Frame.Width, Frame.Height);
+			canvas.DrawEllipse(Frame.Value.Left, Frame.Value.Top, Frame.Value.Width, Frame.Value.Height);
 
 			canvas.EndFill();
 		}

@@ -2,18 +2,19 @@
 using SFML.Graphics;
 using SFML.Window;
 using task1.Composite;
+using task1.Composite.Styles;
 using task1.Shapes;
 
 namespace task1
 {
     class Program
     {
-		private static string _apllicationName = "Painter";
-		private static uint _windowWidth = 800;
-		private static uint _windowHeight = 700;
+		private const string _apllicationName = "Painter";
+		private const uint _windowWidth = 800;
+		private const uint _windowHeight = 700;
 
-        static void Main(string[] args)
-        {
+		static void Main(string[] args)
+		{
 			try
 			{
 				var circle = new CircleShape(100f)
@@ -45,34 +46,34 @@ namespace task1
 
 		public static void CreatePicture(Slide slide)
 		{
-			var steamR = new Rect<float>(50, 400, 50, 50 );
-			var steam = new Ellipse(steamR, new Style(Color.Red, true), new Style(Color.Yellow, true), 2);
+			var steamR = new Rect<float>(50, 400, 50, 50);
+			var steam = new Ellipse(steamR, new OutlineStyle(Color.Red, true, 2), new FillStyle(Color.Yellow, true));
 
 			var pipeR = new Rect<float>(150, 350, 50, 150);
-			var pipe = new Rectangle(pipeR, new Style(Color.Blue, true), new Style(Color.Red, true), 10);
+			var pipe = new Rectangle(pipeR, new OutlineStyle(Color.Blue, true, 10), new FillStyle(Color.Red, true));
 
 			var roofR = new Rect<float>(200, 150, 300, 150);
-			var roof = new Triangle(roofR, new Style(Color.Yellow, true), new Style(Color.Blue, true), 1);
+			var roof = new Triangle(roofR, new OutlineStyle(Color.Yellow, true, 1), new FillStyle(Color.Blue, true));
 
 			var rectR = new Rect<float>(350, 150, 300, 250);
-			var rect = new Rectangle(rectR, new Style(Color.Cyan, true), new Style(Color.Magenta, true), 5);
+			var rect = new Rectangle(rectR, new OutlineStyle(Color.Cyan, true, 5), new FillStyle(Color.Magenta, true));
 
 			var windowR = new Rect<float>(400, 250, 100, 100);
-			var window = new Rectangle(windowR, new Style(Color.Black, true), new Style(Color.Blue, true), 1);
+			var window = new Rectangle(windowR, new OutlineStyle(Color.Black, true, 1), new FillStyle(Color.Blue, true));
 
 			var sunR = new Rect<float> { Top = 0, Left = 0, Width = 100, Height = 100 };
-			var sun = new Ellipse(sunR, new Style(Color.Red, true), new Style(Color.Green, true), 3);
+			var sun = new Ellipse(sunR, new OutlineStyle(Color.Red, true, 3), new FillStyle(Color.Green, true));
 
 			var group = new Group(steam);
 			group.InsertShape(pipe, 1);
 			group.InsertShape(roof, 2);
-			//group.FillStyle = new Style(Color.Black, false);
+			group.FillStyle.SetColor(Color.Black);
 
 			var house = new Group(group);
 			house.InsertShape(rect, 1);
 			house.InsertShape(window, 2);
 
-			// house.Frame = new Rect<float>(0, 0, 100,100);
+			house.Frame = new Rect<float>(0, 0, 100, 100);
 
 			slide.InsertShape(group, 0);
 			slide.InsertShape(sun, 1);

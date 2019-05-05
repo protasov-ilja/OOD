@@ -1,92 +1,49 @@
-﻿using SFML.Graphics;
-using task1.Composite;
+﻿using task1.Composite;
+using task1.Composite.Styles;
 
 namespace task1.Shapes
 {
 	public abstract class Shape : IComponent
 	{
-		private Style? _outlineStyle;
-		private Style? _fillStyle;
-		private float? _lineThickness;
-		private Rect<float> _frame;
+		private IOutlineStyle _outlineStyle;
+		private IStyle _fillStyle;
 
-		public IComponent Parent { get; set; }
-		public Rect<float> Frame
-		{
-			get => _frame;
+		public Rect<float>? Frame { get; set; }
+		public IStyle FillStyle { get; private set; }
+		public IOutlineStyle OutlineStyle { get; private set; }
 
-			set
-			{
-				_frame = value;
-				Parent?.RecalculateFrame();
-			}
-		}
-
-		public Style? FillStyle
-		{
-			get => _fillStyle;
-
-			set
-			{
-				_fillStyle = value;
-				Parent?.RecalculateFillStyle();
-			}
-		}
-
-		public Style? OutlineStyle
-		{
-			get => _outlineStyle;
-
-			set
-			{
-				_outlineStyle = value;
-				Parent?.RecalculateOutlineStyle();
-			}
-		}
-
-		public float? LineThickness
-		{
-			get => _lineThickness;
-
-			set
-			{
-				_lineThickness = value.Value;
-				Parent?.RecalculateLineThickness();
-			}
-		}
-
-		public Shape(Rect<float> frame, Style outlineStyle, Style fillStyle, float lineThickness)
+		public Shape(Rect<float> frame, IOutlineStyle outlineStyle, IStyle fillStyle)
 		{
 			Frame = frame;
 			OutlineStyle = outlineStyle;
 			FillStyle = fillStyle;
-			LineThickness = lineThickness;
 		}
 
 		public abstract void Draw(ICanvas canvas);
 
 		protected void SetParametersInCanvas(ICanvas canvas)
 		{
-			canvas.BeginFill((FillStyle.HasValue && FillStyle.Value.IsEnabled()) ? FillStyle.Value.Color : Color.Transparent);
-			canvas.SetLineColor((OutlineStyle.HasValue && OutlineStyle.Value.IsEnabled()) ? OutlineStyle.Value.Color : Color.Black);
-			canvas.SetLineThickness(LineThickness.HasValue ? LineThickness.Value : 1);
+			canvas.BeginFill(FillStyle.GetColor().Value);
+			canvas.SetLineColor(OutlineStyle.GetColor().Value);
+			canvas.SetLineThickness(OutlineStyle.LineThickness.Value);
+
+			//canvas.BeginFill((FillStyle.IsEnabled().Value) ? FillStyle.Value.Color : Color.Transparent);
+			//canvas.SetLineColor((OutlineStyle.HasValue && OutlineStyle.Value.IsEnabled()) ? OutlineStyle.Value.Color : Color.Black);
+			//canvas.SetLineThickness(LineThickness.HasValue ? LineThickness.Value : 1);
 		}
 
 		public int GetShapesCount()
 		{
-			return 1;
+			return 0;
 		}
 
 		public void InsertShape(IComponent shape, int position) { }
 
-		public void RecalculateFillStyle() { }
-
-		public void RecalculateFrame() { }
-
-		public void RecalculateLineThickness() { }
-
-		public void RecalculateOutlineStyle() { }
-
 		public void RemoveShapeAtIndex(int index) { }
+
+		public bool IsComposite()
+		{
+			return false;
+		}
 	}
 }

@@ -27,7 +27,7 @@ namespace task1.Shapes
 
 			Rect<T> other = (Rect<T>)obj;
 
-			return Left.Equals(other.Left) && Top.Equals(other.Top) 
+			return Left.Equals(other.Left) && Top.Equals(other.Top)
 				&& Width.Equals(other.Width) && Height.Equals(other.Height);
 		}
 

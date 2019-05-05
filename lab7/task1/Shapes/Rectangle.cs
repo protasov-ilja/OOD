@@ -1,20 +1,21 @@
 ﻿using task1.Composite;
+using task1.Composite.Styles;
 
 namespace task1.Shapes
 {
     public class Rectangle : Shape
     {
-		public Rectangle(Rect<float> frame, Style outlineStyle, Style fillStyle, float lineThickness)
-			: base(frame, outlineStyle, fillStyle, lineThickness)
+		public Rectangle(Rect<float> frame, IOutlineStyle outlineStyle, IStyle fillStyle)
+			: base(frame, outlineStyle, fillStyle)
 		{
 		}
 
 		public override void Draw(ICanvas canvas)
 		{
-			var leftTop = new Point(Frame.Left, Frame.Top);
-			var rightTop = new Point(Frame.Left + Frame.Width, Frame.Top);
-			var rightBottom = new Point(Frame.Left + Frame.Width, Frame.Top + Frame.Height);
-			var leftBottom = new Point(Frame.Left, Frame.Top + Frame.Height);
+			var leftTop = new Point(Frame.Value.Left, Frame.Value.Top);
+			var rightTop = new Point(Frame.Value.Left + Frame.Value.Width, Frame.Value.Top);
+			var rightBottom = new Point(Frame.Value.Left + Frame.Value.Width, Frame.Value.Top + Frame.Value.Height);
+			var leftBottom = new Point(Frame.Value.Left, Frame.Value.Top + Frame.Value.Height);
 
 			SetParametersInCanvas(canvas);
 
