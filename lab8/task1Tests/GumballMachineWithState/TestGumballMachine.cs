@@ -1,14 +1,11 @@
-﻿using System;
-using task1.GumballMachineWithState;
+﻿using task1.GumballMachineWithState;
+using task1Tests.GumballMachineWithState.Enums;
 
 namespace task1Tests.GumballMachineWithState
 { 
 	public class TestGumballMachine : IGumballMachine
 	{
-		public bool NoQuarterState { get; private set; } = false;
-		public bool HasQuarterState { get; private set; } = false;
-		public bool SoldOutState { get; private set; } = false;
-		public bool SoldState { get; private set; } = false;
+		public TestState State { get; private set; }
 
 		public uint BallsCount { get; set; }
 
@@ -24,22 +21,22 @@ namespace task1Tests.GumballMachineWithState
 
 		public void SetHasQuarterState()
 		{
-			HasQuarterState = true;
+			State = TestState.HasQuarter;
 		}
 
 		public void SetNoQuarterState()
 		{
-			NoQuarterState = true;
+			State = TestState.NoQuarter;
 		}
 
 		public void SetSoldOutState()
 		{
-			SoldOutState = true;
+			State = TestState.SoldOut;
 		}
 
 		public void SetSoldState()
 		{
-			SoldState = true;
+			State = TestState.Sold;
 		}
 	}
 }

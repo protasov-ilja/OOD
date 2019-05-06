@@ -18,16 +18,6 @@ namespace task2.Menu
 			_arguments = new List<string>(args.Split(separator: " "));
 		}
 
-		public int GetNextIntArg()
-		{
-			return int.Parse(_arguments[_index++]);
-		}
-
-		public float GetNextFloatArg()
-		{
-			return float.Parse(_arguments[_index++]);
-		}
-
 		public string GetNextStringArg()
 		{
 			return _arguments[_index++];

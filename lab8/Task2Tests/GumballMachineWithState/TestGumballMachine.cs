@@ -1,14 +1,12 @@
 ﻿using task2.GumballMachineWithState;
 using task2.Utils;
+using Task2Tests.Enums;
 
 namespace Task2Tests.GumballMachineWithState
 {
 	public class TestGumballMachine : IGumballMachine
 	{
-		public bool NoQuarterState { get; private set; } = false;
-		public bool HasQuarterState { get; private set; } = false;
-		public bool SoldOutState { get; private set; } = false;
-		public bool SoldState { get; private set; } = false;
+		public TestState State { get; private set; }
 
 		private IQuartersController _quarterController = new QuartersController(5);
 
@@ -36,22 +34,22 @@ namespace Task2Tests.GumballMachineWithState
 
 		public void SetHasQuarterState()
 		{
-			HasQuarterState = true;
+			State = TestState.HasQuarter;
 		}
 
 		public void SetNoQuarterState()
 		{
-			NoQuarterState = true;
+			State = TestState.NoQuarter;
 		}
 
 		public void SetSoldOutState()
 		{
-			SoldOutState = true;
+			State = TestState.SoldOut;
 		}
 
 		public void SetSoldState()
 		{
-			SoldState = true;
+			State = TestState.Sold;
 		}
 
 		public IQuartersController GetQuartersController()

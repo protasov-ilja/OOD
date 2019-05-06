@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using task1.GumballMachineWithState.States;
+using task1Tests.GumballMachineWithState.Enums;
 
 namespace task1Tests.GumballMachineWithState
 {
@@ -15,10 +16,7 @@ namespace task1Tests.GumballMachineWithState
 			var state = new SoldState(machine);
 			state.Dispense();
 			Assert.AreEqual((uint)0, machine.BallsCount);
-			Assert.IsTrue(machine.SoldOutState);
-			Assert.IsFalse(machine.HasQuarterState);
-			Assert.IsFalse(machine.NoQuarterState);
-			Assert.IsFalse(machine.SoldState);
+			Assert.AreEqual(machine.State, TestState.SoldOut);
 		}
 
 		[TestMethod]
@@ -30,10 +28,7 @@ namespace task1Tests.GumballMachineWithState
 			var state = new SoldState(machine);
 			state.Dispense();
 			Assert.AreEqual((uint)1, machine.BallsCount);
-			Assert.IsTrue(machine.NoQuarterState);
-			Assert.IsFalse(machine.HasQuarterState);
-			Assert.IsFalse(machine.SoldOutState);
-			Assert.IsFalse(machine.SoldState);
+			Assert.AreEqual(machine.State, TestState.NoQuarter);
 		}
 	}
 }

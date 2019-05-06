@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using task1.GumballMachineWithState.States;
+using task1Tests.GumballMachineWithState.Enums;
 
 namespace task1Tests.GumballMachineWithState
 {
@@ -12,10 +13,7 @@ namespace task1Tests.GumballMachineWithState
 			var machine = new TestGumballMachine();
 			var state = new NoQuarterState(machine);
 			state.InsertQuarter();
-			Assert.IsTrue(machine.HasQuarterState);
-			Assert.IsFalse(machine.NoQuarterState);
-			Assert.IsFalse(machine.SoldOutState);
-			Assert.IsFalse(machine.SoldState);
+			Assert.AreEqual(machine.State, TestState.HasQuarter);
 		}
 	}
 }
