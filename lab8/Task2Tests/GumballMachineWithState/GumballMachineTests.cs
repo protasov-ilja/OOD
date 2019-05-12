@@ -17,7 +17,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "sold out";
 			uint gumballs = 0;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine();
+			var gM = new GumballMachineContext();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 			Assert.AreEqual(gM.ToString(), testStr);
 		}
@@ -25,7 +25,7 @@ namespace Task2Tests.GumballMachineWithState
 		[TestMethod]
 		public void CanGetBallsCount()
 		{
-			var gM = new GumballMachine();
+			var gM = new GumballMachineContext();
 			Assert.AreEqual(gM.GetBallCount(), (uint)0);
 		}
 
@@ -35,7 +35,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			uint gumballs = 1;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(gumballs);
+			var gM = new GumballMachineContext(gumballs);
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
 		}
@@ -46,7 +46,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			uint gumballs = 2;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(gumballs);
+			var gM = new GumballMachineContext(gumballs);
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
 		}
@@ -57,7 +57,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "sold out";
 			uint gumballs = 0;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(gumballs);
+			var gM = new GumballMachineContext(gumballs);
 			gM.Refill(0);
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -69,7 +69,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			uint gumballs = 1;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine();
+			var gM = new GumballMachineContext();
 			gM.Refill(gumballs);
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -81,7 +81,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "sold out";
 			uint gumballs = 0;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine();
+			var gM = new GumballMachineContext();
 			gM.InsertQuarter();
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -93,7 +93,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "sold out";
 			uint gumballs = 0;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine();
+			var gM = new GumballMachineContext();
 			gM.EjectQuarters();
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -105,7 +105,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			uint gumballs = 1;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(gumballs);
+			var gM = new GumballMachineContext(gumballs);
 			gM.Refill(0);
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -117,7 +117,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			uint gumballs = 2;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(1);
+			var gM = new GumballMachineContext(1);
 			gM.Refill(1);
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -129,7 +129,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			uint gumballs = 2;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(gumballs);
+			var gM = new GumballMachineContext(gumballs);
 			gM.EjectQuarters();
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -141,7 +141,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for turn of crank";
 			uint gumballs = 1;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(gumballs);
+			var gM = new GumballMachineContext(gumballs);
 			gM.InsertQuarter();
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
 			Assert.AreEqual(gM.ToString(), testStr);
@@ -153,7 +153,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for turn of crank";
 			uint gumballs = 1;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(gumballs);
+			var gM = new GumballMachineContext(gumballs);
 			gM.InsertQuarter();
 			gM.InsertQuarter();
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
@@ -166,7 +166,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			uint gumballs = 1;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(gumballs);
+			var gM = new GumballMachineContext(gumballs);
 			gM.InsertQuarter();
 			gM.InsertQuarter();
 			gM.EjectQuarters();
@@ -178,7 +178,7 @@ namespace Task2Tests.GumballMachineWithState
 		public void CantInsertMoreThan5Quarters()
 		{
 			uint gumballs = 1;
-			var gM = new GumballMachine(gumballs);
+			var gM = new GumballMachineContext(gumballs);
 			gM.InsertQuarter();
 			gM.InsertQuarter();
 			gM.InsertQuarter();
@@ -194,7 +194,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for turn of crank";
 			uint gumballs = 2;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(1);
+			var gM = new GumballMachineContext(1);
 			gM.InsertQuarter();
 			gM.Refill(1);
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
@@ -207,7 +207,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for quarter";
 			uint gumballs = 1;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(2);
+			var gM = new GumballMachineContext(2);
 			gM.InsertQuarter();
 			gM.TurnCrank();
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
@@ -220,7 +220,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "sold out";
 			uint gumballs = 0;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(1);
+			var gM = new GumballMachineContext(1);
 			gM.InsertQuarter();
 			gM.TurnCrank();
 			Assert.AreEqual(gM.GetBallCount(), gumballs);
@@ -233,7 +233,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "waiting for turn of crank";
 			uint gumballs = 1;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(2);
+			var gM = new GumballMachineContext(2);
 			gM.InsertQuarter();
 			gM.InsertQuarter();
 			gM.TurnCrank();
@@ -247,7 +247,7 @@ namespace Task2Tests.GumballMachineWithState
 			var strState = "sold out";
 			uint gumballs = 0;
 			var testStr = GetGumballMachineTestParsedString(gumballs, strState);
-			var gM = new GumballMachine(1);
+			var gM = new GumballMachineContext(1);
 			gM.InsertQuarter();
 			gM.InsertQuarter();
 			gM.TurnCrank();

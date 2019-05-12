@@ -4,7 +4,7 @@ using task2.Utils;
 
 namespace task2.GumballMachineNaive
 {
-	public sealed class GumballMachine : IGumballMachineClient
+	public sealed class GumballMachine : IGumballMachine
 	{
 		private const uint MaxQuartersLimit = 5;
 

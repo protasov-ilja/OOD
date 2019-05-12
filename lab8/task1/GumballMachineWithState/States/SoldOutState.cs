@@ -4,9 +4,9 @@ namespace task1.GumballMachineWithState.States
 {
 	public sealed class SoldOutState : IState
 	{
-		private IGumballMachine _gumballMachine;
+		private IGumballMachineContext _gumballMachine;
 
-		public SoldOutState(IGumballMachine gumballMachine)
+		public SoldOutState(IGumballMachineContext gumballMachine)
 		{
 			_gumballMachine = gumballMachine;
 		}

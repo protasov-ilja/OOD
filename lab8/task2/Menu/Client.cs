@@ -13,7 +13,7 @@ namespace task2.Menu
 		private const string TurnCrankCommand = "turn";
 
 		private Menu _menu = new Menu();
-		private IGumballMachineClient _gumballMachine;
+		private IGumballMachine _gumballMachine;
 		private TextWriter _out;
 
 		public Client()
@@ -26,7 +26,7 @@ namespace task2.Menu
 			_menu.AddItem(ExitCommand, "exit programm", Exit);
 		}
 
-		public void Run(TextReader inputData, TextWriter outputData, IGumballMachineClient machine)
+		public void Run(TextReader inputData, TextWriter outputData, IGumballMachine machine)
 		{
 			_gumballMachine = machine;
 			_out = outputData;

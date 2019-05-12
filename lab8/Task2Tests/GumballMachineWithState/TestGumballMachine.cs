@@ -4,7 +4,7 @@ using Task2Tests.Enums;
 
 namespace Task2Tests.GumballMachineWithState
 {
-	public class TestGumballMachine : IGumballMachine
+	public class TestGumballMachine : IGumballMachineContext
 	{
 		public TestState State { get; private set; }
 
@@ -55,6 +55,26 @@ namespace Task2Tests.GumballMachineWithState
 		public IQuartersController GetQuartersController()
 		{
 			return _quarterController;
+		}
+
+		public void EjectQuarters()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void InsertQuarter()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void TurnCrank()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void Refill(uint numBalls)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

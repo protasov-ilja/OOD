@@ -2,8 +2,13 @@
 
 namespace task2.GumballMachineWithState
 {
-	public interface IGumballMachine
+	public interface IGumballMachineContext
 	{
+		void EjectQuarters();
+		void InsertQuarter();
+		void TurnCrank();
+		void Refill(uint numBalls);
+
 		void ReleaseBall();
 		uint GetBallCount();
 		void AddBalls(uint count);

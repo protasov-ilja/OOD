@@ -7,7 +7,7 @@ namespace task1
     {
 		static void TestGumballMachineWithState()
 		{
-			IGumballMachineClient m = new GumballMachine(5);
+			IGumballMachine m = new GumballMachine(5);
 			TestGumballMachine(m);
 		}
 
@@ -16,7 +16,7 @@ namespace task1
 			TestGumballMachineWithState();
 		}
 
-		static void TestGumballMachine(IGumballMachineClient m)
+		static void TestGumballMachine(IGumballMachine m)
 		{
 			Console.WriteLine(m.ToString());
 

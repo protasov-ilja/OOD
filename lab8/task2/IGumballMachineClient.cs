@@ -1,6 +1,6 @@
 ﻿namespace task2
 {
-	public interface IGumballMachineClient
+	public interface IGumballMachine
 	{
 		void EjectQuarters();
 		void InsertQuarter();
