@@ -5,7 +5,7 @@ namespace task2.Utils
 	public sealed class QuartersController : IQuartersController
 	{
 		private uint _quartersAmount = 0;
-		private uint _quartersMaxLimit;
+		private readonly uint _quartersMaxLimit;
 
 		public QuartersController(uint maxAmountOfQuarters)
 		{

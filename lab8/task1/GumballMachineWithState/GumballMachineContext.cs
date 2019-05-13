@@ -5,10 +5,11 @@ namespace task1.GumballMachineWithState
 {
 	public sealed class GumballMachineContext : IGumballMachineContext
 	{
-		private SoldState _soldState;
-		private SoldOutState _soldOutState;
-		private NoQuarterState _noQuarterState;
-		private HasQuarterState _hasQuarterState;
+		private readonly SoldState _soldState;
+		private readonly SoldOutState _soldOutState;
+		private readonly NoQuarterState _noQuarterState;
+		private readonly HasQuarterState _hasQuarterState;
+
 		private IState _state;
 		private uint _count = 0;
 

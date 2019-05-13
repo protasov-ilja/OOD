@@ -13,7 +13,7 @@ namespace task1Tests.GumballMachineWithState
 			var machine = new TestGumballMachine();
 			var state = new HasQuarterState(machine);
 			state.EjectQuarter();
-			Assert.AreEqual(machine.State, TestState.NoQuarter);
+			Assert.AreEqual((Enums.State)machine.State, Enums.State.NoQuarter);
 		}
 
 		[TestMethod]
@@ -22,7 +22,7 @@ namespace task1Tests.GumballMachineWithState
 			var machine = new TestGumballMachine();
 			var state = new HasQuarterState(machine);
 			state.TurnCrank();
-			Assert.AreEqual(machine.State, TestState.Sold);
+			Assert.AreEqual((Enums.State)machine.State, Enums.State.Sold);
 		}
 	}
 }

@@ -16,7 +16,7 @@ namespace task1Tests.GumballMachineWithState
 			var state = new SoldState(machine);
 			state.Dispense();
 			Assert.AreEqual((uint)0, machine.BallsCount);
-			Assert.AreEqual(machine.State, TestState.SoldOut);
+			Assert.AreEqual((Enums.State)machine.State, Enums.State.SoldOut);
 		}
 
 		[TestMethod]
@@ -28,7 +28,7 @@ namespace task1Tests.GumballMachineWithState
 			var state = new SoldState(machine);
 			state.Dispense();
 			Assert.AreEqual((uint)1, machine.BallsCount);
-			Assert.AreEqual(machine.State, TestState.NoQuarter);
+			Assert.AreEqual((Enums.State)machine.State, Enums.State.NoQuarter);
 		}
 	}
 }

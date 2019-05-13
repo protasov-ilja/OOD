@@ -2,7 +2,7 @@
 {
 	public sealed class GumballMachine : IGumballMachine
 	{
-		private IGumballMachineContext _gumballMachineContext;
+		private readonly IGumballMachineContext _gumballMachineContext;
 
 		public GumballMachine(uint numBalls = 0)
 		{

@@ -4,7 +4,7 @@ namespace task1.GumballMachineWithState.States
 {
 	public sealed class NoQuarterState : IState
 	{
-		private IGumballMachineContext _gumballMachine;
+		private readonly IGumballMachineContext _gumballMachine;
 
 		public NoQuarterState(IGumballMachineContext gumballMachine)
 		{

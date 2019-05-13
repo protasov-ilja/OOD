@@ -8,14 +8,14 @@ namespace task2.GumballMachineWithState
 	{
 		private const uint MaxQuartersLimit = 5;
 
-		private SoldState _soldState;
-		private SoldOutState _soldOutState;
-		private NoQuarterState _noQuarterState;
-		private HasQuarterState _hasQuarterState;
+		private readonly SoldState _soldState;
+		private readonly SoldOutState _soldOutState;
+		private readonly NoQuarterState _noQuarterState;
+		private readonly HasQuarterState _hasQuarterState;
 
 		private IState _state;
 		private uint _count = 0;
-		private IQuartersController _quartersController;
+		private readonly IQuartersController _quartersController;
 
 		public GumballMachineContext(uint numBalls = 0)
 		{

@@ -1,10 +1,10 @@
 ﻿namespace task1Tests.GumballMachineWithState.Enums
 {
-	public enum TestState
+	public enum State
 	{
+		HasQuarter,
 		SoldOut,
 		NoQuarter,
-		HasQuarter,
 		Sold
 	};
 }

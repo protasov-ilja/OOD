@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using task2.GumballMachineNaive.Enums;
 using task2.GumballMachineWithState.States;
-using Task2Tests.Enums;
 
 namespace Task2Tests.GumballMachineWithState
 {
@@ -17,7 +17,7 @@ namespace Task2Tests.GumballMachineWithState
 				var state = new NoQuarterState(machine);
 				state.Refill(1);
 				Assert.AreEqual(machine.GetBallCount(), (uint)2);
-				Assert.AreEqual(machine.State, TestState.NoQuarter);
+				Assert.AreEqual(machine.State, State.NoQuarter);
 			}
 
 			{
@@ -27,7 +27,7 @@ namespace Task2Tests.GumballMachineWithState
 				var state = new NoQuarterState(machine);
 				state.Refill(0);
 				Assert.AreEqual(machine.GetBallCount(), (uint)1);
-				Assert.AreEqual(machine.State, TestState.NoQuarter);
+				Assert.AreEqual(machine.State, State.NoQuarter);
 			}
 		}
 
@@ -38,7 +38,7 @@ namespace Task2Tests.GumballMachineWithState
 			var state = new NoQuarterState(machine);
 			state.InsertQuarter();
 			Assert.AreEqual(machine.GetQuartersController().GetQuartersCount(), (uint)1);
-			Assert.AreEqual(machine.State, TestState.HasQuarter);
+			Assert.AreEqual(machine.State, State.HasQuarter);
 		}
 	}
 }

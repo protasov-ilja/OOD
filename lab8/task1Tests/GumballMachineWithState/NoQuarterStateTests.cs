@@ -13,7 +13,7 @@ namespace task1Tests.GumballMachineWithState
 			var machine = new TestGumballMachine();
 			var state = new NoQuarterState(machine);
 			state.InsertQuarter();
-			Assert.AreEqual(machine.State, TestState.HasQuarter);
+			Assert.AreEqual((Enums.State)machine.State, Enums.State.HasQuarter);
 		}
 	}
 }
