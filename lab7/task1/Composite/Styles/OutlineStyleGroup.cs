@@ -1,5 +1,4 @@
 ﻿using SFML.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,47 +8,9 @@ namespace task1.Composite.Styles
 	{
 		private readonly IEnumerable<IOutlineStyle> _styles;
 
-		public float? LineThickness
-		{
-			get
-			{
-				try
-				{
-					var firstStyle = Enumerable.First(_styles);
-					if (firstStyle != null)
-					{
-						var firstLineThickness = firstStyle.LineThickness;
-						foreach (var style in _styles)
-						{
-							if (firstLineThickness != style.LineThickness)
-							{
-								return null;
-							}
-						}
-
-						return firstLineThickness;
-					}
-
-					return null;
-				}
-				catch (Exception ex)
-				{
-					return null;
-				}
-			}
-
-			set
-			{
-				foreach (var style in _styles)
-				{
-					style.LineThickness = value;
-				}
-			}
-		}
-
 		public Color? GetColor()
 		{
-			try
+			if (_styles.Count() != 0)
 			{
 				var firstStyle = Enumerable.First(_styles);
 				if (firstStyle != null)
@@ -65,13 +26,9 @@ namespace task1.Composite.Styles
 
 					return firstColor;
 				}
+			}
 
-				return null;
-			}
-			catch (Exception ex)
-			{
-				return null;
-			}
+			return null;
 		}
 
 		public void SetColor(Color color)
@@ -97,7 +54,7 @@ namespace task1.Composite.Styles
 
 		public bool? IsEnabled()
 		{
-			try
+			if (_styles.Count() != 0)
 			{
 				var firstStyle = Enumerable.First(_styles);
 				if (firstStyle != null)
@@ -113,18 +70,40 @@ namespace task1.Composite.Styles
 
 					return firstState;
 				}
+			}
 
-				return null;
-			}
-			catch (Exception ex)
-			{
-				return null;
-			}
+			return null;
 		}
 
-		public bool IsComposite()
+		public float? GetLineThickness()
 		{
-			return true;
+			if (_styles.Count() != 0)
+			{
+				var firstStyle = Enumerable.First(_styles);
+				if (firstStyle != null)
+				{
+					var firstLineThickness = firstStyle.GetLineThickness();
+					foreach (var style in _styles)
+					{
+						if (firstLineThickness != style.GetLineThickness())
+						{
+							return null;
+						}
+					}
+
+					return firstLineThickness;
+				}
+			}
+
+			return null;
+		}
+
+		public void SetLineThickness(float thickness)
+		{
+			foreach (var style in _styles)
+			{
+				style.SetLineThickness(thickness);
+			}
 		}
 	}
 }

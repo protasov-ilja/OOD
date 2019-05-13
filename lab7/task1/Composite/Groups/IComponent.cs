@@ -6,7 +6,8 @@ namespace task1.Composite
 	{
 		void InsertShape(IComponent shape, int position);
 		void RemoveShapeAtIndex(int index);
+		IComponent GetComponentByIndex(int index);
 		int GetShapesCount();
-		bool IsComposite();
+		Group GetGroup();
 	}
 }

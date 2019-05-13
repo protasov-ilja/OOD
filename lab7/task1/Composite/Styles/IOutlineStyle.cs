@@ -2,6 +2,7 @@
 {
 	public interface IOutlineStyle : IStyle
 	{
-		float? LineThickness { get; set; }
+		float? GetLineThickness();
+		void SetLineThickness(float thickness);
 	}
 }

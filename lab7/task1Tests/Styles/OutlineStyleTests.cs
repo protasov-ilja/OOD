@@ -13,9 +13,8 @@ namespace task1Tests.Styles
 			var s = new OutlineStyle(Color.Red, true, 2);
 
 			Assert.AreEqual(s.GetColor(), Color.Red);
-			Assert.AreEqual(s.LineThickness, 2);
+			Assert.AreEqual(s.GetLineThickness(), 2);
 			Assert.IsTrue(s.IsEnabled().Value);
-			Assert.IsFalse(s.IsComposite());
 		}
 
 		[TestMethod]
@@ -24,9 +23,8 @@ namespace task1Tests.Styles
 			var s = new OutlineStyle(Color.Red, true);
 
 			Assert.AreEqual(s.GetColor(), Color.Red);
-			Assert.AreEqual(s.LineThickness, 1);
+			Assert.AreEqual(s.GetLineThickness(), 1);
 			Assert.IsTrue(s.IsEnabled().Value);
-			Assert.IsFalse(s.IsComposite());
 		}
 
 		[TestMethod]
@@ -35,9 +33,8 @@ namespace task1Tests.Styles
 			var s = new OutlineStyle(Color.Red, false);
 
 			Assert.AreEqual(s.GetColor(), Color.Transparent);
-			Assert.AreEqual(s.LineThickness, 1);
+			Assert.AreEqual(s.GetLineThickness(), 1);
 			Assert.IsFalse(s.IsEnabled().Value);
-			Assert.IsFalse(s.IsComposite());
 		}
 
 		[TestMethod]
@@ -46,9 +43,8 @@ namespace task1Tests.Styles
 			var s = new OutlineStyle(Color.Red, true);
 
 			Assert.AreEqual(s.GetColor(), Color.Red);
-			Assert.AreEqual(s.LineThickness, 1);
+			Assert.AreEqual(s.GetLineThickness(), 1);
 			Assert.IsTrue(s.IsEnabled().Value);
-			Assert.IsFalse(s.IsComposite());
 
 			s.SetColor(Color.Green);
 			Assert.AreEqual(s.GetColor(), Color.Green);
@@ -61,9 +57,8 @@ namespace task1Tests.Styles
 			var s = new OutlineStyle(Color.Red, false);
 
 			Assert.AreEqual(s.GetColor(), Color.Transparent);
-			Assert.AreEqual(s.LineThickness, 1);
+			Assert.AreEqual(s.GetLineThickness(), 1);
 			Assert.IsFalse(s.IsEnabled().Value);
-			Assert.IsFalse(s.IsComposite());
 
 			s.Enable(true);
 			Assert.AreEqual(s.GetColor(), Color.Red);

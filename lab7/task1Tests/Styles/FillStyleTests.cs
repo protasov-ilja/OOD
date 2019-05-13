@@ -14,7 +14,6 @@ namespace task1Tests
 
 			Assert.AreEqual(s.GetColor(), Color.Red);
 			Assert.IsTrue(s.IsEnabled().Value);
-			Assert.IsFalse(s.IsComposite());
 		}
 
 		[TestMethod]
@@ -24,7 +23,6 @@ namespace task1Tests
 
 			Assert.AreEqual(s.GetColor(), Color.Transparent);
 			Assert.IsFalse(s.IsEnabled().Value);
-			Assert.IsFalse(s.IsComposite());
 		}
 
 		[TestMethod]
@@ -34,7 +32,6 @@ namespace task1Tests
 
 			Assert.AreEqual(s.GetColor(), Color.Red);
 			Assert.IsTrue(s.IsEnabled().Value);
-			Assert.IsFalse(s.IsComposite());
 
 			s.SetColor(Color.Green);
 			Assert.AreEqual(s.GetColor(), Color.Green);
@@ -48,7 +45,6 @@ namespace task1Tests
 
 			Assert.AreEqual(s.GetColor(), Color.Transparent);
 			Assert.IsFalse(s.IsEnabled().Value);
-			Assert.IsFalse(s.IsComposite());
 
 			s.Enable(true);
 			Assert.AreEqual(s.GetColor(), Color.Red);

@@ -12,9 +12,9 @@ namespace task1.Shapes
 
 		public override void Draw(ICanvas canvas)
 		{
-			var v1 = new Point(Frame.Value.Left + Frame.Value.Width / 2, Frame.Value.Top);
-			var v2 = new Point(Frame.Value.Left + Frame.Value.Width, Frame.Value.Top + Frame.Value.Height);
-			var v3 = new Point(Frame.Value.Left, Frame.Value.Top + Frame.Value.Height);
+			var v1 = new Point(GetFrame().Value.Left + GetFrame().Value.Width / 2, GetFrame().Value.Top);
+			var v2 = new Point(GetFrame().Value.Left + GetFrame().Value.Width, GetFrame().Value.Top + GetFrame().Value.Height);
+			var v3 = new Point(GetFrame().Value.Left, GetFrame().Value.Top + GetFrame().Value.Height);
 
 			SetParametersInCanvas(canvas);
 

@@ -11,7 +11,7 @@ namespace task1.Composite.Styles
 
 		public Color? GetColor()
 		{
-			try
+			if (_styles.Count() != 0)
 			{
 				var firstStyle = Enumerable.First(_styles);
 				if (firstStyle != null)
@@ -27,13 +27,9 @@ namespace task1.Composite.Styles
 
 					return firstColor;
 				}
+			}
 
-				return null;
-			}
-			catch (Exception ex)
-			{
-				return null;
-			}
+			return null;
 		}
 
 		public void SetColor(Color color)
@@ -57,14 +53,9 @@ namespace task1.Composite.Styles
 			}
 		}
 
-		public bool IsComposite()
-		{
-			return true;
-		}
-
 		public bool? IsEnabled()
 		{
-			try
+			if (_styles.Count() != 0)
 			{
 				var firstStyle = Enumerable.First(_styles);
 				if (firstStyle != null)
@@ -80,13 +71,9 @@ namespace task1.Composite.Styles
 
 					return firstState;
 				}
+			}
 
-				return null;
-			}
-			catch (Exception ex)
-			{
-				return null;
-			}
+			return null;
 		}
 	}
 }

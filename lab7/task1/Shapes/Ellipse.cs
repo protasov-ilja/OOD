@@ -14,7 +14,7 @@ namespace task1.Shapes
 		{
 			SetParametersInCanvas(canvas);
 
-			canvas.DrawEllipse(Frame.Value.Left, Frame.Value.Top, Frame.Value.Width, Frame.Value.Height);
+			canvas.DrawEllipse(GetFrame().Value.Left, GetFrame().Value.Top, GetFrame().Value.Width, GetFrame().Value.Height);
 
 			canvas.EndFill();
 		}

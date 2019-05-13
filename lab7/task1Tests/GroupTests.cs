@@ -22,8 +22,8 @@ namespace task1Tests
 			var rect = new Rectangle(f, oStyle, fStyle);
 			Assert.AreEqual(rect.OutlineStyle, oStyle);
 			Assert.AreEqual(rect.FillStyle, fStyle);
-			Assert.AreEqual(rect.Frame, f);
-			Assert.IsFalse(rect.IsComposite());
+			Assert.AreEqual(rect.GetFrame(), f);
+			Assert.IsTrue(rect.GetGroup() == null);
 		}
 
 		[TestMethod]
@@ -38,10 +38,10 @@ namespace task1Tests
 			var rect = new Rectangle(f, oStyle, fStyle);
 			Assert.AreEqual(rect.OutlineStyle, oStyle);
 			Assert.AreEqual(rect.FillStyle, fStyle);
-			Assert.AreEqual(rect.Frame, f);
+			Assert.AreEqual(rect.GetFrame(), f);
 
-			rect.Frame = newF;
-			Assert.AreEqual(rect.Frame, newF);
+			rect.SetFrame(newF);
+			Assert.AreEqual(rect.GetFrame(), newF);
 		}
 
 		[TestMethod]
@@ -56,7 +56,7 @@ namespace task1Tests
 			var rect = new Rectangle(f, oStyle, fStyle);
 			Assert.AreEqual(rect.OutlineStyle, oStyle);
 			Assert.AreEqual(rect.FillStyle, fStyle);
-			Assert.AreEqual(rect.Frame, f);
+			Assert.AreEqual(rect.GetFrame(), f);
 
 			rect.FillStyle.SetColor(newColor);
 			Assert.AreEqual(rect.FillStyle.GetColor(), newColor);
@@ -74,7 +74,7 @@ namespace task1Tests
 			var rect = new Rectangle(f, oStyle, fStyle);
 			Assert.AreEqual(rect.OutlineStyle, oStyle);
 			Assert.AreEqual(rect.FillStyle, fStyle);
-			Assert.AreEqual(rect.Frame, f);
+			Assert.AreEqual(rect.GetFrame(), f);
 
 			rect.OutlineStyle.SetColor(newColor);
 			Assert.AreEqual(rect.OutlineStyle.GetColor(), newColor);
@@ -90,13 +90,13 @@ namespace task1Tests
 			var f = new Rect<float> { Top = 1, Left = 1, Width = 10, Height = 10 };
 
 			var rect = new Rectangle(f, oStyle, fStyle);
-			Assert.AreEqual(rect.OutlineStyle.LineThickness, 1);
+			Assert.AreEqual(rect.OutlineStyle.GetLineThickness(), 1);
 			Assert.AreEqual(rect.OutlineStyle, oStyle);
 			Assert.AreEqual(rect.FillStyle, fStyle);
-			Assert.AreEqual(rect.Frame, f);
+			Assert.AreEqual(rect.GetFrame(), f);
 
-			rect.OutlineStyle.LineThickness = newLT;
-			Assert.AreEqual(rect.OutlineStyle.LineThickness, newLT);
+			rect.OutlineStyle.SetLineThickness(newLT);
+			Assert.AreEqual(rect.OutlineStyle.GetLineThickness(), newLT);
 		}
 
 		[TestMethod]
@@ -110,10 +110,10 @@ namespace task1Tests
 
 			var group = new Group(rect);
 
-			Assert.AreEqual(1, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(1, group.OutlineStyle.GetLineThickness());
 			Assert.AreEqual(oStyle.GetColor(), group.OutlineStyle.GetColor());
 			Assert.AreEqual(oStyle.IsEnabled(), group.OutlineStyle.IsEnabled());
-			Assert.AreEqual(oStyle.LineThickness, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(oStyle.GetLineThickness(), group.OutlineStyle.GetLineThickness());
 			Assert.AreEqual(fStyle.GetColor(), group.FillStyle.GetColor());
 			Assert.AreEqual(fStyle.IsEnabled(), group.FillStyle.IsEnabled());
 
@@ -122,7 +122,7 @@ namespace task1Tests
 			Assert.AreEqual(1, slide.ShapeCount);
 			Assert.AreEqual(rect.OutlineStyle.GetColor(), group.OutlineStyle.GetColor());
 			Assert.AreEqual(rect.OutlineStyle.IsEnabled(), group.OutlineStyle.IsEnabled());
-			Assert.AreEqual(rect.OutlineStyle.LineThickness, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(rect.OutlineStyle.GetLineThickness(), group.OutlineStyle.GetLineThickness());
 			Assert.AreEqual(rect.FillStyle.GetColor(), group.FillStyle.GetColor());
 			Assert.AreEqual(rect.FillStyle.IsEnabled(), group.FillStyle.IsEnabled());
 		}
@@ -145,10 +145,10 @@ namespace task1Tests
 			Assert.AreEqual(group.GetShapesCount(), 2);
 			Assert.AreEqual(oStyle.GetColor(), group.OutlineStyle.GetColor());
 			Assert.AreEqual(oStyle.IsEnabled(), group.OutlineStyle.IsEnabled());
-			Assert.AreEqual(oStyle.LineThickness, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(oStyle.GetLineThickness(), group.OutlineStyle.GetLineThickness());
 			Assert.AreEqual(fStyle.GetColor(), group.FillStyle.GetColor());
 			Assert.AreEqual(fStyle.IsEnabled(), group.FillStyle.IsEnabled());
-			Assert.AreEqual(2, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(2, group.OutlineStyle.GetLineThickness());
 		}
 
 		[TestMethod]
@@ -205,7 +205,7 @@ namespace task1Tests
 			group.RemoveShapeAtIndex(0);
 
 			Assert.AreEqual(group.GetShapesCount(), 0);
-			Assert.AreEqual(null, group.Frame);
+			Assert.AreEqual(null, group.GetFrame());
 		}
 
 		[TestMethod]
@@ -220,9 +220,9 @@ namespace task1Tests
 			var group = new Group(rect);
 
 			Assert.AreEqual(group.GetShapesCount(), 1);
-			Assert.AreEqual(new Rect<float>(0, 0, 10, 10), group.Frame);
+			Assert.AreEqual(new Rect<float>(0, 0, 10, 10), group.GetFrame());
 
-			Assert.AreEqual(2, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(2, group.OutlineStyle.GetLineThickness());
 		}
 
 		[TestMethod]
@@ -239,9 +239,9 @@ namespace task1Tests
 			group.InsertShape(rect2, 0);
 
 			Assert.AreEqual(group.GetShapesCount(), 2);
-			Assert.AreEqual(new Rect<float>(0, 0, 12, 12), group.Frame);
+			Assert.AreEqual(new Rect<float>(0, 0, 12, 12), group.GetFrame());
 
-			Assert.AreEqual(2, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(2, group.OutlineStyle.GetLineThickness());
 		}
 
 		[TestMethod]
@@ -260,12 +260,12 @@ namespace task1Tests
 			group.InsertShape(rect2, 0);
 
 			Assert.AreEqual(group.GetShapesCount(), 2);
-			Assert.AreEqual(new Rect<float>(0, 0, 15, 15), group.Frame);
+			Assert.AreEqual(new Rect<float>(0, 0, 15, 15), group.GetFrame());
 
-			Assert.AreEqual(2, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(2, group.OutlineStyle.GetLineThickness());
 
-			rect2.Frame = new Rect<float>(1, 1, 11, 11);
-			Assert.AreEqual(new Rect<float>(0, 0, 12, 12), group.Frame);
+			rect2.SetFrame(new Rect<float>(1, 1, 11, 11));
+			Assert.AreEqual(new Rect<float>(0, 0, 12, 12), group.GetFrame());
 		}
 
 		[TestMethod]
@@ -280,13 +280,13 @@ namespace task1Tests
 			var group = new Group(rect);
 
 			Assert.AreEqual(group.GetShapesCount(), 1);
-			Assert.AreEqual(new Rect<float>(0, 0, 10, 10), group.Frame);
+			Assert.AreEqual(new Rect<float>(0, 0, 10, 10), group.GetFrame());
 
-			Assert.AreEqual(2, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(2, group.OutlineStyle.GetLineThickness());
 
-			group.Frame = new Rect<float>(1, 1, 11, 11);
-			Assert.AreEqual(new Rect<float>(1, 1, 11, 11), rect.Frame);
-			Assert.AreEqual(new Rect<float>(1, 1, 11, 11), group.Frame);
+			group.SetFrame(new Rect<float>(1, 1, 11, 11));
+			Assert.AreEqual(new Rect<float>(1, 1, 11, 11), rect.GetFrame());
+			Assert.AreEqual(new Rect<float>(1, 1, 11, 11), group.GetFrame());
 		}
 
 		[TestMethod]
@@ -560,10 +560,10 @@ namespace task1Tests
 			var newT = 3;
 
 			var group = new Group(rect);
-			group.OutlineStyle.LineThickness = newT;
+			group.OutlineStyle.SetLineThickness(newT);
 
-			Assert.AreEqual(newT, group.OutlineStyle.LineThickness);
-			Assert.AreEqual(newT, rect.OutlineStyle.LineThickness);
+			Assert.AreEqual(newT, group.OutlineStyle.GetLineThickness());
+			Assert.AreEqual(newT, rect.OutlineStyle.GetLineThickness());
 		}
 
 		[TestMethod]
@@ -583,11 +583,11 @@ namespace task1Tests
 			group.InsertShape(rect2, 0);
 
 			var outlineStyleGroup = group.OutlineStyle;
-			outlineStyleGroup.LineThickness = newT;
+			outlineStyleGroup.SetLineThickness(newT);
 
-			Assert.AreEqual(newT, group.OutlineStyle.LineThickness);
-			Assert.AreEqual(newT, rect.OutlineStyle.LineThickness);
-			Assert.AreEqual(newT, rect2.OutlineStyle.LineThickness);
+			Assert.AreEqual(newT, group.OutlineStyle.GetLineThickness());
+			Assert.AreEqual(newT, rect.OutlineStyle.GetLineThickness());
+			Assert.AreEqual(newT, rect2.OutlineStyle.GetLineThickness());
 		}
 
 		[TestMethod]
@@ -601,10 +601,10 @@ namespace task1Tests
 			var newT = 3;
 
 			var group = new Group(rect);
-			rect.OutlineStyle.LineThickness = newT;
+			rect.OutlineStyle.SetLineThickness(newT);
 
-			Assert.AreEqual(newT, group.OutlineStyle.LineThickness);
-			Assert.AreEqual(newT, rect.OutlineStyle.LineThickness);
+			Assert.AreEqual(newT, group.OutlineStyle.GetLineThickness());
+			Assert.AreEqual(newT, rect.OutlineStyle.GetLineThickness());
 		}
 
 		[TestMethod]
@@ -661,7 +661,7 @@ namespace task1Tests
 			var group = new Group(rect);
 			group.InsertShape(rect2, 0);
 
-			Assert.AreEqual(null, group.OutlineStyle.LineThickness);
+			Assert.AreEqual(null, group.OutlineStyle.GetLineThickness());
 		}
 
 		[TestMethod]
@@ -683,6 +683,48 @@ namespace task1Tests
 
 			Assert.AreEqual(group1.GetShapesCount(), 2);
 			Assert.AreEqual(group2.GetShapesCount(), 1);
+		}
+
+		[TestMethod]
+		public void CanGetComponentInGroupByIndex()
+		{
+			var slide = new Slide(500, 500);
+			var fStyle = new FillStyle(Color.Red, true);
+			var oStyle = new OutlineStyle(Color.Black, true, 2);
+			var otherFS = new FillStyle(Color.White, false);
+			var otherOS = new OutlineStyle(Color.White, false, 3);
+			var f = new Rect<float> { Top = 0, Left = 0, Width = 10, Height = 10 };
+
+			var rect = new Rectangle(f, oStyle, fStyle);
+			var rect2 = new Rectangle(f, otherOS, otherFS);
+
+			var group1 = new Group(rect);
+			group1.InsertShape(rect2, 1);
+			Assert.AreEqual(group1.GetComponentByIndex(0), rect);
+			Assert.AreEqual(group1.GetComponentByIndex(1), rect2);
+		}
+
+		[TestMethod]
+		public void ThrowsExceptionIfTryToGetComponentInGroupByIndexWithIndexLessOrMoreThanGroupSize()
+		{
+			var slide = new Slide(500, 500);
+			var fStyle = new FillStyle(Color.Red, true);
+			var oStyle = new OutlineStyle(Color.Black, true, 2);
+			var otherFS = new FillStyle(Color.White, false);
+			var otherOS = new OutlineStyle(Color.White, false, 3);
+			var f = new Rect<float> { Top = 0, Left = 0, Width = 10, Height = 10 };
+
+			var rect = new Rectangle(f, oStyle, fStyle);
+			var rect2 = new Rectangle(f, otherOS, otherFS);
+
+			var group1 = new Group(rect);
+			Assert.ThrowsException<IndexOutOfRangeException>(() => group1.GetComponentByIndex(-1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => group1.GetComponentByIndex(1));
+			group1.InsertShape(rect2, 1);
+			Assert.ThrowsException<IndexOutOfRangeException>(() => group1.GetComponentByIndex(2));
+			group1.RemoveShapeAtIndex(0);
+			group1.RemoveShapeAtIndex(0);
+			Assert.ThrowsException<IndexOutOfRangeException>(() => group1.GetComponentByIndex(0));
 		}
 	}
 }

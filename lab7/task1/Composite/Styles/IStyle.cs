@@ -9,7 +9,5 @@ namespace task1.Composite.Styles
 
 		bool? IsEnabled();
 		void Enable(bool enable);
-
-		bool IsComposite();
 	}
 }

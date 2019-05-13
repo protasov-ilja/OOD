@@ -12,10 +12,10 @@ namespace task1.Shapes
 
 		public override void Draw(ICanvas canvas)
 		{
-			var leftTop = new Point(Frame.Value.Left, Frame.Value.Top);
-			var rightTop = new Point(Frame.Value.Left + Frame.Value.Width, Frame.Value.Top);
-			var rightBottom = new Point(Frame.Value.Left + Frame.Value.Width, Frame.Value.Top + Frame.Value.Height);
-			var leftBottom = new Point(Frame.Value.Left, Frame.Value.Top + Frame.Value.Height);
+			var leftTop = new Point(GetFrame().Value.Left, GetFrame().Value.Top);
+			var rightTop = new Point(GetFrame().Value.Left + GetFrame().Value.Width, GetFrame().Value.Top);
+			var rightBottom = new Point(GetFrame().Value.Left + GetFrame().Value.Width, GetFrame().Value.Top + GetFrame().Value.Height);
+			var leftBottom = new Point(GetFrame().Value.Left, GetFrame().Value.Top + GetFrame().Value.Height);
 
 			SetParametersInCanvas(canvas);
 

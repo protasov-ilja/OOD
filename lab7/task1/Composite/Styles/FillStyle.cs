@@ -65,10 +65,5 @@ namespace task1.Composite.Styles
 			hashCode = hashCode * -1521134295 + _isEnabled.GetHashCode();
 			return hashCode;
 		}
-
-		public bool IsComposite()
-		{
-			return false;
-		}
 	}
 }

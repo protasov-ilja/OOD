@@ -25,14 +25,15 @@ namespace task1
 				var mode = new VideoMode(_windowWidth, _windowHeight);
 				var window = new RenderWindow(mode, _apllicationName);
 				window.Closed += (_, __) => window.Close();
-				var canvas = new Canvas(Console.Out, window);
+				var canvas = new Canvas(window);
 				var slide = new Slide(_windowWidth, _windowHeight);
 				CreatePicture(slide);
-				window.Clear(Color.White);
-				slide.Draw(canvas);
-				window.Display();
+				
 				while (window.IsOpen)
 				{
+					window.Clear(Color.White);
+					slide.Draw(canvas);
+					window.Display();
 					window.DispatchEvents();
 				}
 
@@ -73,7 +74,7 @@ namespace task1
 			house.InsertShape(rect, 1);
 			house.InsertShape(window, 2);
 
-			house.Frame = new Rect<float>(0, 0, 100, 100);
+			house.SetFrame(new Rect<float>(0, 0, 100, 100));
 
 			slide.InsertShape(group, 0);
 			slide.InsertShape(sun, 1);

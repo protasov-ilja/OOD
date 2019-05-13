@@ -8,12 +8,11 @@ namespace task1.Composite.Styles
 	{
 		private Color _color = Color.Transparent;
 		private bool _isEnabled;
-
-		public float? LineThickness { get; set; }
+		private float _lineThickness = 1;
 
 		public OutlineStyle(Color color, bool isEnabled, float thickness = 1)
 		{
-			LineThickness = thickness;
+			SetLineThickness(thickness);
 			_color = color;
 			_isEnabled = isEnabled;
 		}
@@ -46,7 +45,7 @@ namespace task1.Composite.Styles
 			}
 
 			OutlineStyle other = (OutlineStyle)obj;
-			return GetColor().Equals(other.GetColor()) && _isEnabled == other.IsEnabled() && LineThickness == other.LineThickness;
+			return GetColor().Equals(other.GetColor()) && _isEnabled == other.IsEnabled() && GetLineThickness() == other.GetLineThickness();
 		}
 
 		public static bool operator ==(OutlineStyle lhs, OutlineStyle rhs)
@@ -64,13 +63,18 @@ namespace task1.Composite.Styles
 			var hashCode = 1304336967;
 			hashCode = hashCode * -1521134295 + EqualityComparer<Color?>.Default.GetHashCode(GetColor());
 			hashCode = hashCode * -1521134295 + _isEnabled.GetHashCode();
-			hashCode = hashCode * -1521134295 + LineThickness.GetHashCode();
+			hashCode = hashCode * -1521134295 + GetLineThickness().GetHashCode();
 			return hashCode;
 		}
 
-		public bool IsComposite()
+		public float? GetLineThickness()
 		{
-			return false;
+			return _lineThickness;
+		}
+
+		public void SetLineThickness(float thickness)
+		{
+			_lineThickness = thickness;
 		}
 	}
 }

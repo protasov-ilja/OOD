@@ -5,16 +5,14 @@ namespace task1.Shapes
 {
 	public abstract class Shape : IComponent
 	{
-		private IOutlineStyle _outlineStyle;
-		private IStyle _fillStyle;
+		private Rect<float>? _frame;
 
-		public Rect<float>? Frame { get; set; }
 		public IStyle FillStyle { get; private set; }
 		public IOutlineStyle OutlineStyle { get; private set; }
 
 		public Shape(Rect<float> frame, IOutlineStyle outlineStyle, IStyle fillStyle)
 		{
-			Frame = frame;
+			SetFrame(frame);
 			OutlineStyle = outlineStyle;
 			FillStyle = fillStyle;
 		}
@@ -25,11 +23,7 @@ namespace task1.Shapes
 		{
 			canvas.BeginFill(FillStyle.GetColor().Value);
 			canvas.SetLineColor(OutlineStyle.GetColor().Value);
-			canvas.SetLineThickness(OutlineStyle.LineThickness.Value);
-
-			//canvas.BeginFill((FillStyle.IsEnabled().Value) ? FillStyle.Value.Color : Color.Transparent);
-			//canvas.SetLineColor((OutlineStyle.HasValue && OutlineStyle.Value.IsEnabled()) ? OutlineStyle.Value.Color : Color.Black);
-			//canvas.SetLineThickness(LineThickness.HasValue ? LineThickness.Value : 1);
+			canvas.SetLineThickness(OutlineStyle.GetLineThickness().Value);
 		}
 
 		public int GetShapesCount()
@@ -41,9 +35,24 @@ namespace task1.Shapes
 
 		public void RemoveShapeAtIndex(int index) { }
 
-		public bool IsComposite()
+		public IComponent GetComponentByIndex(int index)
 		{
-			return false;
+			return null;
+		}
+
+		public Group GetGroup()
+		{
+			return null;
+		}
+
+		public Rect<float>? GetFrame()
+		{
+			return _frame;
+		}
+
+		public void SetFrame(Rect<float> frame)
+		{
+			_frame = frame;
 		}
 	}
 }

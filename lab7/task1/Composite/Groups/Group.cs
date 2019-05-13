@@ -12,12 +12,6 @@ namespace task1.Composite
 		private IOutlineStyle _outlineStyle;
 		private IStyle _fillStyle;
 
-		public Rect<float>? Frame
-		{
-			get => CalculateFrame();
-			set => RecalculateFrame(value);
-		}
-
 		public IStyle FillStyle => _fillStyle;
 
 		public IOutlineStyle OutlineStyle => _outlineStyle;
@@ -54,87 +48,6 @@ namespace task1.Composite
 			_shapes.RemoveAt(index);
 		}
 
-		private Rect<float>? CalculateFrame()
-		{
-			float left = 0;
-			float top = 0;
-			float maxX = 0;
-			float maxY = 0;
-			float width = 0;
-			float height = 0;
-
-			Rect<float>? frame = null;
-			bool isFirstFound = false;
-			foreach (var shape in _shapes)
-			{
-				if (shape.Frame.HasValue)
-				{
-					if (!isFirstFound)
-					{
-						isFirstFound = true;
-						
-						left = shape.Frame.Value.Left;
-						top = shape.Frame.Value.Top;
-						width = shape.Frame.Value.Width;
-						height = shape.Frame.Value.Height;
-
-						maxX = width + left;
-						maxY = height + top;
-					}
-					else
-					{
-						var shapeFrame = shape.Frame.Value;
-
-						left = Math.Min(shapeFrame.Left, left);
-						top = Math.Min(shapeFrame.Top, top);
-						maxX = Math.Max(shapeFrame.Width + shapeFrame.Left, maxX);
-						maxY = Math.Max(shapeFrame.Height + shapeFrame.Top, maxY);
-					}
-
-					frame = shape.Frame;
-				}
-			}
-
-			if (isFirstFound)
-			{
-				width = maxX - left;
-				height = maxY - top;
-
-				frame = new Rect<float>(top, left, width, height);
-			}
-
-			return frame;
-		}
-
-		private void RecalculateFrame(Rect<float>? frame)
-		{
-			var old = Frame;
-			if (old.HasValue)
-			{
-				var oldFrame = old.Value;
-				float deltaX = frame.Value.Width / oldFrame.Width;
-				float deltaY = frame.Value.Height / oldFrame.Height;
-				Console.WriteLine(deltaX + " " + deltaY);
-
-				foreach (var shape in _shapes)
-				{
-					if (shape.Frame.HasValue)
-					{
-						var shapeFrame = shape.Frame.Value;
-						var offsetX = shapeFrame.Left - oldFrame.Left;
-						var offsetY = shapeFrame.Top - oldFrame.Top;
-
-						Console.WriteLine(offsetX + " " + offsetY);
-						shapeFrame.Left = frame.Value.Left + offsetX * deltaX;
-						shapeFrame.Top = frame.Value.Top + offsetY * deltaY;
-						shapeFrame.Width *= deltaX;
-						shapeFrame.Height *= deltaY;
-						shape.Frame = shapeFrame;
-					}
-				}
-			}
-		}
-
 		public void Draw(ICanvas canvas)
 		{
 			Console.WriteLine("------Group------");
@@ -161,9 +74,97 @@ namespace task1.Composite
 			}
 		}
 
-		public bool IsComposite()
+		public Group GetGroup()
 		{
-			return true;
+			return this;
+		}
+
+		public IComponent GetComponentByIndex(int index)
+		{
+			if ((index >= _shapes.Count) || (index < 0))
+			{
+				throw new IndexOutOfRangeException("index out of range");
+			}
+
+			return _shapes[index];
+		}
+
+		public Rect<float>? GetFrame()
+		{
+			float left = 0;
+			float top = 0;
+			float maxX = 0;
+			float maxY = 0;
+			float width = 0;
+			float height = 0;
+
+			Rect<float>? frame = null;
+			bool isFirstFound = false;
+			foreach (var shape in _shapes)
+			{
+				if (shape.GetFrame().HasValue)
+				{
+					var shapeFrame = shape.GetFrame().Value;
+					if (!isFirstFound)
+					{
+						isFirstFound = true;
+
+						left = shapeFrame.Left;
+						top = shapeFrame.Top;
+						width = shapeFrame.Width;
+						height = shapeFrame.Height;
+
+						maxX = width + left;
+						maxY = height + top;
+					}
+					else
+					{
+						left = Math.Min(shapeFrame.Left, left);
+						top = Math.Min(shapeFrame.Top, top);
+						maxX = Math.Max(shapeFrame.Width + shapeFrame.Left, maxX);
+						maxY = Math.Max(shapeFrame.Height + shapeFrame.Top, maxY);
+					}
+
+					frame = shape.GetFrame();
+				}
+			}
+
+			if (isFirstFound)
+			{
+				width = maxX - left;
+				height = maxY - top;
+
+				frame = new Rect<float>(top, left, width, height);
+			}
+
+			return frame;
+		}
+
+		public void SetFrame(Rect<float> frame)
+		{
+			var old = GetFrame();
+			if (old.HasValue)
+			{
+				var oldFrame = old.Value;
+				float scaleX = frame.Width / oldFrame.Width;
+				float scaleY = frame.Height / oldFrame.Height;
+
+				foreach (var shape in _shapes)
+				{
+					if (shape.GetFrame().HasValue)
+					{
+						var shapeFrame = shape.GetFrame().Value;
+						var offsetX = shapeFrame.Left - oldFrame.Left;
+						var offsetY = shapeFrame.Top - oldFrame.Top;
+
+						shapeFrame.Left = frame.Left + offsetX * scaleX;
+						shapeFrame.Top = frame.Top + offsetY * scaleY;
+						shapeFrame.Width *= scaleX;
+						shapeFrame.Height *= scaleY;
+						shape.SetFrame(shapeFrame);
+					}
+				}
+			}
 		}
 	}
 }
