@@ -7,16 +7,16 @@ namespace lab9Tests.ChartDrawer
 	{
 		public bool IsEventHarmonicsChangedInvoked { get; private set; } = false;
 		public bool IsEventHarmonicChangedInvoked { get; private set; } = false;
-		public List<IHarmonic> Harmonics { get; private set; }
-		public IHarmonic SelectedHarmonic { get; private set; }
+		public List<Harmonic> Harmonics { get; private set; }
+		public Harmonic SelectedHarmonic { get; private set; }
 
-		public void OnHarmonicsChanged(List<IHarmonic> harmonics)
+		public void OnHarmonicsChanged(List<Harmonic> harmonics)
 		{
 			Harmonics = harmonics;
 			IsEventHarmonicsChangedInvoked = true;
 		}
 
-		public void OnSelectedHarmonicChanged(IHarmonic harmonic)
+		public void OnSelectedHarmonicChanged(Harmonic harmonic)
 		{
 			IsEventHarmonicChangedInvoked = true;
 			SelectedHarmonic = harmonic;

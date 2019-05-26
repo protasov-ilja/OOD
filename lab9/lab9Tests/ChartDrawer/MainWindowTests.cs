@@ -12,7 +12,7 @@ namespace lab9Tests.ChartDrawer
 		public void CanAddNewHarmonicAndThenInvokeHarmonicsChangedEvent()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
@@ -25,11 +25,11 @@ namespace lab9Tests.ChartDrawer
 		public void CanGetHarmonicByIdAndThenInvokeSelectedHarmonicChangedEvent()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.SelectedHarmonicChanged += testObj.OnSelectedHarmonicChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
-			main.GetHarmonicById(0);
+			main.SelectHarmonicByIndex(0);
 
 			Assert.IsTrue(testObj.IsEventHarmonicChangedInvoked);
 			Assert.AreEqual(h, testObj.SelectedHarmonic);
@@ -39,25 +39,25 @@ namespace lab9Tests.ChartDrawer
 		public void CantGetHarmonicByIdAndIfIndexLessThan0OrEqualsOrMoreThanCountAndThrowsException()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.SelectedHarmonicChanged += testObj.OnSelectedHarmonicChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
-			main.GetHarmonicById(0);
+			main.SelectHarmonicByIndex(0);
 
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.GetHarmonicById(-1));
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.GetHarmonicById(1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.SelectHarmonicByIndex(-1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.SelectHarmonicByIndex(1));
 		}
 
 		[TestMethod]
 		public void CanRemovedHarmonicByIdAndThenInvokeHarmonicsChangedEvent()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
-			main.DeleteHarmonicById(0);
+			main.DeleteHarmonicByIndex(0);
 
 			Assert.IsTrue(testObj.IsEventHarmonicsChangedInvoked);
 			Assert.AreEqual(testObj.Harmonics.Count, 0);
@@ -67,19 +67,29 @@ namespace lab9Tests.ChartDrawer
 		public void CantRemovedHarmonicByIdIfIdLessThen0AndMoreEqualesThanCountAndThrowException()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicById(-1));
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicById(1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(-1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(1));
+		}
+
+		[TestMethod]
+		public void CantRemovedHarmonicByIdIfCount0AndThrowException()
+		{
+			var testObj = new TestObject();
+			var main = new HarmonicsManager();
+			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(-1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(1));
 		}
 
 		[TestMethod]
 		public void CanChangeHarmonicAmplitudeByIdAndThenInvokeHarmonicsChangedEvent()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
@@ -94,7 +104,7 @@ namespace lab9Tests.ChartDrawer
 		public void CantChangeHarmonicAmplitudeByIdIfIdLessThen0AndMoreEqualesThanCountAndThrowException()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
@@ -106,7 +116,7 @@ namespace lab9Tests.ChartDrawer
 		public void CanChangeHarmonicFrequencyByIdAndThenInvokeHarmonicsChangedEvent()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
@@ -121,7 +131,7 @@ namespace lab9Tests.ChartDrawer
 		public void CantChangeHarmonicFrequencyByIdIfIdLessThen0AndMoreEqualesThanCountAndThrowException()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
@@ -133,7 +143,7 @@ namespace lab9Tests.ChartDrawer
 		public void CanChangeHarmonicPhaseByIdAndThenInvokeHarmonicsChangedEvent()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
@@ -148,7 +158,7 @@ namespace lab9Tests.ChartDrawer
 		public void CantChangeHarmonicPhaseByIdIfIdLessThen0AndMoreEqualesThanCountAndThrowException()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
@@ -160,7 +170,7 @@ namespace lab9Tests.ChartDrawer
 		public void CanChangeHarmonicTypeByIdAndThenInvokeHarmonicsChangedEvent()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
@@ -175,7 +185,7 @@ namespace lab9Tests.ChartDrawer
 		public void CantChangeHarmonicTypeByIdIfIdLessThen0AndMoreEqualesThanCountAndThrowException()
 		{
 			var testObj = new TestObject();
-			var main = new MainWindow();
+			var main = new HarmonicsManager();
 			main.HarmonicsChanged += testObj.OnHarmonicsChanged;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);

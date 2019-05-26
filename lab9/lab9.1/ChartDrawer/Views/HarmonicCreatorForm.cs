@@ -2,42 +2,45 @@
 using lab9._1.ChartDrawer.Models.Enums;
 using lab9._1.ChartDrawer.Controllers;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace lab9._1.ChartDrawer.Views
 {
-	public partial class HarmonicCreatorForm : Form, IHarmonicCreatorView
+	public partial class HarmonicCreatorForm : Form
 	{
-		private IHarmonic _harmonic;
-		private IMainWindow _mainWindow;
-		private IHarmonicCreatorController _harmonicCreatorPresenter;
+		private IHarmonicsManager _mainWindow;
+		private IHarmonicCreatorController _harmonicCreatorController;
+		private HarmonicViewData _harmonicViewData;
 
-		public HarmonicCreatorForm(IMainWindow mainWindow)
+		public HarmonicCreatorForm(IHarmonicsManager harmonicsManager)
 		{
 			InitializeComponent();
-			_mainWindow = mainWindow;
-			_harmonicCreatorPresenter = new HarmonicCreatorController(mainWindow);
-			_harmonic = new Harmonic();
-			resultHarmonicText.Text = _harmonic.ToString();
-			amplitudeText.Text = _harmonic.Amplitude.ToString();
-			frequencyText.Text = _harmonic.Frequency.ToString();
-			phaseText.Text = _harmonic.Phase.ToString();
-			switch (_harmonic.Type)
+			_mainWindow = harmonicsManager;
+			_harmonicCreatorController = new HarmonicCreatorController(harmonicsManager);
+			UpdateViewFields();
+			_harmonicCreatorController.SubscribeToHarmonicChanges(UpdateViewFields);
+		}
+
+		private void OnHarmonicChanged()
+		{
+			_harmonicCreatorController.SubscribeToHarmonicChanges(UpdateViewFields);
+		}
+
+		private void UpdateViewFields()
+		{
+			resultHarmonicText.Text = _harmonicCreatorController.GetHarmonicStringRepresentation();
+			_harmonicViewData = _harmonicCreatorController.GetHarmonicView();
+			amplitudeText.Text = _harmonicViewData.Amplitude.ToString();
+			frequencyText.Text = _harmonicViewData.Frequency.ToString();
+			phaseText.Text = _harmonicViewData.Phase.ToString();
+			switch (_harmonicViewData.Type)
 			{
 				case HarmonicType.Sin:
 					sinButton.Checked = true;
-					
-				break;
+					break;
 				case HarmonicType.Cos:
 					cosButton.Checked = true;
-				break;
+					break;
 			}
 		}
 
@@ -48,7 +51,7 @@ namespace lab9._1.ChartDrawer.Views
 
 		private void okButton_Click(object sender, EventArgs e)
 		{
-			_harmonicCreatorPresenter.AddNewHarmonic(_harmonic);
+			_harmonicCreatorController.AddNewHarmonic();
 			Close();
 		}
 
@@ -58,8 +61,7 @@ namespace lab9._1.ChartDrawer.Views
 			var isEmplty = text.Length == 0;
 			if (!isEmplty && float.TryParse(text, out var value))
 			{
-				_harmonic.Frequency = value;
-				resultHarmonicText.Text = _harmonic.ToString();
+				_harmonicCreatorController.ChangeHarmonicFrequency(value);
 			}
 			else
 			{
@@ -77,8 +79,7 @@ namespace lab9._1.ChartDrawer.Views
 			var isEmplty = text.Length == 0;
 			if (!isEmplty && float.TryParse(text, out var value))
 			{
-				_harmonic.Phase = value;
-				resultHarmonicText.Text = _harmonic.ToString();
+				_harmonicCreatorController.ChangeHarmonicPhase(value);
 			}
 			else
 			{
@@ -96,8 +97,7 @@ namespace lab9._1.ChartDrawer.Views
 			var isEmplty = text.Length == 0;
 			if (!isEmplty && float.TryParse(text, out var value))
 			{
-				_harmonic.Amplitude = value;
-				resultHarmonicText.Text = _harmonic.ToString();
+				_harmonicCreatorController.ChangeHarmonicAmplitude(value);
 			}
 			else
 			{
@@ -113,8 +113,7 @@ namespace lab9._1.ChartDrawer.Views
 		{
 			if (cosButton.Checked)
 			{
-				_harmonic.Type = HarmonicType.Cos;
-				resultHarmonicText.Text = _harmonic.ToString();
+				_harmonicCreatorController.ChangeHarmonicType(HarmonicType.Cos);
 			}
 		}
 
@@ -122,8 +121,7 @@ namespace lab9._1.ChartDrawer.Views
 		{
 			if (sinButton.Checked)
 			{
-				_harmonic.Type = HarmonicType.Sin;
-				resultHarmonicText.Text = _harmonic.ToString();
+				_harmonicCreatorController.ChangeHarmonicType(HarmonicType.Sin);
 			}
 		}
 	}

@@ -6,10 +6,10 @@ namespace lab9._1.ChartDrawer.Controllers
 {
 	public sealed class MainFormController : IMainFormController
 	{
-		private IMainWindow _mainWindow;
+		private IHarmonicsManager _mainWindow;
 		private int _lastSelected = -1;
 
-		public MainFormController(IMainWindow mainWindow)
+		public MainFormController(IHarmonicsManager mainWindow)
 		{
 			_mainWindow = mainWindow;
 		}
@@ -17,7 +17,7 @@ namespace lab9._1.ChartDrawer.Controllers
 		public void DeleteSelectedHarmonic(int index)
 		{
 			_lastSelected = -1;
-			_mainWindow.DeleteHarmonicById(index);
+			_mainWindow.DeleteHarmonicByIndex(index);
 		}
 
 		public void GetSelectedHarmonic(int index)
@@ -25,7 +25,7 @@ namespace lab9._1.ChartDrawer.Controllers
 			if (_lastSelected != index)
 			{
 				_lastSelected = index;
-				_mainWindow.GetHarmonicById(index);
+				_mainWindow.SelectHarmonicByIndex(index);
 			}
 		}
 

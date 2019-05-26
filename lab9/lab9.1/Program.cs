@@ -16,7 +16,7 @@ namespace lab9._1
 		[STAThread]
 		static void Main()
 		{
-			var mainWindow = new MainWindow();
+			var mainWindow = new HarmonicsManager();
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MainForm(mainWindow));

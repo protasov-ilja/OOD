@@ -14,22 +14,28 @@ using lab9._1.ChartDrawer.Controllers;
 
 namespace lab9._1.ChartDrawer.Views
 {
-	public partial class MainForm : Form, IMainFormView
+	public partial class MainForm : Form
 	{
+		private const string ChartName = "ResultChar";
+		private const float MinChartBorder = 0;
+		private const float MaxChartBorder = 4.5f;
+		private const float StepSize = 0.5f;
+
 		private IMainFormController _mainFormPresenter;
-		private IMainWindow _mainWindow;
+		private IHarmonicsManager _harmonicManager;
 		private bool _blockEvents = false;
 
-		public MainForm(IMainWindow mainWindow)
+		public MainForm(IHarmonicsManager harmonicManager)
 		{
 			InitializeComponent();
-			_mainWindow = mainWindow;
-			_mainFormPresenter = new MainFormController(mainWindow);
-			mainWindow.HarmonicsChanged += UpdateView;
-			mainWindow.SelectedHarmonicChanged += UpdateSelectedHarmonic;
+			_harmonicManager = harmonicManager;
+			_mainFormPresenter = new MainFormController(harmonicManager);
+			harmonicManager.HarmonicsChanged += UpdateView;
+			harmonicManager.ActiveHarmonicChanged += UpdateSelectedHarmonic;
+			ActivateReadonly(false);
 		}
 
-		private void UpdateSelectedHarmonic(IHarmonic harmonic)
+		private void UpdateSelectedHarmonic(Harmonic harmonic)
 		{
 			if (harmonicsList.SelectedItems.Count != 0)
 			{
@@ -52,7 +58,15 @@ namespace lab9._1.ChartDrawer.Views
 			}
 		}
 
-		private void UpdateView(List<IHarmonic> harmonics)
+		private void ActivateReadonly(bool activate)
+		{
+			amplitudeText.Enabled = activate;
+			frequencyText.Enabled = activate;
+			phaseText.Enabled = activate;
+			radioButtonsGroup.Enabled = activate;
+		}
+
+		private void UpdateView(List<Harmonic> harmonics)
 		{
 			var isItemsSelected = harmonicsList.SelectedItems.Count != 0;
 			var selectedIndex = harmonicsList.SelectedIndex;
@@ -80,14 +94,16 @@ namespace lab9._1.ChartDrawer.Views
 				sinButton.Checked = false;
 				cosButton.Checked = false;
 			}
+
+			ActivateReadonly(harmonicsList.SelectedItems.Count != 0);
 		}
 
-		private void FillTable(List<IHarmonic> harmonics)
+		private void FillTable(List<Harmonic> harmonics)
 		{
 			harmonicsTable.Rows.Clear();
 			if (harmonics.Count > 0)
 			{
-				for (float x = 0; x <= 4.5f; x += 0.5f)
+				for (float x = MinChartBorder; x <= MaxChartBorder; x += StepSize)
 				{
 					DataGridViewCell cellX = new DataGridViewTextBoxCell();
 					DataGridViewCell cellY = new DataGridViewTextBoxCell();
@@ -100,16 +116,16 @@ namespace lab9._1.ChartDrawer.Views
 			}
 		}
 
-		private void FillChart(List<IHarmonic> harmonics)
+		private void FillChart(List<Harmonic> harmonics)
 		{
-			harmonicsChart.Series["ResultChar"].Points.Clear();
-			for (float x = 0; x <= 4.5f; x += 0.5f)
+			harmonicsChart.Series[ChartName].Points.Clear();
+			for (float x = MinChartBorder; x <= MaxChartBorder; x += StepSize)
 			{
-				harmonicsChart.Series["ResultChar"].Points.AddXY(x, GetResultY(x, harmonics));
+				harmonicsChart.Series[ChartName].Points.AddXY(x, GetResultY(x, harmonics));
 			}
 		}
 
-		private double GetResultY(float x, List<IHarmonic> harmonics)
+		private double GetResultY(float x, List<Harmonic> harmonics)
 		{
 			double result = 0;
 			foreach (var harmonic in harmonics)
@@ -120,7 +136,7 @@ namespace lab9._1.ChartDrawer.Views
 			return result;
 		}
 
-		private double GetYValue(float x, IHarmonic harmonic)
+		private double GetYValue(float x, Harmonic harmonic)
 		{
 			return harmonic.Type == HarmonicType.Sin
 				? harmonic.Amplitude * Math.Sin(harmonic.Frequency * x + harmonic.Phase)
@@ -203,7 +219,7 @@ namespace lab9._1.ChartDrawer.Views
 
 		private void addButton_Click(object sender, EventArgs e)
 		{
-			var harmonicForm = new HarmonicCreatorForm(_mainWindow);
+			var harmonicForm = new HarmonicCreatorForm(_harmonicManager);
 			harmonicForm.Show();
 		}
 

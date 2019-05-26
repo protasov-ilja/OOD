@@ -30,20 +30,22 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.harmonicsChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.chartPage1 = new System.Windows.Forms.TabPage();
 			this.tablePage2 = new System.Windows.Forms.TabPage();
 			this.harmonicsTable = new System.Windows.Forms.DataGridView();
+			this.columnX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnY = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Editor = new System.Windows.Forms.GroupBox();
 			this.phaseText = new System.Windows.Forms.TextBox();
 			this.frequencyText = new System.Windows.Forms.TextBox();
 			this.amplitudeText = new System.Windows.Forms.TextBox();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.radioButtonsGroup = new System.Windows.Forms.GroupBox();
 			this.cosButton = new System.Windows.Forms.RadioButton();
 			this.sinButton = new System.Windows.Forms.RadioButton();
 			this.label3 = new System.Windows.Forms.Label();
@@ -52,30 +54,28 @@
 			this.harmonicsList = new System.Windows.Forms.ListBox();
 			this.addButton = new System.Windows.Forms.Button();
 			this.deleteButton = new System.Windows.Forms.Button();
-			this.columnX = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnY = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.harmonicsChart)).BeginInit();
 			this.tabControl1.SuspendLayout();
 			this.chartPage1.SuspendLayout();
 			this.tablePage2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.harmonicsTable)).BeginInit();
 			this.Editor.SuspendLayout();
-			this.groupBox1.SuspendLayout();
+			this.radioButtonsGroup.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// harmonicsChart
 			// 
-			chartArea5.Name = "ChartArea1";
-			this.harmonicsChart.ChartAreas.Add(chartArea5);
-			legend5.Name = "Legend1";
-			this.harmonicsChart.Legends.Add(legend5);
+			chartArea1.Name = "ChartArea1";
+			this.harmonicsChart.ChartAreas.Add(chartArea1);
+			legend1.Name = "Legend1";
+			this.harmonicsChart.Legends.Add(legend1);
 			this.harmonicsChart.Location = new System.Drawing.Point(-4, 10);
 			this.harmonicsChart.Name = "harmonicsChart";
-			series5.ChartArea = "ChartArea1";
-			series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-			series5.Legend = "Legend1";
-			series5.Name = "ResultChar";
-			this.harmonicsChart.Series.Add(series5);
+			series1.ChartArea = "ChartArea1";
+			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+			series1.Legend = "Legend1";
+			series1.Name = "ResultChar";
+			this.harmonicsChart.Series.Add(series1);
 			this.harmonicsChart.Size = new System.Drawing.Size(781, 306);
 			this.harmonicsChart.TabIndex = 0;
 			this.harmonicsChart.Text = "chart1";
@@ -134,12 +134,26 @@
 			this.harmonicsTable.Size = new System.Drawing.Size(773, 316);
 			this.harmonicsTable.TabIndex = 0;
 			// 
+			// columnX
+			// 
+			this.columnX.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnX.HeaderText = "X";
+			this.columnX.Name = "columnX";
+			this.columnX.ReadOnly = true;
+			// 
+			// columnY
+			// 
+			this.columnY.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnY.HeaderText = "Y";
+			this.columnY.Name = "columnY";
+			this.columnY.ReadOnly = true;
+			// 
 			// Editor
 			// 
 			this.Editor.Controls.Add(this.phaseText);
 			this.Editor.Controls.Add(this.frequencyText);
 			this.Editor.Controls.Add(this.amplitudeText);
-			this.Editor.Controls.Add(this.groupBox1);
+			this.Editor.Controls.Add(this.radioButtonsGroup);
 			this.Editor.Controls.Add(this.label3);
 			this.Editor.Controls.Add(this.label2);
 			this.Editor.Controls.Add(this.label1);
@@ -174,15 +188,15 @@
 			this.amplitudeText.TabIndex = 8;
 			this.amplitudeText.Leave += new System.EventHandler(this.amplitudeText_TextChanged);
 			// 
-			// groupBox1
+			// radioButtonsGroup
 			// 
-			this.groupBox1.Controls.Add(this.cosButton);
-			this.groupBox1.Controls.Add(this.sinButton);
-			this.groupBox1.Location = new System.Drawing.Point(0, 82);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(387, 57);
-			this.groupBox1.TabIndex = 7;
-			this.groupBox1.TabStop = false;
+			this.radioButtonsGroup.Controls.Add(this.cosButton);
+			this.radioButtonsGroup.Controls.Add(this.sinButton);
+			this.radioButtonsGroup.Location = new System.Drawing.Point(0, 82);
+			this.radioButtonsGroup.Name = "radioButtonsGroup";
+			this.radioButtonsGroup.Size = new System.Drawing.Size(387, 57);
+			this.radioButtonsGroup.TabIndex = 7;
+			this.radioButtonsGroup.TabStop = false;
 			// 
 			// cosButton
 			// 
@@ -265,20 +279,6 @@
 			this.deleteButton.UseVisualStyleBackColor = true;
 			this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
 			// 
-			// columnX
-			// 
-			this.columnX.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnX.HeaderText = "X";
-			this.columnX.Name = "columnX";
-			this.columnX.ReadOnly = true;
-			// 
-			// columnY
-			// 
-			this.columnY.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnY.HeaderText = "Y";
-			this.columnY.Name = "columnY";
-			this.columnY.ReadOnly = true;
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -300,8 +300,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.harmonicsTable)).EndInit();
 			this.Editor.ResumeLayout(false);
 			this.Editor.PerformLayout();
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
+			this.radioButtonsGroup.ResumeLayout(false);
+			this.radioButtonsGroup.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -317,7 +317,7 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.GroupBox radioButtonsGroup;
 		private System.Windows.Forms.RadioButton cosButton;
 		private System.Windows.Forms.RadioButton sinButton;
 		private System.Windows.Forms.ListBox harmonicsList;
