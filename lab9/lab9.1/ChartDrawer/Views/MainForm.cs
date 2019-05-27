@@ -70,7 +70,6 @@ namespace lab9._1.ChartDrawer.Views
 			if (index != -1)
 			{
 				_blockEvents = true;
-				MessageBox.Show(index.ToString());
 				harmonicsList.SetSelected(index, true);
 				UpdateActiveHarmonicParameters();
 				_blockEvents = false;
@@ -95,7 +94,6 @@ namespace lab9._1.ChartDrawer.Views
 		private void UpdateActiveHarmonicParameters()
 		{
 			var data = _mainFormController.GetActiveHarmonicData();
-			_blockEvents = true;
 			amplitudeText.Text = data.Amplitude.ToString();
 			frequencyText.Text = data.Frequency.ToString();
 			phaseText.Text = data.Phase.ToString();
@@ -108,8 +106,6 @@ namespace lab9._1.ChartDrawer.Views
 					sinButton.Checked = true;
 					break;
 			}
-
-			_blockEvents = false;
 		}
 
 		private void ResetHarmonicParamenters()
