@@ -3,6 +3,7 @@ using lab9._1.ChartDrawer.Models.Enums;
 using lab9._1.ChartDrawer.Controllers;
 using System;
 using System.Windows.Forms;
+using lab9._1.ChartDrawer.Utils;
 
 namespace lab9._1.ChartDrawer.Views
 {
@@ -10,7 +11,6 @@ namespace lab9._1.ChartDrawer.Views
 	{
 		private IHarmonicsManager _mainWindow;
 		private IHarmonicCreatorController _harmonicCreatorController;
-		private HarmonicViewData _harmonicViewData;
 
 		public HarmonicCreatorForm(IHarmonicsManager harmonicsManager)
 		{
@@ -28,12 +28,12 @@ namespace lab9._1.ChartDrawer.Views
 
 		private void UpdateViewFields()
 		{
-			resultHarmonicText.Text = _harmonicCreatorController.GetHarmonicStringRepresentation();
-			_harmonicViewData = _harmonicCreatorController.GetHarmonicView();
-			amplitudeText.Text = _harmonicViewData.Amplitude.ToString();
-			frequencyText.Text = _harmonicViewData.Frequency.ToString();
-			phaseText.Text = _harmonicViewData.Phase.ToString();
-			switch (_harmonicViewData.Type)
+			var data = _harmonicCreatorController.GetHarmonicView();
+			resultHarmonicText.Text = Converter.GetStringRepresentation(data);
+			amplitudeText.Text = data.Amplitude.ToString();
+			frequencyText.Text = data.Frequency.ToString();
+			phaseText.Text = data.Phase.ToString();
+			switch (data.Type)
 			{
 				case HarmonicType.Sin:
 					sinButton.Checked = true;

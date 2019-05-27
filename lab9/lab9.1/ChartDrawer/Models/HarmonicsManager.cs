@@ -7,15 +7,18 @@ namespace lab9._1.ChartDrawer.Models
 	public sealed class HarmonicsManager : IHarmonicsManager
 	{
 		private List<Harmonic> _harmonics = new List<Harmonic>();
-		private int _selectedHarmonicIndex = 0;
+		public int ActiveHarmonicIndex { get; private set; } = -1;
 
-		public event Action<List<Harmonic>> HarmonicsChanged;
-		public event Action<Harmonic> ActiveHarmonicChanged;
+		public event Action<int> ActiveHarmonicChanged;
+		public event Action<int> HarmonicDeleted;
+		public event Action<int> HarmonicAdded;
 
 		public void AddNewHarmonic(Harmonic harmonic)
 		{
 			_harmonics.Add(harmonic);
-			HarmonicsChanged?.Invoke(_harmonics);
+			ActiveHarmonicIndex = _harmonics.Count - 1;
+			HarmonicAdded?.Invoke(ActiveHarmonicIndex);
+			ActiveHarmonicChanged?.Invoke(ActiveHarmonicIndex);
 		}
 
 		public void DeleteHarmonicByIndex(int index)
@@ -26,51 +29,18 @@ namespace lab9._1.ChartDrawer.Models
 			}
 
 			_harmonics.RemoveAt(index);
-			HarmonicsChanged?.Invoke(_harmonics);
-		}
-
-		public void ChangeSelectedHarmonicAmplitude(int index, float amplitude)
-		{
-			if (index >= _harmonics.Count || index < 0)
+			HarmonicDeleted?.Invoke(index);
+			if (!(ActiveHarmonicIndex == 0 && _harmonics.Count > 0))
 			{
-				throw new IndexOutOfRangeException("index out of range");
+				ActiveHarmonicIndex--;
 			}
 
-			_harmonics[index].Amplitude = amplitude;
-			HarmonicsChanged?.Invoke(_harmonics);
+			ActiveHarmonicChanged?.Invoke(ActiveHarmonicIndex);
 		}
 
-		public void ChangeSelectedHarmonicType(int index, HarmonicType type)
+		public List<Harmonic> GetAllHarmonics()
 		{
-			if (index >= _harmonics.Count || index < 0)
-			{
-				throw new IndexOutOfRangeException("index out of range");
-			}
-
-			_harmonics[index].Type = type;
-			HarmonicsChanged?.Invoke(_harmonics);
-		}
-
-		public void ChangeSelectedHarmonicFrequency(int index, float frequency)
-		{
-			if (index >= _harmonics.Count || index < 0)
-			{
-				throw new IndexOutOfRangeException("index out of range");
-			}
-
-			_harmonics[index].Frequency = frequency;
-			HarmonicsChanged?.Invoke(_harmonics);
-		}
-
-		public void ChangeSelectedHarmonicPhase(int index, float phase)
-		{
-			if (index >= _harmonics.Count || index < 0)
-			{
-				throw new IndexOutOfRangeException("index out of range");
-			}
-
-			_harmonics[index].Phase = phase;
-			HarmonicsChanged?.Invoke(_harmonics);
+			return _harmonics;
 		}
 
 		public void SelectHarmonicByIndex(int index)
@@ -80,8 +50,8 @@ namespace lab9._1.ChartDrawer.Models
 				throw new IndexOutOfRangeException("index out of range");
 			}
 
-			_selectedHarmonicIndex = index;
-			ActiveHarmonicChanged?.Invoke(_harmonics[_selectedHarmonicIndex]);
+			ActiveHarmonicIndex = index;
+			ActiveHarmonicChanged?.Invoke(ActiveHarmonicIndex);
 		}
 	}
 }

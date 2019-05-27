@@ -55,13 +55,17 @@
     <Compile Include="ChartDrawer\Models\IHarmonicsManager.cs" />
     <Compile Include="ChartDrawer\Models\HarmonicsManager.cs" />
     <Compile Include="ChartDrawer\Controllers\MainFormController.cs" />
+    <Compile Include="ChartDrawer\Utils\Converter.cs" />
     <Compile Include="ChartDrawer\Views\HarmonicCreatorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ChartDrawer\Views\HarmonicCreatorForm.Designer.cs">
       <DependentUpon>HarmonicCreatorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChartDrawer\Views\HarmonicViewData.cs" />
+    <Compile Include="ChartDrawer\Views\HarmonicsChart.cs" />
+    <Compile Include="ChartDrawer\Views\HarmonicsTable.cs" />
+    <Compile Include="ChartDrawer\Views\HarmonicsVisualizer.cs" />
+    <Compile Include="ChartDrawer\Views\HarmonicData.cs" />
     <Compile Include="ChartDrawer\Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,8 +102,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ChartDrawer\Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

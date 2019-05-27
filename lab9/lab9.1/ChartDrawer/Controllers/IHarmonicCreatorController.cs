@@ -7,8 +7,7 @@ namespace lab9._1.ChartDrawer.Controllers
 	public interface IHarmonicCreatorController
 	{
 		void AddNewHarmonic();
-		string GetHarmonicStringRepresentation();
-		HarmonicViewData GetHarmonicView();
+		HarmonicData GetHarmonicView();
 		void SubscribeToHarmonicChanges(Action action);
 		void ChangeHarmonicFrequency(float value);
 		void ChangeHarmonicAmplitude(float value);

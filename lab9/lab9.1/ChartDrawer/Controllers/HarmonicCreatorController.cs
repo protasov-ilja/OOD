@@ -21,14 +21,9 @@ namespace lab9._1.ChartDrawer.Controllers
 			_harmonic.ParametersChanged += action;
 		}
 
-		public HarmonicViewData GetHarmonicView()
+		public HarmonicData GetHarmonicView()
 		{
-			return new HarmonicViewData(_harmonic.Type, _harmonic.Amplitude, _harmonic.Frequency, _harmonic.Phase);
-		}
-
-		public string GetHarmonicStringRepresentation()
-		{
-			return $"{ _harmonic.Amplitude } * { (_harmonic.Type == HarmonicType.Cos ? "cos" : "sin") }({ _harmonic.Frequency } * x + { _harmonic.Phase })";
+			return new HarmonicData(_harmonic.Type, _harmonic.Amplitude, _harmonic.Frequency, _harmonic.Phase);
 		}
 
 		public void AddNewHarmonic()

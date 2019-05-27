@@ -1,64 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 using lab9._1.ChartDrawer.Models;
 using lab9._1.ChartDrawer.Models.Enums;
 using lab9._1.ChartDrawer.Controllers;
+using lab9._1.ChartDrawer.Utils;
 
 namespace lab9._1.ChartDrawer.Views
 {
 	public partial class MainForm : Form
 	{
-		private const string ChartName = "ResultChar";
-		private const float MinChartBorder = 0;
-		private const float MaxChartBorder = 4.5f;
-		private const float StepSize = 0.5f;
-
-		private IMainFormController _mainFormPresenter;
+		private IMainFormController _mainFormController;
 		private IHarmonicsManager _harmonicManager;
+		private HarmonicsChart _chart;
+		private HarmonicsTable _table;
 		private bool _blockEvents = false;
 
 		public MainForm(IHarmonicsManager harmonicManager)
 		{
 			InitializeComponent();
+			_chart = new HarmonicsChart(harmonicsChart);
+			_table = new HarmonicsTable(harmonicsTable);
 			_harmonicManager = harmonicManager;
-			_mainFormPresenter = new MainFormController(harmonicManager);
-			harmonicManager.HarmonicsChanged += UpdateView;
-			harmonicManager.ActiveHarmonicChanged += UpdateSelectedHarmonic;
-			ActivateReadonly(false);
+			_mainFormController = new MainFormController(harmonicManager);
+			_harmonicManager.HarmonicAdded += AddInList;
+			_harmonicManager.HarmonicDeleted += RemoveFromListByIndex;
+			harmonicManager.ActiveHarmonicChanged += SelectedHarmonicChanged;
+			ActivateInput(false);
 		}
 
-		private void UpdateSelectedHarmonic(Harmonic harmonic)
-		{
-			if (harmonicsList.SelectedItems.Count != 0)
-			{
-				_blockEvents = true;
-				harmonicsList.SelectedItem = harmonic;
-				amplitudeText.Text = harmonic.Amplitude.ToString();
-				frequencyText.Text = harmonic.Frequency.ToString();
-				phaseText.Text = harmonic.Phase.ToString();
-				switch (harmonic.Type)
-				{
-					case HarmonicType.Cos:
-						cosButton.Checked = true;
-						break;
-					case HarmonicType.Sin:
-						sinButton.Checked = true;
-						break;
-				}
-
-				_blockEvents = false;
-			}
-		}
-
-		private void ActivateReadonly(bool activate)
+		private void ActivateInput(bool activate)
 		{
 			amplitudeText.Enabled = activate;
 			frequencyText.Enabled = activate;
@@ -66,81 +37,89 @@ namespace lab9._1.ChartDrawer.Views
 			radioButtonsGroup.Enabled = activate;
 		}
 
-		private void UpdateView(List<Harmonic> harmonics)
+		private void RemoveFromListByIndex(int index)
 		{
-			var isItemsSelected = harmonicsList.SelectedItems.Count != 0;
-			var selectedIndex = harmonicsList.SelectedIndex;
-			harmonicsList.Items.Clear();
-			for (var i = 0; i < harmonics.Count; ++i)
-			{
-				harmonicsList.Items.Add(harmonics[i]);
-				if (isItemsSelected && i == harmonicsList.SelectedIndex)
-				{
-					harmonicsList.SetSelected(i, true);
-				}
-			}
+			harmonicsList.Items.RemoveAt(index);
 
-			FillChart(harmonics);
-			FillTable(harmonics);
-			if (harmonicsList.SelectedItems.Count == 0 && harmonics.Count != 0) 
-			{
-				harmonicsList.SetSelected(harmonics.Count - 1, true);
-			}
-			else if (harmonicsList.SelectedItems.Count == 0 && harmonics.Count == 0)
-			{
-				amplitudeText.Text = "";
-				frequencyText.Text = "";
-				phaseText.Text = "";
-				sinButton.Checked = false;
-				cosButton.Checked = false;
-			}
+			_chart.RemoveHarmonicDataAtIndex(index);
+			_table.RemoveHarmonicDataAtIndex(index);
 
-			ActivateReadonly(harmonicsList.SelectedItems.Count != 0);
-		}
-
-		private void FillTable(List<Harmonic> harmonics)
-		{
-			harmonicsTable.Rows.Clear();
-			if (harmonics.Count > 0)
+			if (harmonicsList.Items.Count == 0)
 			{
-				for (float x = MinChartBorder; x <= MaxChartBorder; x += StepSize)
-				{
-					DataGridViewCell cellX = new DataGridViewTextBoxCell();
-					DataGridViewCell cellY = new DataGridViewTextBoxCell();
-					cellX.Value = x;
-					cellY.Value = GetResultY(x, harmonics);
-					DataGridViewRow row = new DataGridViewRow();
-					row.Cells.AddRange(cellX, cellY);
-					harmonicsTable.Rows.Add(row);
-				}
+				ActivateInput(false);
 			}
 		}
 
-		private void FillChart(List<Harmonic> harmonics)
+		private void AddInList(int index)
 		{
-			harmonicsChart.Series[ChartName].Points.Clear();
-			for (float x = MinChartBorder; x <= MaxChartBorder; x += StepSize)
+			if (harmonicsList.Items.Count == 0)
 			{
-				harmonicsChart.Series[ChartName].Points.AddXY(x, GetResultY(x, harmonics));
+				ActivateInput(true);
+			}
+
+			var data = _mainFormController.GetActiveHarmonicData();
+			_mainFormController.SubscribeToActiveHarmonicEvents(OnHarmonicParametersChanged);
+			harmonicsList.Items.Add(Converter.GetStringRepresentation(data));
+
+			_chart.AddHarmonicData(data);
+			_table.AddHarmonicData(data);
+		}
+
+		private void SelectedHarmonicChanged(int index)
+		{
+			if (index != -1)
+			{
+				_blockEvents = true;
+				MessageBox.Show(index.ToString());
+				harmonicsList.SetSelected(index, true);
+				UpdateActiveHarmonicParameters();
+				_blockEvents = false;
+			}
+			else
+			{
+				ResetHarmonicParamenters();
 			}
 		}
 
-		private double GetResultY(float x, List<Harmonic> harmonics)
+		private void OnHarmonicParametersChanged()
 		{
-			double result = 0;
-			foreach (var harmonic in harmonics)
-			{
-				result += GetYValue(x, harmonic);
-			}
+			_blockEvents = true;
+			var data = _mainFormController.GetActiveHarmonicData();
+			harmonicsList.Items[harmonicsList.SelectedIndex] = Converter.GetStringRepresentation(data);
+			_blockEvents = false;
 
-			return result;
+			_chart.UpdateHarmonicData(harmonicsList.SelectedIndex, data);
+			_table.UpdateHarmonicData(harmonicsList.SelectedIndex, data);
 		}
 
-		private double GetYValue(float x, Harmonic harmonic)
+		private void UpdateActiveHarmonicParameters()
 		{
-			return harmonic.Type == HarmonicType.Sin
-				? harmonic.Amplitude * Math.Sin(harmonic.Frequency * x + harmonic.Phase)
-				: harmonic.Amplitude * Math.Cos(harmonic.Frequency * x + harmonic.Phase);
+			var data = _mainFormController.GetActiveHarmonicData();
+			_blockEvents = true;
+			amplitudeText.Text = data.Amplitude.ToString();
+			frequencyText.Text = data.Frequency.ToString();
+			phaseText.Text = data.Phase.ToString();
+			switch (data.Type)
+			{
+				case HarmonicType.Cos:
+					cosButton.Checked = true;
+					break;
+				case HarmonicType.Sin:
+					sinButton.Checked = true;
+					break;
+			}
+
+			_blockEvents = false;
+		}
+
+		private void ResetHarmonicParamenters()
+		{
+			_blockEvents = true;
+			amplitudeText.Text = "";
+			frequencyText.Text = "";
+			phaseText.Text = "";
+			sinButton.Checked = true;
+			_blockEvents = false;
 		}
 
 		private void amplitudeText_TextChanged(object sender, EventArgs e)
@@ -151,7 +130,7 @@ namespace lab9._1.ChartDrawer.Views
 				var isEmplty = text.Length == 0;
 				if (!isEmplty && float.TryParse(text, out var value))
 				{
-					_mainFormPresenter.UpdateSelectedHarmonicAmplitude(harmonicsList.SelectedIndex, value);
+					_mainFormController.UpdateSelectedHarmonicAmplitude(value);
 				}
 				else
 				{
@@ -170,7 +149,7 @@ namespace lab9._1.ChartDrawer.Views
 			{
 				if (cosButton.Checked)
 				{
-					_mainFormPresenter.UpdateSelectedHarmonicType(harmonicsList.SelectedIndex, HarmonicType.Cos);
+					_mainFormController.UpdateSelectedHarmonicType(HarmonicType.Cos);
 				}
 			}
 		}
@@ -183,7 +162,7 @@ namespace lab9._1.ChartDrawer.Views
 				var isEmplty = text.Length == 0;
 				if (!isEmplty && float.TryParse(text, out var value))
 				{
-					_mainFormPresenter.UpdateSelectedHarmonicFrequency(harmonicsList.SelectedIndex, value);
+					_mainFormController.UpdateSelectedHarmonicFrequency(value);
 				}
 				else
 				{
@@ -204,7 +183,7 @@ namespace lab9._1.ChartDrawer.Views
 				var isEmplty = text.Length == 0;
 				if (!isEmplty && float.TryParse(text, out var value))
 				{
-					_mainFormPresenter.UpdateSelectedHarmonicPhase(harmonicsList.SelectedIndex, value);
+					_mainFormController.UpdateSelectedHarmonicPhase(value);
 				}
 				else
 				{
@@ -227,13 +206,16 @@ namespace lab9._1.ChartDrawer.Views
 		{
 			if (harmonicsList.SelectedItems.Count != 0)
 			{
-				_mainFormPresenter.DeleteSelectedHarmonic(harmonicsList.SelectedIndex);
+				_mainFormController.DeleteSelectedHarmonic(harmonicsList.SelectedIndex);
 			}
 		}
 
 		private void harmonicsList_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			_mainFormPresenter.GetSelectedHarmonic(harmonicsList.SelectedIndex);
+			if (!_blockEvents && harmonicsList.SelectedItems.Count != 0)
+			{
+				_mainFormController.ChangeSelectedHarmonic(harmonicsList.SelectedIndex);
+			}
 		}
 
 		private void sinButton_CheckedChanged(object sender, EventArgs e)
@@ -242,7 +224,7 @@ namespace lab9._1.ChartDrawer.Views
 			{
 				if (sinButton.Checked)
 				{
-					_mainFormPresenter.UpdateSelectedHarmonicType(harmonicsList.SelectedIndex, HarmonicType.Sin);
+					_mainFormController.UpdateSelectedHarmonicType(HarmonicType.Sin);
 				}
 			}
 		}

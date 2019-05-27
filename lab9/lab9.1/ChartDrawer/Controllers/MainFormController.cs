@@ -1,13 +1,14 @@
 ﻿
+using System;
 using lab9._1.ChartDrawer.Models;
 using lab9._1.ChartDrawer.Models.Enums;
+using lab9._1.ChartDrawer.Views;
 
 namespace lab9._1.ChartDrawer.Controllers
 {
 	public sealed class MainFormController : IMainFormController
 	{
 		private IHarmonicsManager _mainWindow;
-		private int _lastSelected = -1;
 
 		public MainFormController(IHarmonicsManager mainWindow)
 		{
@@ -16,37 +17,68 @@ namespace lab9._1.ChartDrawer.Controllers
 
 		public void DeleteSelectedHarmonic(int index)
 		{
-			_lastSelected = -1;
 			_mainWindow.DeleteHarmonicByIndex(index);
 		}
 
-		public void GetSelectedHarmonic(int index)
+		public void ChangeSelectedHarmonic(int index)
 		{
-			if (_lastSelected != index)
+			_mainWindow.SelectHarmonicByIndex(index);
+		}
+
+		public void UpdateSelectedHarmonicAmplitude(float amplitude)
+		{
+			var harmonics = _mainWindow.GetAllHarmonics();
+			if (harmonics.Count != 0)
 			{
-				_lastSelected = index;
-				_mainWindow.SelectHarmonicByIndex(index);
+				harmonics[_mainWindow.ActiveHarmonicIndex].Amplitude = amplitude;
+			}	
+		}
+
+		public void UpdateSelectedHarmonicFrequency(float frequency)
+		{
+			var harmonics = _mainWindow.GetAllHarmonics();
+			if (harmonics.Count != 0)
+			{
+				harmonics[_mainWindow.ActiveHarmonicIndex].Frequency = frequency;
 			}
 		}
 
-		public void UpdateSelectedHarmonicAmplitude(int index, float amplitude)
+		public void UpdateSelectedHarmonicPhase(float phase)
 		{
-			_mainWindow.ChangeSelectedHarmonicAmplitude(index, amplitude);
+			var harmonics = _mainWindow.GetAllHarmonics();
+			if (harmonics.Count != 0)
+			{
+				harmonics[_mainWindow.ActiveHarmonicIndex].Phase = phase;
+			}
 		}
 
-		public void UpdateSelectedHarmonicFrequency(int index, float frequency)
+		public void UpdateSelectedHarmonicType(HarmonicType type)
 		{
-			_mainWindow.ChangeSelectedHarmonicFrequency(index, frequency);
+			var harmonics = _mainWindow.GetAllHarmonics();
+			if (harmonics.Count != 0)
+			{
+				harmonics[_mainWindow.ActiveHarmonicIndex].Type = type;
+			}
 		}
 
-		public void UpdateSelectedHarmonicPhase(int index, float phase)
+		public HarmonicData GetActiveHarmonicData()
 		{
-			_mainWindow.ChangeSelectedHarmonicPhase(index, phase);
+			var harmonics = _mainWindow.GetAllHarmonics();
+			var activeHarmonicIndex = _mainWindow.ActiveHarmonicIndex;
+			if (activeHarmonicIndex < 0)
+			{
+				return null;
+			}
+
+			var harmonic = harmonics[activeHarmonicIndex];
+			return new HarmonicData(harmonic);
+			
 		}
 
-		public void UpdateSelectedHarmonicType(int index, HarmonicType type)
+		public void SubscribeToActiveHarmonicEvents(Action action)
 		{
-			_mainWindow.ChangeSelectedHarmonicType(index, type);
+			var harmonics = _mainWindow.GetAllHarmonics();
+			harmonics[_mainWindow.ActiveHarmonicIndex].ParametersChanged += action;
 		}
 	}
 }

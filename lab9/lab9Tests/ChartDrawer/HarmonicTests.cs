@@ -7,13 +7,13 @@ namespace lab9Tests.ChartDrawer
 	[TestClass]
 	public sealed class HarmonicTests
 	{
-		public string GetHurmonicStringRepresentation(HarmonicType t, float a, float f, float p)
+		public string GetHarmonicStringRepresentation(HarmonicType t, float a, float f, float p)
 		{
 			return $"{ a } * { (t == HarmonicType.Cos ? "cos" : "sin") }({ f } * x + { p })";
 		}
 
 		[TestMethod]
-		public void CanCreateSinHarmonicAndReturnItsStringRepresentation()
+		public void CanCreateSinHarmonicAndReturnItsStringRepresentationWithValueParametersEvent()
 		{
 			var hType = HarmonicType.Sin;
 			float hAmplitude = 1;
@@ -24,7 +24,7 @@ namespace lab9Tests.ChartDrawer
 			Assert.AreEqual(h.Amplitude, hAmplitude);
 			Assert.AreEqual(h.Frequency, hFrequency);
 			Assert.AreEqual(h.Phase, hPhase);
-			Assert.AreEqual(h.ToString(), GetHurmonicStringRepresentation(hType, hAmplitude, hFrequency, hPhase));
+			Assert.AreEqual(h.ToString(), GetHarmonicStringRepresentation(hType, hAmplitude, hFrequency, hPhase));
 		}
 
 		[TestMethod]
@@ -39,7 +39,7 @@ namespace lab9Tests.ChartDrawer
 			Assert.AreEqual(h.Amplitude, hAmplitude);
 			Assert.AreEqual(h.Frequency, hFrequency);
 			Assert.AreEqual(h.Phase, hPhase);
-			Assert.AreEqual(h.ToString(), GetHurmonicStringRepresentation(hType, hAmplitude, hFrequency, hPhase));
+			Assert.AreEqual(h.ToString(), GetHarmonicStringRepresentation(hType, hAmplitude, hFrequency, hPhase));
 		}
 
 		[TestMethod]
@@ -54,7 +54,7 @@ namespace lab9Tests.ChartDrawer
 			Assert.AreEqual(h.Amplitude, hAmplitude);
 			Assert.AreEqual(h.Frequency, hFrequency);
 			Assert.AreEqual(h.Phase, hPhase);
-			Assert.AreEqual(h.ToString(), GetHurmonicStringRepresentation(hType, hAmplitude, hFrequency, hPhase));
+			Assert.AreEqual(h.ToString(), GetHarmonicStringRepresentation(hType, hAmplitude, hFrequency, hPhase));
 		}
 	}
 }
