@@ -1,26 +1,37 @@
-﻿using lab9._1.ChartDrawer.Models;
-using System.Collections.Generic;
-
-namespace lab9Tests.ChartDrawer
+﻿namespace lab9Tests.ChartDrawer
 {
 	public class TestObject
 	{
-		public bool IsEventHarmonicsChangedInvoked { get; private set; } = false;
-		public bool IsEventHarmonicChangedInvoked { get; private set; } = false;
-		public List<Harmonic> Harmonics { get; private set; }
-		public Harmonic SelectedHarmonic { get; private set; }
-		public bool IsChangedValueEventInvoked { get; private set; } = false;
+		public bool IsEventHarmonicAddedInvoked { get; private set; } = false;
+		public bool IsEventActiveHarmonicChangedInvoked { get; private set; } = false;
+		public bool IsEventHarmonicDeletedInvoked { get; private set; } = false;
+		public bool IsEventHarmonicParametersChangedInvoked { get; private set; } = false;
+		
+		public int activeIndex = -1;
+		public int deltedIndex = -1;
+		public int addedIndex = -1;
 
-		public void OnHarmonicsChanged(List<Harmonic> harmonics)
+		public void OnHarmonicsChanged()
 		{
-			Harmonics = harmonics;
-			IsEventHarmonicsChangedInvoked = true;
+			IsEventHarmonicParametersChangedInvoked = true;
 		}
 
-		public void OnSelectedHarmonicChanged(Harmonic harmonic)
+		public void OnActiveHarmonicChanged(int index)
 		{
-			IsEventHarmonicChangedInvoked = true;
-			SelectedHarmonic = harmonic;
+			activeIndex = index;
+			IsEventActiveHarmonicChangedInvoked = true;
+		}
+
+		public void OnHarmonicAdded(int index)
+		{
+			addedIndex = index;
+			IsEventHarmonicAddedInvoked = true;
+		}
+
+		public void OnHarmonicDeleted(int index)
+		{
+			deltedIndex = index;
+			IsEventHarmonicDeletedInvoked = true;
 		}
 	}
 }

@@ -7,13 +7,8 @@ namespace lab9Tests.ChartDrawer
 	[TestClass]
 	public sealed class HarmonicTests
 	{
-		public string GetHarmonicStringRepresentation(HarmonicType t, float a, float f, float p)
-		{
-			return $"{ a } * { (t == HarmonicType.Cos ? "cos" : "sin") }({ f } * x + { p })";
-		}
-
 		[TestMethod]
-		public void CanCreateSinHarmonicAndReturnItsStringRepresentationWithValueParametersEvent()
+		public void CanCreateSinHarmonic()
 		{
 			var hType = HarmonicType.Sin;
 			float hAmplitude = 1;
@@ -24,11 +19,10 @@ namespace lab9Tests.ChartDrawer
 			Assert.AreEqual(h.Amplitude, hAmplitude);
 			Assert.AreEqual(h.Frequency, hFrequency);
 			Assert.AreEqual(h.Phase, hPhase);
-			Assert.AreEqual(h.ToString(), GetHarmonicStringRepresentation(hType, hAmplitude, hFrequency, hPhase));
 		}
 
 		[TestMethod]
-		public void CanCreateCosHarmonicAndReturnItsStringRepresentation()
+		public void CanCreateCosHarmonic()
 		{
 			var hType = HarmonicType.Cos;
 			float hAmplitude = 1;
@@ -39,7 +33,6 @@ namespace lab9Tests.ChartDrawer
 			Assert.AreEqual(h.Amplitude, hAmplitude);
 			Assert.AreEqual(h.Frequency, hFrequency);
 			Assert.AreEqual(h.Phase, hPhase);
-			Assert.AreEqual(h.ToString(), GetHarmonicStringRepresentation(hType, hAmplitude, hFrequency, hPhase));
 		}
 
 		[TestMethod]
@@ -54,7 +47,50 @@ namespace lab9Tests.ChartDrawer
 			Assert.AreEqual(h.Amplitude, hAmplitude);
 			Assert.AreEqual(h.Frequency, hFrequency);
 			Assert.AreEqual(h.Phase, hPhase);
-			Assert.AreEqual(h.ToString(), GetHarmonicStringRepresentation(hType, hAmplitude, hFrequency, hPhase));
+		}
+
+		[TestMethod]
+		public void CanInvokeParametersChangedEvenIfHarmonicParametersChanged()
+		{
+			{ // type changed
+				var textObject = new TestObject();
+				var hType = HarmonicType.Cos;
+				var h = new Harmonic();
+				h.ParametersChanged += textObject.OnHarmonicsChanged;
+				h.Type = hType;
+				Assert.AreEqual(h.Type, hType);
+				Assert.IsTrue(textObject.IsEventHarmonicParametersChangedInvoked);
+			}
+
+			{ // type Amplitude
+				var textObject = new TestObject();
+				float hAmplitude = 2;
+				var h = new Harmonic();
+				h.ParametersChanged += textObject.OnHarmonicsChanged;
+				h.Amplitude = hAmplitude;
+				Assert.AreEqual(h.Amplitude, hAmplitude);
+				Assert.IsTrue(textObject.IsEventHarmonicParametersChangedInvoked);
+			}
+
+			{ // type Frequency
+				var textObject = new TestObject();
+				float hFrequency = 3;
+				var h = new Harmonic();
+				h.ParametersChanged += textObject.OnHarmonicsChanged;
+				h.Frequency = hFrequency;
+				Assert.AreEqual(h.Frequency, hFrequency);
+				Assert.IsTrue(textObject.IsEventHarmonicParametersChangedInvoked);
+			}
+
+			{ // type Frequency
+				var textObject = new TestObject();
+				float hPhase = 2;
+				var h = new Harmonic();
+				h.ParametersChanged += textObject.OnHarmonicsChanged;
+				h.Phase = hPhase;
+				Assert.AreEqual(h.Phase, hPhase);
+				Assert.IsTrue(textObject.IsEventHarmonicParametersChangedInvoked);
+			}
 		}
 	}
 }
