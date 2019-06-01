@@ -7,13 +7,13 @@ namespace lab9._1.ChartDrawer.Controllers
 {
 	public sealed class HarmonicCreatorController : IHarmonicCreatorController
 	{
-		private IHarmonicsManager _mainWindow;
+		private IHarmonicsContainer _harmonicsContainer;
 		private Harmonic _harmonic;
 
-		public HarmonicCreatorController(IHarmonicsManager mainWindow)
+		public HarmonicCreatorController(IHarmonicsContainer harmonicsContainer)
 		{
 			_harmonic = new Harmonic();
-			_mainWindow = mainWindow;
+			_harmonicsContainer = harmonicsContainer;
 		}
 
 		public void SubscribeToHarmonicChanges(Action action)
@@ -21,14 +21,14 @@ namespace lab9._1.ChartDrawer.Controllers
 			_harmonic.ParametersChanged += action;
 		}
 
-		public HarmonicData GetHarmonicView()
+		public HarmonicData GetHarmonicData()
 		{
 			return new HarmonicData(_harmonic.Type, _harmonic.Amplitude, _harmonic.Frequency, _harmonic.Phase);
 		}
 
 		public void AddNewHarmonic()
 		{
-			_mainWindow.AddNewHarmonic(_harmonic);
+			_harmonicsContainer.AddNewHarmonic(_harmonic);
 		}
 
 		public void ChangeHarmonicFrequency(float value)

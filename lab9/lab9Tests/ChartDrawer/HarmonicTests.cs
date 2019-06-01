@@ -52,7 +52,7 @@ namespace lab9Tests.ChartDrawer
 		[TestMethod]
 		public void CanInvokeParametersChangedEvenIfHarmonicParametersChanged()
 		{
-			{ // type changed
+			{ // Type changed
 				var textObject = new TestObject();
 				var hType = HarmonicType.Cos;
 				var h = new Harmonic();
@@ -62,7 +62,7 @@ namespace lab9Tests.ChartDrawer
 				Assert.IsTrue(textObject.IsEventHarmonicParametersChangedInvoked);
 			}
 
-			{ // type Amplitude
+			{ // Amplitude changed
 				var textObject = new TestObject();
 				float hAmplitude = 2;
 				var h = new Harmonic();
@@ -72,7 +72,7 @@ namespace lab9Tests.ChartDrawer
 				Assert.IsTrue(textObject.IsEventHarmonicParametersChangedInvoked);
 			}
 
-			{ // type Frequency
+			{ // Frequency changed
 				var textObject = new TestObject();
 				float hFrequency = 3;
 				var h = new Harmonic();
@@ -82,7 +82,7 @@ namespace lab9Tests.ChartDrawer
 				Assert.IsTrue(textObject.IsEventHarmonicParametersChangedInvoked);
 			}
 
-			{ // type Frequency
+			{ // Phase changed
 				var textObject = new TestObject();
 				float hPhase = 2;
 				var h = new Harmonic();

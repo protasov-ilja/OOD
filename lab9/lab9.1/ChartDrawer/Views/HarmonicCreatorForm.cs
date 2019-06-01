@@ -9,26 +9,21 @@ namespace lab9._1.ChartDrawer.Views
 {
 	public partial class HarmonicCreatorForm : Form
 	{
-		private IHarmonicsManager _mainWindow;
+		private const string ERROR_MESSAGE = "Error, please input float value";
+
 		private IHarmonicCreatorController _harmonicCreatorController;
 
-		public HarmonicCreatorForm(IHarmonicsManager harmonicsManager)
+		public HarmonicCreatorForm(IHarmonicsContainer harmonicsManager)
 		{
 			InitializeComponent();
-			_mainWindow = harmonicsManager;
 			_harmonicCreatorController = new HarmonicCreatorController(harmonicsManager);
 			UpdateViewFields();
 			_harmonicCreatorController.SubscribeToHarmonicChanges(UpdateViewFields);
 		}
 
-		private void OnHarmonicChanged()
-		{
-			_harmonicCreatorController.SubscribeToHarmonicChanges(UpdateViewFields);
-		}
-
 		private void UpdateViewFields()
 		{
-			var data = _harmonicCreatorController.GetHarmonicView();
+			var data = _harmonicCreatorController.GetHarmonicData();
 			resultHarmonicText.Text = Converter.GetStringRepresentation(data);
 			amplitudeText.Text = data.Amplitude.ToString();
 			frequencyText.Text = data.Frequency.ToString();
@@ -57,55 +52,37 @@ namespace lab9._1.ChartDrawer.Views
 
 		private void frequencyText_TextChanged(object sender, EventArgs e)
 		{
-			var text = frequencyText.Text;
-			var isEmplty = text.Length == 0;
-			if (!isEmplty && float.TryParse(text, out var value))
+			if (Validator.TryValidateTextBox(frequencyText, out var value))
 			{
 				_harmonicCreatorController.ChangeHarmonicFrequency(value);
 			}
 			else
 			{
-				MessageBox.Show("Error, please input float value");
-				if (!isEmplty)
-				{
-					frequencyText.Text = "";
-				}
+				MessageBox.Show(ERROR_MESSAGE);
 			}
 		}
 
 		private void phaseText_TextChanged(object sender, EventArgs e)
 		{
-			var text = phaseText.Text;
-			var isEmplty = text.Length == 0;
-			if (!isEmplty && float.TryParse(text, out var value))
+			if (Validator.TryValidateTextBox(phaseText, out var value))
 			{
 				_harmonicCreatorController.ChangeHarmonicPhase(value);
 			}
 			else
 			{
-				MessageBox.Show("Error, please input float value");
-				if (!isEmplty)
-				{
-					phaseText.Text = "";
-				}
+				MessageBox.Show(ERROR_MESSAGE);
 			}
 		}
 
 		private void amplitudeText_TextChanged(object sender, EventArgs e)
 		{
-			var text = amplitudeText.Text;
-			var isEmplty = text.Length == 0;
-			if (!isEmplty && float.TryParse(text, out var value))
+			if (Validator.TryValidateTextBox(amplitudeText, out var value))
 			{
 				_harmonicCreatorController.ChangeHarmonicAmplitude(value);
 			}
 			else
 			{
-				MessageBox.Show("Error, please input float value");
-				if (!isEmplty)
-				{
-					amplitudeText.Text = "";
-				}
+				MessageBox.Show(ERROR_MESSAGE);
 			}
 		}
 

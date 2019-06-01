@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using lab9._1.ChartDrawer.Models;
+using System.Windows.Forms;
 
 namespace lab9._1.ChartDrawer.Views
 {
@@ -10,12 +11,13 @@ namespace lab9._1.ChartDrawer.Views
 
 		private DataGridView _table;
 
-		public HarmonicsTable(DataGridView table)
+		public HarmonicsTable(IHarmonicsContainer harmonicsContainer, DataGridView table)
+			: base(harmonicsContainer)
 		{
 			_table = table;
 		}
 
-		protected override void Update()
+		protected override void UpdateVisualization()
 		{
 			_table.Rows.Clear();
 			if (_harmonicsData.Count > 0)
@@ -25,7 +27,7 @@ namespace lab9._1.ChartDrawer.Views
 					DataGridViewCell cellX = new DataGridViewTextBoxCell();
 					DataGridViewCell cellY = new DataGridViewTextBoxCell();
 					cellX.Value = x;
-					cellY.Value = GetResultY(x, _harmonicsData);
+					cellY.Value = GetResultY(x);
 					DataGridViewRow row = new DataGridViewRow();
 					row.Cells.AddRange(cellX, cellY);
 					_table.Rows.Add(row);

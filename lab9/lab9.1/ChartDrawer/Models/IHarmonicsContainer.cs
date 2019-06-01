@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace lab9._1.ChartDrawer.Models
 {
-	public interface IHarmonicsManager
+	public interface IHarmonicsContainer
 	{
 		event Action<int> ActiveHarmonicChanged;
 		event Action<int> HarmonicDeleted;
@@ -13,7 +12,8 @@ namespace lab9._1.ChartDrawer.Models
 
 		void AddNewHarmonic(Harmonic hurmonic);
 		void DeleteHarmonicByIndex(int index);
-		List<Harmonic> GetAllHarmonics();
+		Harmonic GetHarmonicByIndex(int index);
+		bool IsEmpty();
 		void SelectHarmonicByIndex(int index);
 	}
 }

@@ -69,7 +69,7 @@
 			this.harmonicsChart.ChartAreas.Add(chartArea1);
 			legend1.Name = "Legend1";
 			this.harmonicsChart.Legends.Add(legend1);
-			this.harmonicsChart.Location = new System.Drawing.Point(-4, 10);
+			this.harmonicsChart.Location = new System.Drawing.Point(-4, 0);
 			this.harmonicsChart.Name = "harmonicsChart";
 			series1.ChartArea = "ChartArea1";
 			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
@@ -117,7 +117,6 @@
 			this.tablePage2.TabIndex = 1;
 			this.tablePage2.Text = "Table";
 			this.tablePage2.UseVisualStyleBackColor = true;
-			this.tablePage2.Click += new System.EventHandler(this.tabPage2_Click);
 			// 
 			// harmonicsTable
 			// 

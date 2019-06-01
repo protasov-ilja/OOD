@@ -1,7 +1,4 @@
-﻿using lab9._1.ChartDrawer.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using lab9._1.ChartDrawer.Models;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace lab9._1.ChartDrawer.Views
@@ -15,17 +12,20 @@ namespace lab9._1.ChartDrawer.Views
 
 		private Chart _chart;
 
-		public HarmonicsChart(Chart chart)
+		public HarmonicsChart(IHarmonicsContainer harmonicsContainer, Chart chart)
+			: base(harmonicsContainer)
 		{
 			_chart = chart;
+			_chart.ChartAreas[0].AxisX.Minimum = MinChartBorder;
+			_chart.ChartAreas[0].AxisX.Maximum = MaxChartBorder;
 		}
 
-		protected override void Update()
+		protected override void UpdateVisualization()
 		{
 			_chart.Series[ChartName].Points.Clear();
 			for (float x = MinChartBorder; x <= MaxChartBorder; x += StepSize)
 			{
-				_chart.Series[ChartName].Points.AddXY(x, GetResultY(x, _harmonicsData));
+				_chart.Series[ChartName].Points.AddXY(x, GetResultY(x));
 			}
 		}
 	}

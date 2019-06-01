@@ -1,4 +1,6 @@
-﻿using lab9._1.ChartDrawer.Models.Enums;
+﻿using lab9._1.ChartDrawer.Controllers;
+using lab9._1.ChartDrawer.Models;
+using lab9._1.ChartDrawer.Models.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -8,30 +10,45 @@ namespace lab9._1.ChartDrawer.Views
 	{
 		protected List<HarmonicData> _harmonicsData = new List<HarmonicData>();
 
-		public void AddHarmonicData(HarmonicData data)
+		private IHarmonicsContainer _harmonicsContainer;
+		private IHarmonicsVisualizerController _harmonicsVisualizerController;
+
+		public HarmonicsVisualizer(IHarmonicsContainer harmonicsContainer)
 		{
-			_harmonicsData.Add(data);
-			Update();
+			_harmonicsContainer = harmonicsContainer;
+			_harmonicsVisualizerController = new HarmonicsVisualizerController(harmonicsContainer);
+			_harmonicsContainer.HarmonicAdded += AddHarmonicDataByIndex;
+			_harmonicsContainer.HarmonicDeleted += RemoveHarmonicDataByIndex;
 		}
 
-		public void RemoveHarmonicDataAtIndex(int index)
+		public void AddHarmonicDataByIndex(int index)
+		{
+			var data = _harmonicsVisualizerController.GetActiveHarmonicData();
+			_harmonicsVisualizerController.SubscribeToActiveHarmonicEvents(UpdateHarmonicData);
+			_harmonicsData.Add(data);
+			UpdateVisualization();
+		}
+
+		public void RemoveHarmonicDataByIndex(int index)
 		{
 			_harmonicsData.RemoveAt(index);
-			Update();
+			UpdateVisualization();
 		}
 
-		public void UpdateHarmonicData(int index, HarmonicData data)
+		public void UpdateHarmonicData()
 		{
-			_harmonicsData[index] = data;
-			Update();
+			var activeHarmonicIndex = _harmonicsVisualizerController.GetIndexOfActiveHarmonic();
+			var data = _harmonicsVisualizerController.GetActiveHarmonicData();
+			_harmonicsData[activeHarmonicIndex] = data;
+			UpdateVisualization();
 		}
 
-		protected abstract void Update();
+		protected abstract void UpdateVisualization();
 
-		protected double GetResultY(float x, List<HarmonicData> harmonics)
+		protected double GetResultY(float x)
 		{
 			double result = 0;
-			foreach (var harmonic in harmonics)
+			foreach (var harmonic in _harmonicsData)
 			{
 				result += GetYValue(x, harmonic);
 			}

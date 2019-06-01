@@ -48,14 +48,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChartDrawer\Controllers\HarmonicCreatorController.cs" />
+    <Compile Include="ChartDrawer\Controllers\HarmonicsVisualizerController.cs" />
     <Compile Include="ChartDrawer\Controllers\IHarmonicCreatorController.cs" />
+    <Compile Include="ChartDrawer\Controllers\IHarmonicsVisualizerController.cs" />
     <Compile Include="ChartDrawer\Controllers\IMainFormController.cs" />
     <Compile Include="ChartDrawer\Models\Enums\HarmonicType.cs" />
     <Compile Include="ChartDrawer\Models\Harmonic.cs" />
-    <Compile Include="ChartDrawer\Models\IHarmonicsManager.cs" />
-    <Compile Include="ChartDrawer\Models\HarmonicsManager.cs" />
+    <Compile Include="ChartDrawer\Models\IHarmonicsContainer.cs" />
+    <Compile Include="ChartDrawer\Models\HarmonicsContainer.cs" />
     <Compile Include="ChartDrawer\Controllers\MainFormController.cs" />
     <Compile Include="ChartDrawer\Utils\Converter.cs" />
+    <Compile Include="ChartDrawer\Utils\Validator.cs" />
     <Compile Include="ChartDrawer\Views\HarmonicCreatorForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -73,15 +73,5 @@ namespace lab9._1.ChartDrawer.Models
 			Frequency = frequency;
 			Phase = phase;
 		}
-
-		public override string ToString()
-		{
-			return $"{ Amplitude } * { HarmonicTypeToString() }({ Frequency } * x + { Phase })";
-		}
-
-		private string HarmonicTypeToString()
-		{
-			return Type == HarmonicType.Cos ? "cos" : "sin";
-		}
 	}
 }

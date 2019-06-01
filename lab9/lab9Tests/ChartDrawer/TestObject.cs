@@ -1,4 +1,7 @@
-﻿namespace lab9Tests.ChartDrawer
+﻿using lab9._1.ChartDrawer.Models;
+using System;
+
+namespace lab9Tests.ChartDrawer
 {
 	public class TestObject
 	{
@@ -6,10 +9,24 @@
 		public bool IsEventActiveHarmonicChangedInvoked { get; private set; } = false;
 		public bool IsEventHarmonicDeletedInvoked { get; private set; } = false;
 		public bool IsEventHarmonicParametersChangedInvoked { get; private set; } = false;
-		
+		public bool ExceptionWasThrownInSelectActiveHarmonicMethod { get; private set; } = false;
+
 		public int activeIndex = -1;
 		public int deltedIndex = -1;
 		public int addedIndex = -1;
+
+		public int newActiveIndex;
+
+		private IHarmonicsContainer _container;
+
+		public TestObject()
+		{
+		}
+
+		public TestObject(IHarmonicsContainer container)
+		{
+			_container = container;
+		}
 
 		public void OnHarmonicsChanged()
 		{
@@ -32,6 +49,20 @@
 		{
 			deltedIndex = index;
 			IsEventHarmonicDeletedInvoked = true;
+		}
+
+		public void ChangeHarmonicSelectedIndexOnHarmonicDeleted(int index)
+		{
+			try
+			{
+				deltedIndex = index;
+				IsEventHarmonicDeletedInvoked = true;
+				_container.SelectHarmonicByIndex(newActiveIndex);
+			}
+			catch (Exception ex)
+			{
+				ExceptionWasThrownInSelectActiveHarmonicMethod = true;
+			}
 		}
 	}
 }

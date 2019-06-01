@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using lab9._1.ChartDrawer.Models.Enums;
 
 namespace lab9._1.ChartDrawer.Models
 {
-	public sealed class HarmonicsManager : IHarmonicsManager
+	public sealed class HarmonicsContainer : IHarmonicsContainer
 	{
 		private List<Harmonic> _harmonics = new List<Harmonic>();
 		public int ActiveHarmonicIndex { get; private set; } = -1;
@@ -29,18 +28,28 @@ namespace lab9._1.ChartDrawer.Models
 			}
 
 			_harmonics.RemoveAt(index);
-			HarmonicDeleted?.Invoke(index);
 			if (!(ActiveHarmonicIndex == 0 && _harmonics.Count > 0))
 			{
 				ActiveHarmonicIndex--;
 			}
 
+			HarmonicDeleted?.Invoke(index);
 			ActiveHarmonicChanged?.Invoke(ActiveHarmonicIndex);
 		}
 
-		public List<Harmonic> GetAllHarmonics()
+		public Harmonic GetHarmonicByIndex(int index)
 		{
-			return _harmonics;
+			if (index >= _harmonics.Count || index < 0)
+			{
+				throw new IndexOutOfRangeException("index out of range");
+			}
+
+			return _harmonics[index];
+		}
+
+		public bool IsEmpty()
+		{
+			return _harmonics.Count == 0;
 		}
 
 		public void SelectHarmonicByIndex(int index)
