@@ -50,12 +50,10 @@ namespace task1.Composite
 
 		public void Draw(ICanvas canvas)
 		{
-			Console.WriteLine("------Group------");
 			foreach (var shape in _shapes)
 			{
 				shape.Draw(canvas);
 			}
-			Console.WriteLine("------End------");
 		}
 
 		private IEnumerable<IStyle> GetFillStyle()

@@ -12,6 +12,7 @@ namespace task1
 		private const string _apllicationName = "Painter";
 		private const uint _windowWidth = 800;
 		private const uint _windowHeight = 700;
+		private static RenderWindow _window;
 
 		static void Main(string[] args)
 		{
@@ -23,18 +24,18 @@ namespace task1
 				};
 
 				var mode = new VideoMode(_windowWidth, _windowHeight);
-				var window = new RenderWindow(mode, _apllicationName);
-				window.Closed += (_, __) => window.Close();
-				var canvas = new Canvas(window);
+				_window = new RenderWindow(mode, _apllicationName);
+				_window.Closed += (_, __) => _window.Close();
+				_window.Resized += OnWindowResized;
+				var canvas = new Canvas(_window);
 				var slide = new Slide(_windowWidth, _windowHeight);
 				CreatePicture(slide);
-				
-				while (window.IsOpen)
+				while (_window.IsOpen)
 				{
-					window.Clear(Color.White);
+					_window.Clear(Color.White);
 					slide.Draw(canvas);
-					window.Display();
-					window.DispatchEvents();
+					_window.Display();
+					_window.DispatchEvents();
 				}
 
 				Console.WriteLine("exit");
@@ -79,6 +80,12 @@ namespace task1
 			slide.InsertShape(group, 0);
 			slide.InsertShape(sun, 1);
 			slide.InsertShape(house, 2);
+		}
+
+		private static void OnWindowResized(object sender, SizeEventArgs e)
+		{
+			var visibleArea = new FloatRect (0, 0, e.Width, e.Height);
+			_window.SetView(new View(visibleArea));
 		}
 	}
 }
