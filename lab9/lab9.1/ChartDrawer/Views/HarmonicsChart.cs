@@ -8,7 +8,7 @@ namespace lab9._1.ChartDrawer.Views
 		private const string ChartName = "ResultChar";
 		private const float MinChartBorder = 0;
 		private const float MaxChartBorder = 4.5f;
-		private const float StepSize = 0.5f;
+		private const float StepSize = 0.25f;
 
 		private Chart _chart;
 

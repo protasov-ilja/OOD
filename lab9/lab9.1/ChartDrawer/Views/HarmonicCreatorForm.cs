@@ -13,10 +13,10 @@ namespace lab9._1.ChartDrawer.Views
 
 		private IHarmonicCreatorController _harmonicCreatorController;
 
-		public HarmonicCreatorForm(IHarmonicsContainer harmonicsManager)
+		public HarmonicCreatorForm(IHarmonicsContainer harmonicsContainer)
 		{
 			InitializeComponent();
-			_harmonicCreatorController = new HarmonicCreatorController(harmonicsManager);
+			_harmonicCreatorController = new HarmonicCreatorController(harmonicsContainer);
 			UpdateViewFields();
 			_harmonicCreatorController.SubscribeToHarmonicChanges(UpdateViewFields);
 		}
