@@ -20,13 +20,14 @@ namespace lab9._1.ChartDrawer.Models
 			ActiveHarmonicChanged?.Invoke(ActiveHarmonicIndex);
 		}
 
-		public void DeleteHarmonicByIndex(int index)
+		public void DeleteActiveHarmonic()
 		{
-			if (index >= _harmonics.Count || index < 0)
+			var index = ActiveHarmonicIndex;
+			if (index == -1)
 			{
-				throw new IndexOutOfRangeException("index out of range");
+				return;
 			}
-
+			
 			_harmonics.RemoveAt(index);
 			if (!(ActiveHarmonicIndex == 0 && _harmonics.Count > 0))
 			{

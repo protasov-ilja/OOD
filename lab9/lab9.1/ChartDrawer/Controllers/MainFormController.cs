@@ -14,9 +14,9 @@ namespace lab9._1.ChartDrawer.Controllers
 			_harmonicsContainer = harmonicsContainer;
 		}
 
-		public void DeleteSelectedHarmonic(int index)
+		public void DeleteActiveHarmonic()
 		{
-			_harmonicsContainer.DeleteHarmonicByIndex(index);
+			_harmonicsContainer.DeleteActiveHarmonic();
 		}
 
 		public void ChangeSelectedHarmonic(int index)

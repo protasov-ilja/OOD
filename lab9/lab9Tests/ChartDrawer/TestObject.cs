@@ -12,7 +12,7 @@ namespace lab9Tests.ChartDrawer
 		public bool ExceptionWasThrownInSelectActiveHarmonicMethod { get; private set; } = false;
 
 		public int activeIndex = -1;
-		public int deltedIndex = -1;
+		public int deletedIndex = -1;
 		public int addedIndex = -1;
 
 		public int newActiveIndex;
@@ -47,7 +47,7 @@ namespace lab9Tests.ChartDrawer
 
 		public void OnHarmonicDeleted(int index)
 		{
-			deltedIndex = index;
+			deletedIndex = index;
 			IsEventHarmonicDeletedInvoked = true;
 		}
 
@@ -55,7 +55,7 @@ namespace lab9Tests.ChartDrawer
 		{
 			try
 			{
-				deltedIndex = index;
+				deletedIndex = index;
 				IsEventHarmonicDeletedInvoked = true;
 				_container.SelectHarmonicByIndex(newActiveIndex);
 			}

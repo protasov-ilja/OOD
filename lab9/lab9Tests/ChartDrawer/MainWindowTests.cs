@@ -74,10 +74,10 @@ namespace lab9Tests.ChartDrawer
 			main.HarmonicDeleted += testObj.OnHarmonicDeleted;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
-			main.DeleteHarmonicByIndex(0);
+			main.DeleteActiveHarmonic(0);
 
 			Assert.IsTrue(testObj.IsEventHarmonicDeletedInvoked);
-			Assert.AreEqual(testObj.deltedIndex, 0);
+			Assert.AreEqual(testObj.deletedIndex, 0);
 
 			Assert.IsTrue(testObj.IsEventActiveHarmonicChangedInvoked);
 			Assert.AreEqual(testObj.activeIndex, -1);
@@ -85,7 +85,7 @@ namespace lab9Tests.ChartDrawer
 		}
 
 		[TestMethod]
-		public void CanRemoveFirstHarmonicFromNonEmptyListByIndexAndThenInvokeHarmonicDeltedAndActiveHarmonicsChangedEventsIfListAfterThatNotEmpty()
+		public void CanRemoveFirstHarmonicFromNonEmptyListByIndexAndThenInvokeHarmonicDeletedAndActiveHarmonicsChangedEventsIfListAfterThatNotEmpty()
 		{
 			var testObj = new TestObject();
 			var main = new HarmonicsContainer();
@@ -94,10 +94,10 @@ namespace lab9Tests.ChartDrawer
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
 			main.AddNewHarmonic(h);
-			main.DeleteHarmonicByIndex(0);
+			main.DeleteActiveHarmonic(0);
 
 			Assert.IsTrue(testObj.IsEventHarmonicDeletedInvoked);
-			Assert.AreEqual(testObj.deltedIndex, 0);
+			Assert.AreEqual(testObj.deletedIndex, 0);
 
 			Assert.IsTrue(testObj.IsEventActiveHarmonicChangedInvoked);
 			Assert.AreEqual(testObj.activeIndex, 0);
@@ -114,10 +114,10 @@ namespace lab9Tests.ChartDrawer
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
 			main.AddNewHarmonic(h);
-			main.DeleteHarmonicByIndex(1);
+			main.DeleteActiveHarmonic(1);
 
 			Assert.IsTrue(testObj.IsEventHarmonicDeletedInvoked);
-			Assert.AreEqual(testObj.deltedIndex, 1);
+			Assert.AreEqual(testObj.deletedIndex, 1);
 
 			Assert.IsTrue(testObj.IsEventActiveHarmonicChangedInvoked);
 			Assert.AreEqual(testObj.activeIndex, 0);
@@ -138,10 +138,10 @@ namespace lab9Tests.ChartDrawer
 			main.AddNewHarmonic(h);
 			main.AddNewHarmonic(h);
 			main.AddNewHarmonic(h);
-			main.DeleteHarmonicByIndex(2);
+			main.DeleteActiveHarmonic(2);
 
 			Assert.IsTrue(testObj.IsEventHarmonicDeletedInvoked);
-			Assert.AreEqual(testObj.deltedIndex, 2);
+			Assert.AreEqual(testObj.deletedIndex, 2);
 
 			Assert.IsTrue(testObj.ExceptionWasThrownInSelectActiveHarmonicMethod);
 
@@ -159,9 +159,9 @@ namespace lab9Tests.ChartDrawer
 			main.HarmonicDeleted += testObj.OnHarmonicDeleted;
 			var h = new Harmonic();
 			main.AddNewHarmonic(h);
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(-1));
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(1));
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(2));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteActiveHarmonic(-1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteActiveHarmonic(1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteActiveHarmonic(2));
 		}
 
 		[TestMethod]
@@ -171,9 +171,9 @@ namespace lab9Tests.ChartDrawer
 			var main = new HarmonicsContainer();
 			main.ActiveHarmonicChanged += testObj.OnActiveHarmonicChanged;
 			main.HarmonicDeleted += testObj.OnHarmonicDeleted;
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(0));
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(-1));
-			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteHarmonicByIndex(1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteActiveHarmonic(0));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteActiveHarmonic(-1));
+			Assert.ThrowsException<IndexOutOfRangeException>(() => main.DeleteActiveHarmonic(1));
 		}
 
 		[TestMethod]

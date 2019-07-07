@@ -175,10 +175,7 @@ namespace lab9._1.ChartDrawer.Views
 
 		private void deleteButton_Click(object sender, EventArgs e)
 		{
-			if (harmonicsList.SelectedItems.Count != 0)
-			{
-				_mainFormController.DeleteSelectedHarmonic(harmonicsList.SelectedIndex);
-			}
+			_mainFormController.DeleteActiveHarmonic();
 		}
 
 		private void harmonicsList_SelectedIndexChanged(object sender, EventArgs e)

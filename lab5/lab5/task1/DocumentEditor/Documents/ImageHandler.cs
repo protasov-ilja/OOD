@@ -23,9 +23,10 @@ namespace task1.DocumentEditor.Documents
 
 		public string AddImage(string path)
 		{
-			var imagePath = _directory + $"\\{_imageIndex}.jpg";
+			string imagePath = ""; 
 			if (File.Exists(path))
 			{
+				imagePath = _directory + $"\\{_imageIndex}.jpg";
 				File.Copy(path, imagePath, true);
 				_imageIndex++;
 				_imagesForSave.Add(imagePath);

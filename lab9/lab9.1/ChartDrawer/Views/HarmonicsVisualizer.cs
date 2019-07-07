@@ -21,7 +21,7 @@ namespace lab9._1.ChartDrawer.Views
 			_harmonicsContainer.HarmonicDeleted += RemoveHarmonicDataByIndex;
 		}
 
-		public void AddHarmonicDataByIndex(int index)
+		private void AddHarmonicDataByIndex(int index)
 		{
 			var data = _harmonicsVisualizerController.GetActiveHarmonicData();
 			_harmonicsVisualizerController.SubscribeToActiveHarmonicEvents(UpdateHarmonicData);
@@ -29,13 +29,13 @@ namespace lab9._1.ChartDrawer.Views
 			UpdateVisualization();
 		}
 
-		public void RemoveHarmonicDataByIndex(int index)
+		private void RemoveHarmonicDataByIndex(int index)
 		{
 			_harmonicsData.RemoveAt(index);
 			UpdateVisualization();
 		}
 
-		public void UpdateHarmonicData()
+		private void UpdateHarmonicData()
 		{
 			var activeHarmonicIndex = _harmonicsVisualizerController.GetIndexOfActiveHarmonic();
 			var data = _harmonicsVisualizerController.GetActiveHarmonicData();

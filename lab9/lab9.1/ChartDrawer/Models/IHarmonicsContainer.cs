@@ -11,7 +11,7 @@ namespace lab9._1.ChartDrawer.Models
 		int ActiveHarmonicIndex { get; }
 
 		void AddNewHarmonic(Harmonic hurmonic);
-		void DeleteHarmonicByIndex(int index);
+		void DeleteActiveHarmonic();
 		Harmonic GetHarmonicByIndex(int index);
 		bool IsEmpty();
 		void SelectHarmonicByIndex(int index);

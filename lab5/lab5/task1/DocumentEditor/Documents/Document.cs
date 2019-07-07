@@ -47,6 +47,11 @@ namespace task1.DocumentEditor.Documents
 			}
 
 			string newPath = _imageHandler.AddImage(path);
+			if (newPath == "")
+			{
+				throw new Exception($"Wrong path: {position}");
+			}
+
 			IImage image = new Image(width, height, newPath, _history, _imageHandler);
 			_history.AddAndExecuteCommand(new InsertImageCommand(_documentItems, image, position));
 

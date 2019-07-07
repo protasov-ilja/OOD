@@ -6,7 +6,7 @@ namespace lab9._1.ChartDrawer.Controllers
 {
 	public interface IMainFormController
 	{
-		void DeleteSelectedHarmonic(int index);
+		void DeleteActiveHarmonic();
 		void UpdateSelectedHarmonicAmplitude(float amplitude);
 		void UpdateSelectedHarmonicType(HarmonicType type);
 		void UpdateSelectedHarmonicFrequency(float frequency);
